@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2012, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2020, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,13 +25,15 @@
 
 package sun.java2d.opengl;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
 import sun.awt.util.ThreadGroupUtils;
 import sun.java2d.pipe.RenderBuffer;
 import sun.java2d.pipe.RenderQueue;
 
-import static sun.java2d.pipe.BufferedOpCodes.*;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
+import static sun.java2d.pipe.BufferedOpCodes.DISPOSE_CONFIG;
+import static sun.java2d.pipe.BufferedOpCodes.SYNC;
 
 /**
  * OGL-specific implementation of RenderQueue.  This class provides a
@@ -173,11 +175,16 @@ public class OGLRenderQueue extends RenderQueue {
             notify();
 
             // wait for flush to complete
+            boolean interrupted = false;
             while (needsFlush) {
                 try {
                     wait();
                 } catch (InterruptedException e) {
+                    interrupted = true;
                 }
+            }
+            if (interrupted) {
+                Thread.currentThread().interrupt();
             }
 
             // re-throw any error that may have occurred during the flush

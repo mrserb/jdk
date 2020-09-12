@@ -28,7 +28,7 @@ import java.io.PrintStream;
 /**
  * @test
  * @key headful
- * @bug 8210231
+ * @bug 8210231 8253071
  */
 public final class InterruptOfDelay {
 
