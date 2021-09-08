@@ -211,14 +211,13 @@ class WFramePeer extends WWindowPeer implements FramePeer {
 
     @Override
     void initialize() {
-        super.initialize();
-
         Frame target = (Frame)this.target;
-
+        // The bounds/insets depend on the resizable state, so set it first
+        setResizable(target.isResizable());
+        super.initialize();
         if (target.getTitle() != null) {
             setTitle(target.getTitle());
         }
-        setResizable(target.isResizable());
         setState(target.getExtendedState());
     }
 
