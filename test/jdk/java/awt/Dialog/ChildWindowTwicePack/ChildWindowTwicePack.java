@@ -26,13 +26,13 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Label;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Window;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 
 /**
  * @test
@@ -71,9 +71,9 @@ public final class ChildWindowTwicePack {
 
     private static void test(Window parent, String top) {
         Box box = new Box(BoxLayout.PAGE_AXIS);
-        box.add(new JLabel("This is line one".repeat(2)));
-        box.add(new JLabel("This is line two".repeat(2)));
-        box.add(new JLabel("This is line three".repeat(2)));
+        box.add(new Label("This is line one".repeat(2)));
+        box.add(new Label("This is line two".repeat(2)));
+        box.add(new Label("This is line three".repeat(2)));
 
         Window title = getTopLevel(top, parent);
         title.add(box);
