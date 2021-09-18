@@ -95,14 +95,13 @@ final class LCMS implements PCMM {
         }
     }
 
-    static synchronized native LCMSProfile getProfileID(ICC_Profile profile);
+    static native LCMSProfile getProfileID(ICC_Profile profile);
 
     /* Helper method used from LCMSColorTransfrom */
     static long createTransform(
         LCMSProfile[] profiles, int renderType,
         int inFormatter, boolean isInIntPacked,
-        int outFormatter, boolean isOutIntPacked,
-        Object disposerRef)
+        int outFormatter, boolean isOutIntPacked)
     {
         long[] ptrs = new long[profiles.length];
         long stamp = lock.readLock();
@@ -115,7 +114,7 @@ final class LCMS implements PCMM {
             }
 
             return createNativeTransform(ptrs, renderType, inFormatter,
-                    isInIntPacked, outFormatter, isOutIntPacked, disposerRef);
+                    isInIntPacked, outFormatter, isOutIntPacked);
         } finally {
             lock.unlockRead(stamp);
         }
@@ -124,8 +123,7 @@ final class LCMS implements PCMM {
     private static native long createNativeTransform(
         long[] profileIDs, int renderType,
         int inFormatter, boolean isInIntPacked,
-        int outFormatter, boolean isOutIntPacked,
-        Object disposerRef);
+        int outFormatter, boolean isOutIntPacked);
 
    /**
      * Constructs ColorTransform object corresponding to an ICC_profile
@@ -141,14 +139,14 @@ final class LCMS implements PCMM {
      * Constructs an ColorTransform object from a list of ColorTransform
      * objects
      */
-    public synchronized ColorTransform createTransform(
+    public ColorTransform createTransform(
         ColorTransform[] transforms)
     {
         return new LCMSTransform(transforms);
     }
 
     /* methods invoked from LCMSTransform */
-    public static native void colorConvert(LCMSTransform trans,
+    public static native void colorConvert(long ID,
                                            LCMSImageLayout src,
                                            LCMSImageLayout dest);
 

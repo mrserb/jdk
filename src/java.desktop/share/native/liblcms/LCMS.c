@@ -71,7 +71,6 @@ typedef union {
 } TagSignature_t, *TagSignature_p;
 
 static jfieldID Trans_renderType_fID;
-static jfieldID Trans_ID_fID;
 static jfieldID IL_isIntPacked_fID;
 static jfieldID IL_dataType_fID;
 static jfieldID IL_pixelType_fID;
@@ -118,12 +117,12 @@ void LCMS_freeProfile(JNIEnv *env, jlong ptr) {
     }
 }
 
-void LCMS_freeTransform(JNIEnv *env, jlong ID)
-{
-    cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
-    /* Passed ID is always valid native ref so there is no check for zero */
-    cmsDeleteTransform(sTrans);
-}
+//void LCMS_freeTransform(JNIEnv *env, jlong ID)
+//{
+//    cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
+//    /* Passed ID is always valid native ref so there is no check for zero */
+//    cmsDeleteTransform(sTrans);
+//}
 
 /*
  * Class:     sun_java2d_cmm_lcms_LCMS
@@ -133,7 +132,7 @@ void LCMS_freeTransform(JNIEnv *env, jlong ID)
 JNIEXPORT jlong JNICALL Java_sun_java2d_cmm_lcms_LCMS_createNativeTransform
   (JNIEnv *env, jclass cls, jlongArray profileIDs, jint renderType,
    jint inFormatter, jboolean isInIntPacked,
-   jint outFormatter, jboolean isOutIntPacked, jobject disposerRef)
+   jint outFormatter, jboolean isOutIntPacked)
 {
     cmsHPROFILE _iccArray[DF_ICC_BUF_SIZE];
     cmsHPROFILE *iccArray = &_iccArray[0];
@@ -201,8 +200,6 @@ JNIEXPORT jlong JNICALL Java_sun_java2d_cmm_lcms_LCMS_createNativeTransform
             JNU_ThrowByName(env, "java/awt/color/CMMException",
                             "Cannot get color transform");
         }
-    } else {
-        Disposer_AddRecord(env, disposerRef, LCMS_freeTransform, ptr_to_jlong(sTrans));
     }
 
     if (iccArray != &_iccArray[0]) {
@@ -510,9 +507,9 @@ void releaseILData (JNIEnv *env, void* pData, jint dataType,
  * Signature: (Lsun/java2d/cmm/lcms/LCMSTransform;Lsun/java2d/cmm/lcms/LCMSImageLayout;Lsun/java2d/cmm/lcms/LCMSImageLayout;)V
  */
 JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
-  (JNIEnv *env, jclass cls, jobject trans, jobject src, jobject dst)
+  (JNIEnv *env, jclass cls, jlong id, jobject src, jobject dst)
 {
-    cmsHTRANSFORM sTrans = NULL;
+    cmsHTRANSFORM sTrans = jlong_to_ptr(id);
     int srcDType, dstDType;
     int srcOffset, srcNextRowOffset, dstOffset, dstNextRowOffset;
     int width, height, i;
@@ -532,8 +529,6 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
 
     srcAtOnce = (*env)->GetBooleanField(env, src, IL_imageAtOnce_fID);
     dstAtOnce = (*env)->GetBooleanField(env, dst, IL_imageAtOnce_fID);
-
-    sTrans = jlong_to_ptr((*env)->GetLongField (env, trans, Trans_ID_fID));
 
     if (sTrans == NULL) {
         J2dRlsTraceLn(J2D_TRACE_ERROR, "LCMS_colorConvert: transform == NULL");
@@ -571,7 +566,7 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
             outputRow += dstNextRowOffset;
         }
     }
-
+    cmsDeleteTransform(sTrans);
     releaseILData(env, inputBuffer, srcDType, srcData);
     releaseILData(env, outputBuffer, dstDType, dstData);
 }
@@ -626,11 +621,6 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_initLCMS
     if (Trans_renderType_fID == NULL) {
         return;
     }
-    Trans_ID_fID = (*env)->GetFieldID (env, Trans, "ID", "J");
-    if (Trans_ID_fID == NULL) {
-        return;
-    }
-
     IL_isIntPacked_fID = (*env)->GetFieldID (env, IL, "isIntPacked", "Z");
     if (IL_isIntPacked_fID == NULL) {
         return;
