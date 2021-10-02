@@ -48,6 +48,9 @@ final class LCMSImageLayout {
     public static int CHANNELS_SH(int x) {
         return x << 3;
     }
+    public static int FLOAT_SH(int x) {
+        return x << 22;
+    }
     public static final int SWAPFIRST = 1 << 14;
     public static final int DOSWAP = 1 << 10;
     public static final int PT_RGB_8 =
@@ -70,6 +73,7 @@ final class LCMSImageLayout {
     public static final int DT_SHORT = 1;
     public static final int DT_INT = 2;
     public static final int DT_DOUBLE = 3;
+    public static final int DT_FLOAT = 4;
     boolean isIntPacked = false;
     int pixelType;
     int dataType;
@@ -156,6 +160,16 @@ final class LCMSImageLayout {
         verify();
     }
 
+    public LCMSImageLayout(float[] data, int np, int pixelType, int pixelSize)
+            throws ImageLayoutException
+    {
+        this(np, pixelType, pixelSize);
+        dataType = DT_FLOAT;
+        dataArray = data;
+        dataArrayLength = Float.BYTES * data.length;
+
+        verify();
+    }
     private LCMSImageLayout() {
     }
 

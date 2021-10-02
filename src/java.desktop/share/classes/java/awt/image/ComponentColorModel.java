@@ -1583,6 +1583,7 @@ public class ComponentColorModel extends ColorModel {
                               compScale[i];
                     // REMIND: need to analyze whether this
                     // clamping is necessary
+                    // TODO
                     if (norm[i] < 0.0f) {
                         norm[i] = 0.0f;
                     }

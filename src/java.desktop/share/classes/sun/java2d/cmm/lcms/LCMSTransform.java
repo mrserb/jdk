@@ -620,6 +620,32 @@ final class LCMSTransform implements ColorTransform {
         }
     }
 
+    public float[] colorConvert(float[] src) {
+        float[] dst = new float[(src.length/getNumInComponents())*getNumOutComponents()];
+
+        try {
+            LCMSImageLayout srcIL = new LCMSImageLayout(
+                    src, src.length/getNumInComponents(),
+                    LCMSImageLayout.CHANNELS_SH(getNumInComponents()) |
+                    LCMSImageLayout.BYTES_SH(4) |
+                    LCMSImageLayout.FLOAT_SH(1),
+                    getNumInComponents()*4);
+
+            LCMSImageLayout dstIL = new LCMSImageLayout(
+                    dst, dst.length/getNumOutComponents(),
+                    LCMSImageLayout.CHANNELS_SH(getNumOutComponents()) |
+                    LCMSImageLayout.BYTES_SH(4) |
+                    LCMSImageLayout.FLOAT_SH(1),
+                    getNumOutComponents()*4);
+
+            doTransform(srcIL, dstIL);
+
+            return dst;
+        } catch (ImageLayoutException e) {
+            throw new CMMException("Unable to convert data");
+        }
+    }
+
     /* convert an array of colors in short format */
     /* each color is a contiguous set of array elements */
     /* the number of colors is (size of the array) / (number of input/output

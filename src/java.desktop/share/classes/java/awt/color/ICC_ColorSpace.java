@@ -95,12 +95,12 @@ public class ICC_ColorSpace extends ColorSpace {
     /**
      * The maximum normalized component values.
      */
-    private float[] minVal;
+    private final float[] minVal;
 
     /**
      * The minimum normalized component values.
      */
-    private float[] maxVal;
+    private final float[] maxVal;
 
     /**
      * Difference between min and max values.
@@ -147,7 +147,26 @@ public class ICC_ColorSpace extends ColorSpace {
         }
 
         thisProfile = profile;
-        setMinMax();
+        int nc = this.getNumComponents();
+        int type = this.getType();
+        minVal = new float[nc];
+        maxVal = new float[nc];
+        if (type == ColorSpace.TYPE_Lab) {
+            minVal[0] = 0.0f;    // L
+            maxVal[0] = 100.0f;
+            minVal[1] = -128.0f; // a
+            maxVal[1] = 127.0f;
+            minVal[2] = -128.0f; // b
+            maxVal[2] = 127.0f;
+        } else if (type == ColorSpace.TYPE_XYZ) {
+            minVal[0] = minVal[1] = minVal[2] = 0.0f; // X, Y, Z
+            maxVal[0] = maxVal[1] = maxVal[2] = 1.0f + (32767.0f / 32768.0f);
+        } else {
+            for (int i = 0; i < nc; i++) {
+                minVal[i] = 0.0f;
+                maxVal[i] = 1.0f;
+            }
+        }
     }
 
     /**
@@ -249,9 +268,11 @@ public class ICC_ColorSpace extends ColorSpace {
      * @throws ArrayIndexOutOfBoundsException if array length is not at least 3
      */
     public float[] fromRGB(float[] rgbvalue) {
-        if (srgb2this == null) {
+        ColorTransform tfm = srgb2this;
+        if (tfm == null) {
             synchronized (this) {
-                if (srgb2this == null) {
+                tfm = srgb2this;
+                if (tfm == null) {
                     ColorTransform[] transforms = new ColorTransform[2];
                     var srgb = (ICC_ColorSpace) getInstance(CS_sRGB);
                     PCMM mdl = CMSManager.getModule();
@@ -262,21 +283,14 @@ public class ICC_ColorSpace extends ColorSpace {
                     if (needScaleInit) {
                         setComponentScaling();
                     }
-                    srgb2this = mdl.createTransform(transforms);
+                    srgb2this = tfm = mdl.createTransform(transforms);
                 }
             }
         }
 
-        short[] tmp = new short[3];
-        for (int i = 0; i < 3; i++) {
-            tmp[i] = (short) ((rgbvalue[i] * 65535.0f) + 0.5f);
-        }
-        tmp = srgb2this.colorConvert(tmp, null);
-        int nc = this.getNumComponents();
-        float[] result = new float[nc];
-        for (int i = 0; i < nc; i++) {
-            result[i] = (((float) (tmp[i] & 0xffff)) / 65535.0f) *
-                        diffMinMax[i] + minVal[i];
+        float[] result = tfm.colorConvert(rgbvalue);
+        for (int i = 0; i < getNumComponents(); i++) {
+            result[i] = result[i] * diffMinMax[i] + minVal[i];
         }
         return result;
     }
@@ -605,29 +619,6 @@ public class ICC_ColorSpace extends ColorSpace {
     public float getMaxValue(int component) {
         rangeCheck(component);
         return maxVal[component];
-    }
-
-    private void setMinMax() {
-        int nc = this.getNumComponents();
-        int type = this.getType();
-        minVal = new float[nc];
-        maxVal = new float[nc];
-        if (type == ColorSpace.TYPE_Lab) {
-            minVal[0] = 0.0f;    // L
-            maxVal[0] = 100.0f;
-            minVal[1] = -128.0f; // a
-            maxVal[1] = 127.0f;
-            minVal[2] = -128.0f; // b
-            maxVal[2] = 127.0f;
-        } else if (type == ColorSpace.TYPE_XYZ) {
-            minVal[0] = minVal[1] = minVal[2] = 0.0f; // X, Y, Z
-            maxVal[0] = maxVal[1] = maxVal[2] = 1.0f + (32767.0f / 32768.0f);
-        } else {
-            for (int i = 0; i < nc; i++) {
-                minVal[i] = 0.0f;
-                maxVal[i] = 1.0f;
-            }
-        }
     }
 
     private void setComponentScaling() {
