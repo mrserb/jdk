@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2021, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -64,22 +64,22 @@ public class XRMaskFill extends MaskFill {
                 new XRMaskFill(OpaqueTexturePaint, SrcNoEa,
                         XRSurfaceData.IntRgbX11),
 
-                new XRMaskFill(AnyColor, SrcOver, XRSurfaceData.IntArgbPreX11),
-                new XRMaskFill(OpaqueColor, SrcNoEa, XRSurfaceData.IntArgbPreX11),
-                new XRMaskFill(GradientPaint, SrcOver, XRSurfaceData.IntArgbPreX11),
+                new XRMaskFill(AnyColor, SrcOver, XRSurfaceData.IntArgbX11),
+                new XRMaskFill(OpaqueColor, SrcNoEa, XRSurfaceData.IntArgbX11),
+                new XRMaskFill(GradientPaint, SrcOver, XRSurfaceData.IntArgbX11),
                 new XRMaskFill(OpaqueGradientPaint, SrcNoEa,
-                        XRSurfaceData.IntArgbPreX11),
+                        XRSurfaceData.IntArgbX11),
                 new XRMaskFill(LinearGradientPaint, SrcOver,
-                        XRSurfaceData.IntArgbPreX11),
+                        XRSurfaceData.IntArgbX11),
                 new XRMaskFill(OpaqueLinearGradientPaint, SrcNoEa,
-                        XRSurfaceData.IntArgbPreX11),
+                        XRSurfaceData.IntArgbX11),
                 new XRMaskFill(RadialGradientPaint, SrcOver,
-                        XRSurfaceData.IntArgbPreX11),
+                        XRSurfaceData.IntArgbX11),
                 new XRMaskFill(OpaqueRadialGradientPaint, SrcNoEa,
-                        XRSurfaceData.IntArgbPreX11),
-                new XRMaskFill(TexturePaint, SrcOver, XRSurfaceData.IntArgbPreX11),
+                        XRSurfaceData.IntArgbX11),
+                new XRMaskFill(TexturePaint, SrcOver, XRSurfaceData.IntArgbX11),
                 new XRMaskFill(OpaqueTexturePaint, SrcNoEa,
-                        XRSurfaceData.IntArgbPreX11)
+                        XRSurfaceData.IntArgbX11)
                 };
 
         GraphicsPrimitiveMgr.register(primitives);

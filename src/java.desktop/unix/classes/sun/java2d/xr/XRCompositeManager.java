@@ -132,7 +132,7 @@ public class XRCompositeManager {
     }
 
     public void setForeground(int pixel) {
-        solidColor.setColorValues(pixel);
+        solidColor.setColorValues(pixel, true);
     }
 
     public void setGradientPaint(XRSurfaceData gradient) {

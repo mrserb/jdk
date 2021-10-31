@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2013, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2021, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -39,7 +39,6 @@ import java.awt.image.Raster;
 import sun.awt.SunHints;
 import sun.awt.SunToolkit;
 import sun.awt.X11ComponentPeer;
-import sun.awt.image.PixelConverter;
 import sun.java2d.InvalidPipeException;
 import sun.java2d.SunGraphics2D;
 import sun.java2d.SurfaceData;
@@ -75,17 +74,14 @@ public abstract class XRSurfaceData extends XSurfaceData {
 
     native void freeXSDOPicture(long xsdo);
 
-    public static final String DESC_BYTE_A8_X11 = "Byte A8 Pixmap";
     public static final String DESC_INT_RGB_X11 = "Integer RGB Pixmap";
-    public static final String DESC_INT_ARGB_X11 = "Integer ARGB-Pre Pixmap";
+    public static final String DESC_INT_ARGB_X11 = "Integer ARGB Pixmap";
 
     public static final SurfaceType
-        ByteA8X11 = SurfaceType.ByteGray.deriveSubType(DESC_BYTE_A8_X11);
+        IntRgbX11 = SurfaceType.IntRgb.deriveSubType(DESC_INT_RGB_X11);
+
     public static final SurfaceType
-        IntRgbX11 = SurfaceType.IntRgb.deriveSubType(DESC_INT_RGB_X11,
-                                              PixelConverter.ArgbPre.instance);
-    public static final SurfaceType
-        IntArgbPreX11 = SurfaceType.IntArgbPre.deriveSubType(DESC_INT_ARGB_X11);
+        IntArgbX11 = SurfaceType.IntArgb.deriveSubType(DESC_INT_ARGB_X11);
 
     public Raster getRaster(int x, int y, int w, int h) {
         throw new InternalError("not implemented yet");
@@ -277,7 +273,7 @@ public abstract class XRSurfaceData extends XSurfaceData {
         }
 
         return new XRPixmapSurfaceData
-            (gc, width, height, image, getSurfaceType(gc, transparency),
+            (gc, width, height, image, getPixmapSurfaceType(transparency),
              cm, drawable, transparency,
              XRUtils.getPictureFormatForTransparency(transparency), depth, isTexture);
     }
@@ -396,8 +392,7 @@ public abstract class XRSurfaceData extends XSurfaceData {
      * Returns the XRender SurfaceType which is able to fullfill the specified
      * transparency requirement.
      */
-    public static SurfaceType getSurfaceType(XRGraphicsConfig gc,
-                                             int transparency) {
+    public static SurfaceType getPixmapSurfaceType(int transparency) {
         SurfaceType sType = null;
 
         switch (transparency) {
@@ -407,7 +402,7 @@ public abstract class XRSurfaceData extends XSurfaceData {
 
         case Transparency.BITMASK:
         case Transparency.TRANSLUCENT:
-            sType = XRSurfaceData.IntArgbPreX11;
+            sType = XRSurfaceData.IntArgbX11;
             break;
         }
 

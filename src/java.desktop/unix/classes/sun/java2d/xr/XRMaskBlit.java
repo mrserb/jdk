@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2013, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2021, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -44,14 +44,14 @@ import sun.java2d.pipe.Region;
 public class XRMaskBlit extends MaskBlit {
     static void register() {
         GraphicsPrimitive[] primitives = {
-                new XRMaskBlit(XRSurfaceData.IntArgbPreX11, SrcOver,
-                               XRSurfaceData.IntArgbPreX11),
+                new XRMaskBlit(XRSurfaceData.IntArgbX11, SrcOver,
+                               XRSurfaceData.IntArgbX11),
                 new XRMaskBlit(XRSurfaceData.IntRgbX11, SrcOver,
                                XRSurfaceData.IntRgbX11),
-                new XRMaskBlit(XRSurfaceData.IntArgbPreX11, SrcNoEa,
+                new XRMaskBlit(XRSurfaceData.IntArgbX11, SrcNoEa,
                                XRSurfaceData.IntRgbX11),
                 new XRMaskBlit(XRSurfaceData.IntRgbX11, SrcNoEa,
-                               XRSurfaceData.IntArgbPreX11)
+                               XRSurfaceData.IntArgbX11)
                 };
         GraphicsPrimitiveMgr.register(primitives);
     }

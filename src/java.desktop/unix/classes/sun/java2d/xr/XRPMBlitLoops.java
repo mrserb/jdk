@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2020, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2021, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -44,19 +44,19 @@ public final class XRPMBlitLoops {
 
     public static void register() {
         GraphicsPrimitive[] primitives = { new XRPMBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntRgbX11),
-                new XRPMBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntArgbPreX11),
-                new XRPMBlit(XRSurfaceData.IntArgbPreX11, XRSurfaceData.IntRgbX11),
-                new XRPMBlit(XRSurfaceData.IntArgbPreX11, XRSurfaceData.IntArgbPreX11),
+                new XRPMBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntArgbX11),
+                new XRPMBlit(XRSurfaceData.IntArgbX11, XRSurfaceData.IntRgbX11),
+                new XRPMBlit(XRSurfaceData.IntArgbX11, XRSurfaceData.IntArgbX11),
 
                 new XRPMScaledBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntRgbX11),
-                new XRPMScaledBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntArgbPreX11),
-                new XRPMScaledBlit(XRSurfaceData.IntArgbPreX11, XRSurfaceData.IntRgbX11),
-                new XRPMScaledBlit(XRSurfaceData.IntArgbPreX11, XRSurfaceData.IntArgbPreX11),
+                new XRPMScaledBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntArgbX11),
+                new XRPMScaledBlit(XRSurfaceData.IntArgbX11, XRSurfaceData.IntRgbX11),
+                new XRPMScaledBlit(XRSurfaceData.IntArgbX11, XRSurfaceData.IntArgbX11),
 
                 new XRPMTransformedBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntRgbX11),
-                new XRPMTransformedBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntArgbPreX11),
-                new XRPMTransformedBlit(XRSurfaceData.IntArgbPreX11, XRSurfaceData.IntRgbX11),
-                new XRPMTransformedBlit(XRSurfaceData.IntArgbPreX11, XRSurfaceData.IntArgbPreX11),
+                new XRPMTransformedBlit(XRSurfaceData.IntRgbX11, XRSurfaceData.IntArgbX11),
+                new XRPMTransformedBlit(XRSurfaceData.IntArgbX11, XRSurfaceData.IntRgbX11),
+                new XRPMTransformedBlit(XRSurfaceData.IntArgbX11, XRSurfaceData.IntArgbX11),
 
                 /* SW -> Surface Blits */
                 new XrSwToPMBlit(SurfaceType.IntArgb, XRSurfaceData.IntRgbX11),
@@ -67,13 +67,13 @@ public final class XRPMBlitLoops {
                 new XrSwToPMBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntRgbX11),
                 new XrSwToPMBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntRgbX11),
 
-                new XrSwToPMBlit(SurfaceType.IntArgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMBlit(SurfaceType.IntRgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMBlit(SurfaceType.IntBgr, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMBlit(SurfaceType.ThreeByteBgr, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMBlit(SurfaceType.Ushort565Rgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntArgbPreX11),
+                new XrSwToPMBlit(SurfaceType.IntArgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMBlit(SurfaceType.IntRgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMBlit(SurfaceType.IntBgr, XRSurfaceData.IntArgbX11),
+                new XrSwToPMBlit(SurfaceType.ThreeByteBgr, XRSurfaceData.IntArgbX11),
+                new XrSwToPMBlit(SurfaceType.Ushort565Rgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntArgbX11),
 
                 /* SW->Surface Scales */
                 new XrSwToPMScaledBlit(SurfaceType.IntArgb, XRSurfaceData.IntRgbX11),
@@ -84,13 +84,13 @@ public final class XRPMBlitLoops {
                 new XrSwToPMScaledBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntRgbX11),
                 new XrSwToPMScaledBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntRgbX11),
 
-                new XrSwToPMScaledBlit(SurfaceType.IntArgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMScaledBlit(SurfaceType.IntRgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMScaledBlit(SurfaceType.IntBgr, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMScaledBlit(SurfaceType.ThreeByteBgr, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMScaledBlit(SurfaceType.Ushort565Rgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMScaledBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMScaledBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntArgbPreX11),
+                new XrSwToPMScaledBlit(SurfaceType.IntArgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMScaledBlit(SurfaceType.IntRgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMScaledBlit(SurfaceType.IntBgr, XRSurfaceData.IntArgbX11),
+                new XrSwToPMScaledBlit(SurfaceType.ThreeByteBgr, XRSurfaceData.IntArgbX11),
+                new XrSwToPMScaledBlit(SurfaceType.Ushort565Rgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMScaledBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMScaledBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntArgbX11),
 
                 /* SW->Surface Transforms */
                 new XrSwToPMTransformedBlit(SurfaceType.IntArgb, XRSurfaceData.IntRgbX11),
@@ -101,13 +101,13 @@ public final class XRPMBlitLoops {
                 new XrSwToPMTransformedBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntRgbX11),
                 new XrSwToPMTransformedBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntRgbX11),
 
-                new XrSwToPMTransformedBlit(SurfaceType.IntArgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMTransformedBlit(SurfaceType.IntRgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMTransformedBlit(SurfaceType.IntBgr, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMTransformedBlit(SurfaceType.ThreeByteBgr, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMTransformedBlit(SurfaceType.Ushort565Rgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMTransformedBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntArgbPreX11),
-                new XrSwToPMTransformedBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntArgbPreX11), };
+                new XrSwToPMTransformedBlit(SurfaceType.IntArgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMTransformedBlit(SurfaceType.IntRgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMTransformedBlit(SurfaceType.IntBgr, XRSurfaceData.IntArgbX11),
+                new XrSwToPMTransformedBlit(SurfaceType.ThreeByteBgr, XRSurfaceData.IntArgbX11),
+                new XrSwToPMTransformedBlit(SurfaceType.Ushort565Rgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMTransformedBlit(SurfaceType.Ushort555Rgb, XRSurfaceData.IntArgbX11),
+                new XrSwToPMTransformedBlit(SurfaceType.ByteIndexed, XRSurfaceData.IntArgbX11), };
         GraphicsPrimitiveMgr.register(primitives);
     }
 
