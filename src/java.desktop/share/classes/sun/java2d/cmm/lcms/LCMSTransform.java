@@ -577,17 +577,17 @@ final class LCMSTransform implements ColorTransform {
        components */
     public short[] colorConvert(short[] src, short[] dst) {
         if (dst == null) {
-            dst = new short [(src.length/getNumInComponents())*getNumOutComponents()];
+            dst = new short[(src.length / numInComponents) * numOutComponents];
         }
         LCMSImageLayout srcIL = new LCMSImageLayout(
-                src, src.length/getNumInComponents(),
-                LCMSImageLayout.CHANNELS_SH(getNumInComponents()) |
-                LCMSImageLayout.BYTES_SH(2), getNumInComponents()*2);
+                src, src.length / numInComponents,
+                LCMSImageLayout.CHANNELS_SH(numInComponents) |
+                LCMSImageLayout.BYTES_SH(2), numInComponents << 1);
 
         LCMSImageLayout dstIL = new LCMSImageLayout(
-                dst, dst.length/getNumOutComponents(),
-                LCMSImageLayout.CHANNELS_SH(getNumOutComponents()) |
-                LCMSImageLayout.BYTES_SH(2), getNumOutComponents()*2);
+                dst, dst.length / numOutComponents,
+                LCMSImageLayout.CHANNELS_SH(numOutComponents) |
+                LCMSImageLayout.BYTES_SH(2), numOutComponents << 1);
 
         doTransform(srcIL, dstIL);
         return dst;
