@@ -197,30 +197,31 @@ public class ICC_ColorSpace extends ColorSpace {
      *         the number of components in this {@code ColorSpace}
      */
     public float[] toRGB(float[] colorvalue) {
-        if (this2srgb == null) {
+        ColorTransform tx = this2srgb;
+        if (tx == null) {
             synchronized (this) {
-                if (this2srgb == null) {
+                tx = this2srgb;
+                if (tx == null) {
                     if (needScaleInit) {
                         setComponentScaling();
                     }
                     var srgb = ICC_Profile.getInstance(CS_sRGB);
                     PCMM mdl = CMSManager.getModule();
-                    this2srgb = mdl.createTransform(ColorTransform.Any,
-                                                    thisProfile, srgb);
+                    tx = this2srgb = mdl.createTransform(ColorTransform.Any,
+                                                         thisProfile, srgb);
                 }
             }
         }
-
-        int nc = this.getNumComponents();
+        int nc = getNumComponents();
         short[] tmp = new short[nc];
         for (int i = 0; i < nc; i++) {
             tmp[i] = (short)
                 ((colorvalue[i] - minVal[i]) * invDiffMinMax[i] + 0.5f);
         }
-        tmp = this2srgb.colorConvert(tmp, null);
+        tmp = tx.colorConvert(tmp, null);
         float[] result = new float[3];
         for (int i = 0; i < 3; i++) {
-            result[i] = ((float) (tmp[i] & 0xffff)) / 65535.0f;
+            result[i] = (tmp[i] & 0xffff) / 65535.0f;
         }
         return result;
     }
