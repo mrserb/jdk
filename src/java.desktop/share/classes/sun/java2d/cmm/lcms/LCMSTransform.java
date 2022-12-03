@@ -83,6 +83,11 @@ final class LCMSTransform implements ColorTransform {
      * @param  profiles the list of color profiles
      */
     LCMSTransform(int renderingIntent, ICC_Profile... profiles) {
+        // Note that ICC_Profile.getNumComponents() is quite expensive (it may
+        // result in a reading of the profile header). So, here we cache the
+        // number of components of input and output profiles for further usage.
+        numInComponents = profiles[0].getNumComponents();
+        numOutComponents = profiles[profiles.length - 1].getNumComponents();
         var acc = AWTAccessor.getICC_ProfileAccessor();
         lcmsProfiles = new LCMSProfile[profiles.length];
         for (int i = 0; i < profiles.length; i++) {
@@ -91,11 +96,6 @@ final class LCMSTransform implements ColorTransform {
         }
         this.renderingIntent = (renderingIntent == ColorTransform.Any) ?
                 ICC_Profile.icPerceptual : renderingIntent;
-        // Note that ICC_Profile.getNumComponents() is quite expensive (it may
-        // result in a reading of the profile header). So, here we cache the
-        // number of components of input and output profiles for further usage.
-        numInComponents = profiles[0].getNumComponents();
-        numOutComponents = profiles[profiles.length - 1].getNumComponents();
     }
 
     public int getNumInComponents() {
