@@ -250,6 +250,7 @@ module java.base {
         jdk.management.agent;
     exports jdk.internal.vm.annotation to
         java.instrument,
+        java.desktop,
         jdk.internal.vm.ci,
         jdk.incubator.vector,
         jdk.jfr,

@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
 
+import jdk.internal.vm.annotation.Stable;
 import sun.java2d.cmm.CMSManager;
 import sun.java2d.cmm.ColorTransform;
 import sun.java2d.cmm.PCMM;
@@ -95,21 +96,25 @@ public class ICC_ColorSpace extends ColorSpace {
     /**
      * The maximum normalized component values.
      */
-    private float[] minVal;
+    @Stable
+    private final float[] minVal;
 
     /**
      * The minimum normalized component values.
      */
-    private float[] maxVal;
+    @Stable
+    private final float[] maxVal;
 
     /**
      * Difference between min and max values.
      */
+    @Stable
     private float[] diffMinMax;
 
     /**
      * Inverted value of the difference between min and max values.
      */
+    @Stable
     private float[] invDiffMinMax;
 
     /**
@@ -147,7 +152,26 @@ public class ICC_ColorSpace extends ColorSpace {
         }
 
         thisProfile = profile;
-        setMinMax();
+        int nc = getNumComponents();
+        int type = getType();
+        minVal = new float[nc];
+        maxVal = new float[nc];
+        if (type == ColorSpace.TYPE_Lab) {
+            minVal[0] = 0.0f;    // L
+            maxVal[0] = 100.0f;
+            minVal[1] = -128.0f; // a
+            maxVal[1] = 127.0f;
+            minVal[2] = -128.0f; // b
+            maxVal[2] = 127.0f;
+        } else if (type == ColorSpace.TYPE_XYZ) {
+            minVal[0] = minVal[1] = minVal[2] = 0.0f; // X, Y, Z
+            maxVal[0] = maxVal[1] = maxVal[2] = 1.0f + (32767.0f / 32768.0f);
+        } else {
+            for (int i = 0; i < nc; i++) {
+                minVal[i] = 0.0f;
+                maxVal[i] = 1.0f;
+            }
+        }
     }
 
     /**
@@ -212,6 +236,12 @@ public class ICC_ColorSpace extends ColorSpace {
                 }
             }
         }
+//        int nc = getNumComponents();
+//        float[] tmp = new float[nc];
+//        for (int i = 0; i < nc; ++i) {
+//            tmp[i] = (colorvalue[i] - minVal[i]) / diffMinMax[i];
+//        }
+//        return tx.colorConvert(tmp);
         int nc = getNumComponents();
         short[] tmp = new short[nc];
         for (int i = 0; i < nc; i++) {
@@ -261,6 +291,10 @@ public class ICC_ColorSpace extends ColorSpace {
                 }
             }
         }
+//        float[] result = tx.colorConvert(rgbvalue);
+//        for (int i = 0; i < getNumComponents(); i++) {
+//            result[i] = result[i] * diffMinMax[i] + minVal[i];
+//        }
         short[] tmp = new short[3];
         for (int i = 0; i < 3; i++) {
             tmp[i] = (short) ((rgbvalue[i] * 65535.0f) + 0.5f);
@@ -391,6 +425,18 @@ public class ICC_ColorSpace extends ColorSpace {
                 }
             }
         }
+//        int nc = getNumComponents();
+//        float[] tmp = new float[nc];
+//        for (int i = 0; i < nc; i++) {
+//            tmp[i] = (colorvalue[i] - minVal[i]) / diffMinMax[i];
+//        }
+//        tmp = tx.colorConvert(tmp);
+//        float ALMOST_TWO = 1.0f + 32767.0f / 32768.0f;
+//        // For CIEXYZ, min = 0.0, max = ALMOST_TWO for all components
+//        for (int i = 0; i < 3; i++) {
+//            tmp[i] = tmp[i] * ALMOST_TWO;
+//        }
+//        return tmp;
         int nc = getNumComponents();
         short[] tmp = new short[nc];
         for (int i = 0; i < nc; i++) {
@@ -523,6 +569,17 @@ public class ICC_ColorSpace extends ColorSpace {
                 }
             }
         }
+//        float[] tmp = new float[3];
+//        float ALMOST_TWO = 1.0f + 32767.0f / 32768.0f;
+//        // For CIEXYZ, min = 0.0, max = ALMOST_TWO for all components
+//        for (int i = 0; i < 3; i++) {
+//            tmp[i] = colorvalue[i] / ALMOST_TWO;
+//        }
+//        tmp = tx.colorConvert(tmp);
+//        for (int i = 0; i < getNumComponents(); i++) {
+//            tmp[i] = tmp[i] * diffMinMax[i] + minVal[i];
+//        }
+//        return tmp;
         short[] tmp = new short[3];
         float ALMOST_TWO = 1.0f + (32767.0f / 32768.0f);
         float factor = 65535.0f / ALMOST_TWO;
@@ -583,29 +640,6 @@ public class ICC_ColorSpace extends ColorSpace {
     public float getMaxValue(int component) {
         rangeCheck(component);
         return maxVal[component];
-    }
-
-    private void setMinMax() {
-        int nc = this.getNumComponents();
-        int type = this.getType();
-        minVal = new float[nc];
-        maxVal = new float[nc];
-        if (type == ColorSpace.TYPE_Lab) {
-            minVal[0] = 0.0f;    // L
-            maxVal[0] = 100.0f;
-            minVal[1] = -128.0f; // a
-            maxVal[1] = 127.0f;
-            minVal[2] = -128.0f; // b
-            maxVal[2] = 127.0f;
-        } else if (type == ColorSpace.TYPE_XYZ) {
-            minVal[0] = minVal[1] = minVal[2] = 0.0f; // X, Y, Z
-            maxVal[0] = maxVal[1] = maxVal[2] = 1.0f + (32767.0f / 32768.0f);
-        } else {
-            for (int i = 0; i < nc; i++) {
-                minVal[i] = 0.0f;
-                maxVal[i] = 1.0f;
-            }
-        }
     }
 
     private void setComponentScaling() {

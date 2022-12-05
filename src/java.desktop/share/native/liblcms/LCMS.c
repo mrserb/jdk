@@ -45,10 +45,11 @@
 
 #define SigHead TagIdConst('h','e','a','d')
 
-#define DT_BYTE     0
-#define DT_SHORT    1
-#define DT_INT      2
-#define DT_DOUBLE   3
+//#define DT_BYTE     0
+//#define DT_SHORT    1
+//#define DT_INT      2
+//#define DT_FLOAT    3
+//#define DT_DOUBLE   4
 
 /* Default temp profile list size */
 #define DF_ICC_BUF_SIZE 32
@@ -481,37 +482,41 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_setTagDataNative
     }
 }
 
-static void *getILData(JNIEnv *env, jobject data, jint type) {
-    switch (type) {
-        case DT_BYTE:
-            return (*env)->GetByteArrayElements(env, data, 0);
-        case DT_SHORT:
-            return (*env)->GetShortArrayElements(env, data, 0);
-        case DT_INT:
-            return (*env)->GetIntArrayElements(env, data, 0);
-        case DT_DOUBLE:
-            return (*env)->GetDoubleArrayElements(env, data, 0);
-        default:
-            return NULL;
-    }
+static void *getILData(JNIEnv *env, jobject data) {
+    return (*env)->GetPrimitiveArrayCritical(env, data, NULL);
+//    switch (type) {
+//        case DT_BYTE:
+//            return (*env)->GetByteArrayElements(env, data, 0);
+//        case DT_SHORT:
+//            return (*env)->GetShortArrayElements(env, data, 0);
+//        case DT_INT:
+//            return (*env)->GetIntArrayElements(env, data, 0);
+//        case DT_DOUBLE:
+//            return (*env)->GetDoubleArrayElements(env, data, 0);
+//        default:
+//            return NULL;
+//    }
 }
 
-static void releaseILData(JNIEnv *env, void *pData, jint type, jobject data,
-                          jint mode) {
-    switch (type) {
-        case DT_BYTE:
-            (*env)->ReleaseByteArrayElements(env, data, (jbyte *) pData, mode);
-            break;
-        case DT_SHORT:
-            (*env)->ReleaseShortArrayElements(env, data, (jshort *) pData, mode);
-            break;
-        case DT_INT:
-            (*env)->ReleaseIntArrayElements(env, data, (jint *) pData, mode);
-            break;
-        case DT_DOUBLE:
-            (*env)->ReleaseDoubleArrayElements(env, data, (jdouble *) pData, mode);
-            break;
-    }
+static void releaseILData(JNIEnv *env, void *pData, jobject data, jint mode) {
+    (*env)->ReleasePrimitiveArrayCritical(env, data, pData, mode);
+//    switch (type) {
+//        case DT_BYTE:
+//            (*env)->ReleaseByteArrayElements(env, data, (jbyte *) pData, mode);
+//            break;
+//        case DT_SHORT:
+//            (*env)->ReleaseShortArrayElements(env, data, (jshort *) pData, mode);
+//            break;
+//        case DT_INT:
+//            (*env)->ReleaseIntArrayElements(env, data, (jint *) pData, mode);
+//            break;
+//        case DT_FLOAT:
+//            (*env)->ReleaseFloatArrayElements(env, data, (jfloat *) pData, mode);
+//            break;
+//        case DT_DOUBLE:
+//            (*env)->ReleaseDoubleArrayElements(env, data, (jdouble *) pData, mode);
+//            break;
+//    }
 }
 
 /*
@@ -522,27 +527,26 @@ static void releaseILData(JNIEnv *env, void *pData, jint type, jobject data,
 JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
   (JNIEnv *env, jclass cls, jlong ID, jint width, jint height, jint srcOffset,
    jint srcNextRowOffset, jint dstOffset, jint dstNextRowOffset,
-   jobject srcData, jobject dstData, jint srcDType, jint dstDType)
+   jobject srcData, jobject dstData)
 {
     cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
 
     if (sTrans == NULL) {
-        J2dRlsTraceLn(J2D_TRACE_ERROR, "LCMS_colorConvert: transform == NULL");
         JNU_ThrowByName(env, "java/awt/color/CMMException",
                         "Cannot get color transform");
         return;
     }
 
-    void *inputBuffer = getILData(env, srcData, srcDType);
+    void *inputBuffer = getILData(env, srcData);
     if (inputBuffer == NULL) {
         J2dRlsTraceLn(J2D_TRACE_ERROR, "");
         // An exception should have already been thrown.
         return;
     }
 
-    void *outputBuffer = getILData(env, dstData, dstDType);
+    void *outputBuffer = getILData(env, dstData);
     if (outputBuffer == NULL) {
-        releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
+        releaseILData(env, inputBuffer, srcData, JNI_ABORT);
         // An exception should have already been thrown.
         return;
     }
@@ -553,8 +557,8 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
     cmsDoTransformLineStride(sTrans, input, output, width, height,
                              srcNextRowOffset, dstNextRowOffset, 0, 0);
 
-    releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
-    releaseILData(env, outputBuffer, dstDType, dstData, 0);
+    releaseILData(env, inputBuffer, srcData, JNI_ABORT);
+    releaseILData(env, outputBuffer, dstData, 0);
 }
 
 static cmsBool _getHeaderInfo(cmsHPROFILE pf, jbyte* pBuffer, jint bufferSize)

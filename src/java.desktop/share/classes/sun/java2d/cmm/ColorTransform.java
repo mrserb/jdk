@@ -42,5 +42,6 @@ public interface ColorTransform {
                              float[] dstMinVal, float[]dstMaxVal);
     public void colorConvert(Raster src, WritableRaster dst);
     public short[] colorConvert(short[] src, short[] dest);
+    public float[] colorConvert(float[] src);
     public byte[] colorConvert (byte[] src, byte[] dest);
 }

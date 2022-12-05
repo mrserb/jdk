@@ -132,8 +132,7 @@ final class LCMSTransform implements ColorTransform {
         }
         LCMS.colorConvert(tfm.ID, in.width, in.height, in.offset,
                           in.nextRowOffset, out.offset, out.nextRowOffset,
-                          in.dataArray, out.dataArray,
-                          in.dataType, out.dataType);
+                          in.dataArray, out.dataArray);
         Reference.reachabilityFence(tfm); // prevent deallocation of "tfm.ID"
     }
 
@@ -588,6 +587,24 @@ final class LCMSTransform implements ColorTransform {
         LCMSImageLayout dstIL = new LCMSImageLayout(dst, dst.length / numOut,
                                 LCMSImageLayout.CHANNELS_SH(numOut) |
                                 LCMSImageLayout.BYTES_SH(2), numOut << 1);
+
+        doTransform(srcIL, dstIL);
+        return dst;
+    }
+
+    public float[] colorConvert(float[] src) {
+        int numIn = numInComponents;
+        int numOut = numOutComponents;
+        float[] dst = new float[(src.length / numIn) * numOut];
+        LCMSImageLayout srcIL = new LCMSImageLayout(src, src.length / numIn,
+                                LCMSImageLayout.FLOAT_SH(1) |
+                                LCMSImageLayout.CHANNELS_SH(numIn) |
+                                LCMSImageLayout.BYTES_SH(4), numIn * 4);
+
+        LCMSImageLayout dstIL = new LCMSImageLayout(dst, dst.length / numOut,
+                                LCMSImageLayout.FLOAT_SH(1) |
+                                LCMSImageLayout.CHANNELS_SH(numOut) |
+                                LCMSImageLayout.BYTES_SH(4), numOut * 4);
 
         doTransform(srcIL, dstIL);
         return dst;
