@@ -864,6 +864,7 @@ public sealed class ICC_Profile implements Serializable
      *         Profile data
      * @throws SecurityException If a security manager is installed and it does
      *         not permit read access to the given file
+     * @throws NullPointerException if {@code fileName} is {@code null}
      */
     public static ICC_Profile getInstance(String fileName) throws IOException {
         InputStream is;
@@ -883,10 +884,7 @@ public sealed class ICC_Profile implements Serializable
 
     /**
      * Constructs an {@code ICC_Profile} corresponding to the data in an
-     * {@code InputStream}. This method throws an
-     * {@code IllegalArgumentException} if the stream does not contain valid ICC
-     * Profile data. It throws an {@code IOException} if an I/O error occurs
-     * while reading the stream.
+     * {@code InputStream}.
      *
      * @param  s the input stream from which to read the profile data
      * @return an {@code ICC_Profile} object corresponding to the data in the
@@ -894,6 +892,7 @@ public sealed class ICC_Profile implements Serializable
      * @throws IOException If an I/O error occurs while reading the stream
      * @throws IllegalArgumentException If the stream does not contain valid ICC
      *         Profile data
+     * @throws NullPointerException if {@code s} is {@code null}
      */
     public static ICC_Profile getInstance(InputStream s) throws IOException {
         return getInstance(getProfileDataFromStream(s));
@@ -973,6 +972,7 @@ public sealed class ICC_Profile implements Serializable
      * Returns the profile class.
      *
      * @return one of the predefined profile class constants
+     * @throws IllegalArgumentException if class of the profile is invalid
      */
     public int getProfileClass() {
         ProfileDeferralInfo info = deferralInfo;
@@ -1006,6 +1006,7 @@ public sealed class ICC_Profile implements Serializable
      *
      * @return one of the color space type constants defined in the
      *         {@code ColorSpace} class
+     * @throws IllegalArgumentException if color space in the profile is invalid
      */
     public int getColorSpaceType() {
         ProfileDeferralInfo info = deferralInfo;
@@ -1033,6 +1034,7 @@ public sealed class ICC_Profile implements Serializable
      *
      * @return one of the color space type constants defined in the
      *         {@code ColorSpace} class
+     * @throws IllegalArgumentException if PCS in the profile is invalid
      */
     public int getPCSType() {
         byte[] theHeader = getData(icSigHead);
@@ -1046,6 +1048,7 @@ public sealed class ICC_Profile implements Serializable
      * @param  fileName the file to write the profile data to
      * @throws IOException If the file cannot be opened for writing or an I/O
      *         error occurs while writing to the file
+     * @throws NullPointerException if {@code fileName} is {@code null}
      */
     public void write(String fileName) throws IOException {
         try (OutputStream out = new FileOutputStream(fileName)) {
@@ -1058,6 +1061,7 @@ public sealed class ICC_Profile implements Serializable
      *
      * @param  s the stream to write the profile data to
      * @throws IOException If an I/O error occurs while writing to the stream
+     * @throws NullPointerException if {@code s} is {@code null}
      */
     public void write(OutputStream s) throws IOException {
         s.write(getData());
@@ -1127,7 +1131,7 @@ public sealed class ICC_Profile implements Serializable
      * {@code TYPE_RGB}, then this method will return 3.
      *
      * @return the number of color components in the profile's input color space
-     * @throws ProfileDataException if color space is in the profile is invalid
+     * @throws ProfileDataException if color space in the profile is invalid
      */
     public int getNumComponents() {
         ProfileDeferralInfo info = deferralInfo;
@@ -1243,6 +1247,8 @@ public sealed class ICC_Profile implements Serializable
 
     /**
      * Convert an ICC color space signature into a Java color space type.
+     *
+     * @throws IllegalArgumentException if color space in the profile is invalid
      */
     private static int iccCStoJCS(int theColorSpaceSig) {
         return switch (theColorSpaceSig) {
@@ -1412,6 +1418,7 @@ public sealed class ICC_Profile implements Serializable
      *
      * @param  s stream used for serialization
      * @throws IOException thrown by {@code ObjectInputStream}
+     * @throws NullPointerException if {@code s} is {@code null}
      * @serialData the {@code String} is the name of one of
      *         <code>CS_<var>*</var></code> constants defined in the
      *         {@link ColorSpace} class if the profile object is a profile for a
@@ -1467,8 +1474,8 @@ public sealed class ICC_Profile implements Serializable
      *
      * @param  s stream used for deserialization
      * @throws IOException thrown by {@code ObjectInputStream}
-     * @throws ClassNotFoundException thrown by {@code
-     *         ObjectInputStream}
+     * @throws ClassNotFoundException thrown by {@code ObjectInputStream}
+     * @throws NullPointerException if {@code s} is {@code null}
      * @serialData the {@code String} is the name of one of
      *         <code>CS_<var>*</var></code> constants defined in the
      *         {@link ColorSpace} class if the profile object is a profile for a
