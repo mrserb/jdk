@@ -50,6 +50,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 import sun.awt.AWTAccessor;
@@ -895,6 +896,7 @@ public sealed class ICC_Profile implements Serializable
      * @throws NullPointerException if {@code s} is {@code null}
      */
     public static ICC_Profile getInstance(InputStream s) throws IOException {
+        Objects.requireNonNull(s);
         return getInstance(getProfileDataFromStream(s));
     }
 
