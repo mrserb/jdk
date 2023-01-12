@@ -1369,61 +1369,14 @@ cmsUInt8Number* UnrollFloatsToFloat(_cmsTRANSFORM* info,
 {
 
     cmsUInt32Number nChan = T_CHANNELS(info->InputFormat);
-    cmsUInt32Number DoSwap = T_DOSWAP(info->InputFormat);
-    cmsUInt32Number Reverse = T_FLAVOR(info->InputFormat);
-    cmsUInt32Number SwapFirst = T_SWAPFIRST(info->InputFormat);
-    cmsUInt32Number Extra = T_EXTRA(info->InputFormat);
-    cmsUInt32Number ExtraFirst = DoSwap ^ SwapFirst;
-    cmsUInt32Number Planar = T_PLANAR(info->InputFormat);
-    cmsUInt32Number Premul = T_PREMUL(info->InputFormat);
-    cmsFloat32Number v;
     cmsUInt32Number i, start = 0;
-    cmsFloat32Number maximum = IsInkSpace(info->InputFormat) ? 100.0F : 1.0F;
-    cmsFloat32Number alpha_factor = 1.0f;
     cmsFloat32Number* ptr = (cmsFloat32Number*)accum;
 
-    Stride /= PixelSize(info->InputFormat);
-
-    if (Premul && Extra)
-    {
-        if (Planar)
-            alpha_factor = (ExtraFirst ? ptr[0] : ptr[nChan * Stride]) / maximum;
-        else
-            alpha_factor = (ExtraFirst ? ptr[0] : ptr[nChan]) / maximum;
-    }
-
-    if (ExtraFirst)
-            start = Extra;
-
     for (i=0; i < nChan; i++) {
-
-        cmsUInt32Number index = DoSwap ? (nChan - i - 1) : i;
-
-        if (Planar)
-            v = ptr[(i + start) * Stride];
-        else
-            v = ptr[i + start];
-
-        if (Premul && alpha_factor > 0)
-            v /= alpha_factor;
-
-        v /= maximum;
-
-        wIn[index] = Reverse ? 1 - v : v;
+        wIn[i] = ptr[i + start];
     }
 
-
-    if (Extra == 0 && SwapFirst) {
-        cmsFloat32Number tmp = wIn[0];
-
-        memmove(&wIn[0], &wIn[1], (nChan-1) * sizeof(cmsFloat32Number));
-        wIn[nChan-1] = tmp;
-    }
-
-    if (T_PLANAR(info -> InputFormat))
-        return accum + sizeof(cmsFloat32Number);
-    else
-        return accum + (nChan + Extra) * sizeof(cmsFloat32Number);
+    return accum + nChan * sizeof(cmsFloat32Number);
 }
 
 // For anything going from double
@@ -2987,48 +2940,10 @@ cmsUInt8Number* PackFloatsFromFloat(_cmsTRANSFORM* info,
                                     cmsUInt32Number Stride)
 {
        cmsUInt32Number nChan = T_CHANNELS(info->OutputFormat);
-       cmsUInt32Number DoSwap = T_DOSWAP(info->OutputFormat);
-       cmsUInt32Number Reverse = T_FLAVOR(info->OutputFormat);
-       cmsUInt32Number Extra = T_EXTRA(info->OutputFormat);
-       cmsUInt32Number SwapFirst = T_SWAPFIRST(info->OutputFormat);
-       cmsUInt32Number Planar = T_PLANAR(info->OutputFormat);
-       cmsUInt32Number ExtraFirst = DoSwap ^ SwapFirst;
-       cmsFloat64Number maximum = IsInkSpace(info->OutputFormat) ? 100.0 : 1.0;
-       cmsFloat32Number* swap1 = (cmsFloat32Number*)output;
-       cmsFloat64Number v = 0;
-       cmsUInt32Number i, start = 0;
-
-       Stride /= PixelSize(info->OutputFormat);
-
-       if (ExtraFirst)
-              start = Extra;
-
-       for (i = 0; i < nChan; i++) {
-
-              cmsUInt32Number index = DoSwap ? (nChan - i - 1) : i;
-
-              v = wOut[index] * maximum;
-
-              if (Reverse)
-                     v = maximum - v;
-
-              if (Planar)
-                     ((cmsFloat32Number*)output)[(i + start)* Stride] = (cmsFloat32Number)v;
-              else
-                     ((cmsFloat32Number*)output)[i + start] = (cmsFloat32Number)v;
+       for (cmsUInt32Number i = 0; i < nChan; i++) {
+            ((cmsFloat32Number*)output)[i] = (cmsFloat32Number)wOut[i];
        }
-
-
-       if (Extra == 0 && SwapFirst) {
-
-              memmove(swap1 + 1, swap1, (nChan - 1)* sizeof(cmsFloat32Number));
-              *swap1 = (cmsFloat32Number)v;
-       }
-
-       if (T_PLANAR(info->OutputFormat))
-              return output + sizeof(cmsFloat32Number);
-       else
-              return output + (nChan + Extra) * sizeof(cmsFloat32Number);
+      return output + nChan * sizeof(cmsFloat32Number);
 }
 
 static
@@ -3899,4 +3814,3 @@ cmsUInt32Number CMSEXPORT cmsFormatterForPCSOfProfile(cmsHPROFILE hProfile, cmsU
     // Create a fake formatter for result
     return FLOAT_SH(Float) | COLORSPACE_SH(ColorSpaceBits) | BYTES_SH(nBytes) | CHANNELS_SH(nOutputChans);
 }
-

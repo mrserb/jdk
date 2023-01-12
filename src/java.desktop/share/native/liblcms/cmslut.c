@@ -1373,12 +1373,12 @@ void _LUTeval16(CMSREGISTER const cmsUInt16Number In[], CMSREGISTER cmsUInt16Num
 static
 void _LUTevalFloat(const cmsFloat32Number In[], cmsFloat32Number Out[], const void* D)
 {
-    cmsPipeline* lut = (cmsPipeline*) D;
+    cmsPipeline const * const lut = (cmsPipeline*) D;
     cmsStage *mpe;
     cmsFloat32Number Storage[2][MAX_STAGE_CHANNELS];
     int Phase = 0, NextPhase;
 
-    memmove(&Storage[Phase][0], In, lut ->InputChannels  * sizeof(cmsFloat32Number));
+    memcpy(&Storage[Phase][0], In, lut ->InputChannels  * sizeof(cmsFloat32Number));
 
     for (mpe = lut ->Elements;
          mpe != NULL;
@@ -1389,7 +1389,7 @@ void _LUTevalFloat(const cmsFloat32Number In[], cmsFloat32Number Out[], const vo
               Phase = NextPhase;
     }
 
-    memmove(Out, &Storage[Phase][0], lut ->OutputChannels * sizeof(cmsFloat32Number));
+    memcpy(Out, &Storage[Phase][0], lut ->OutputChannels * sizeof(cmsFloat32Number));
 }
 
 
@@ -1867,5 +1867,3 @@ cmsBool CMSEXPORT cmsPipelineEvalReverseFloat(cmsFloat32Number Target[],
 
     return TRUE;
 }
-
-

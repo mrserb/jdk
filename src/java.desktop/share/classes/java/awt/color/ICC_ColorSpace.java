@@ -38,6 +38,7 @@ package java.awt.color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
+import java.util.Arrays;
 
 import sun.java2d.cmm.CMSManager;
 import sun.java2d.cmm.ColorTransform;
@@ -210,19 +211,11 @@ public class ICC_ColorSpace extends ColorSpace {
                 }
             }
         }
-
-        int nc = this.getNumComponents();
-        short[] tmp = new short[nc];
-        for (int i = 0; i < nc; i++) {
-            tmp[i] = (short)
-                ((colorvalue[i] - minVal[i]) * invDiffMinMax[i] + 0.5f);
+        float[] tmp = colorvalue.clone();
+        for (int i = getNumComponents() - 1; i >= 0; i--) {
+            tmp[i] = (tmp[i] - minVal[i]) / diffMinMax[i];
         }
-        tmp = this2srgb.colorConvert(tmp, null);
-        float[] result = new float[3];
-        for (int i = 0; i < 3; i++) {
-            result[i] = ((float) (tmp[i] & 0xffff)) / 65535.0f;
-        }
-        return result;
+        return this2srgb.colorConvert(tmp);
     }
 
     /**
@@ -245,30 +238,25 @@ public class ICC_ColorSpace extends ColorSpace {
      * @throws ArrayIndexOutOfBoundsException if array length is not at least 3
      */
     public float[] fromRGB(float[] rgbvalue) {
-        if (srgb2this == null) {
+        ColorTransform t = srgb2this;
+        if (t == null) {
             synchronized (this) {
-                if (srgb2this == null) {
+                t = srgb2this;
+                if (t == null) {
                     if (needScaleInit) {
                         setComponentScaling();
                     }
                     var srgb = ICC_Profile.getInstance(CS_sRGB);
                     PCMM mdl = CMSManager.getModule();
-                    srgb2this = mdl.createTransform(ColorTransform.Any,
-                                                    srgb, thisProfile);
+                    t = srgb2this = mdl.createTransform(ColorTransform.Any,
+                                                        srgb, thisProfile);
                 }
             }
         }
 
-        short[] tmp = new short[3];
-        for (int i = 0; i < 3; i++) {
-            tmp[i] = (short) ((rgbvalue[i] * 65535.0f) + 0.5f);
-        }
-        tmp = srgb2this.colorConvert(tmp, null);
-        int nc = this.getNumComponents();
-        float[] result = new float[nc];
-        for (int i = 0; i < nc; i++) {
-            result[i] = (((float) (tmp[i] & 0xffff)) / 65535.0f) *
-                        diffMinMax[i] + minVal[i];
+        float[] result = t.colorConvert(rgbvalue);
+        for (int i = 0; i < result.length; i++) {
+            result[i] = result[i] * diffMinMax[i] + minVal[i];
         }
         return result;
     }
@@ -373,33 +361,32 @@ public class ICC_ColorSpace extends ColorSpace {
      *         the number of components in this {@code ColorSpace}
      */
     public float[] toCIEXYZ(float[] colorvalue) {
-        if (this2xyz == null) {
+        ColorTransform t = this2xyz;
+        if (t == null) {
             synchronized (this) {
-                if (this2xyz == null) {
+                t = this2xyz;
+                if (t == null) {
                     if (needScaleInit) {
                         setComponentScaling();
                     }
                     var xyz = ICC_Profile.getInstance(CS_CIEXYZ);
                     PCMM mdl = CMSManager.getModule();
-                    this2xyz = mdl.createTransform(
-                            ICC_Profile.icRelativeColorimetric,
-                            thisProfile, xyz);
+                    t = this2xyz = mdl.createTransform(
+                                ICC_Profile.icRelativeColorimetric,
+                                thisProfile, xyz);
                 }
             }
         }
 
-        int nc = this.getNumComponents();
-        short[] tmp = new short[nc];
-        for (int i = 0; i < nc; i++) {
-            tmp[i] = (short)
-                ((colorvalue[i] - minVal[i]) * invDiffMinMax[i] + 0.5f);
+        float[] tmp = new float[getNumComponents()];
+        for (int i = 0; i < tmp.length; i++) {
+            tmp[i] = (colorvalue[i] - minVal[i]) / diffMinMax[i];
         }
-        tmp = this2xyz.colorConvert(tmp, null);
-        float ALMOST_TWO = 1.0f + (32767.0f / 32768.0f);
+        float[] result = t.colorConvert(tmp);
+        final float ALMOST_TWO = 1.0f + (32767.0f / 32768.0f);
         // For CIEXYZ, min = 0.0, max = ALMOST_TWO for all components
-        float[] result = new float[3];
-        for (int i = 0; i < 3; i++) {
-            result[i] = (((float) (tmp[i] & 0xffff)) / 65535.0f) * ALMOST_TWO;
+        for (int i = 0; i < result.length; i++) {
+            result[i] = result[i] * ALMOST_TWO;
         }
         return result;
     }
@@ -504,34 +491,32 @@ public class ICC_ColorSpace extends ColorSpace {
      * @throws ArrayIndexOutOfBoundsException if array length is not at least 3
      */
     public float[] fromCIEXYZ(float[] colorvalue) {
-        if (xyz2this == null) {
+        ColorTransform t = xyz2this;
+        if (t == null) {
             synchronized (this) {
-                if (xyz2this == null) {
+                t = xyz2this;
+                if (t == null) {
                     if (needScaleInit) {
                         setComponentScaling();
                     }
                     var xyz = ICC_Profile.getInstance(CS_CIEXYZ);
                     PCMM mdl = CMSManager.getModule();
-                    xyz2this = mdl.createTransform(
-                            ICC_Profile.icRelativeColorimetric,
-                            xyz, thisProfile);
+                    t = xyz2this = mdl.createTransform(
+                                ICC_Profile.icRelativeColorimetric,
+                                xyz, thisProfile);
                 }
             }
         }
 
-        short[] tmp = new short[3];
-        float ALMOST_TWO = 1.0f + (32767.0f / 32768.0f);
-        float factor = 65535.0f / ALMOST_TWO;
+        float[] tmp = new float[3];
+        final float ALMOST_TWO = 1.0f + (32767.0f / 32768.0f);
         // For CIEXYZ, min = 0.0, max = ALMOST_TWO for all components
-        for (int i = 0; i < 3; i++) {
-            tmp[i] = (short) ((colorvalue[i] * factor) + 0.5f);
+        for (int i = 0; i < tmp.length; i++) {
+            tmp[i] = colorvalue[i] / ALMOST_TWO;
         }
-        tmp = xyz2this.colorConvert(tmp, null);
-        int nc = this.getNumComponents();
-        float[] result = new float[nc];
-        for (int i = 0; i < nc; i++) {
-            result[i] = (((float) (tmp[i] & 0xffff)) / 65535.0f) *
-                        diffMinMax[i] + minVal[i];
+        float[] result = t.colorConvert(tmp);
+        for (int i = 0; i < result.length; i++) {
+            result[i] = result[i] * diffMinMax[i] + minVal[i];
         }
         return result;
     }

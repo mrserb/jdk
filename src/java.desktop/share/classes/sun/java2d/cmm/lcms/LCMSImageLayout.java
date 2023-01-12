@@ -52,6 +52,9 @@ final class LCMSImageLayout {
     static int CHANNELS_SH(int x) {
         return x << 3;
     }
+
+    static int FLOAT_SH = 1 << 22;
+
     private static final int SWAPFIRST  = 1 << 14;
     private static final int DOSWAP     = 1 << 10;
     private static final int PT_GRAY_8  = CHANNELS_SH(1) | BYTES_SH(1);
@@ -67,7 +70,8 @@ final class LCMSImageLayout {
     private static final int DT_BYTE = 0;
     private static final int DT_SHORT = 1;
     private static final int DT_INT = 2;
-    private static final int DT_DOUBLE = 3;
+    private static final int DT_FLOAT = 3;
+    private static final int DT_DOUBLE = 4;
     int pixelType;
     int dataType;
     int width;
@@ -117,11 +121,16 @@ final class LCMSImageLayout {
         verify();
     }
 
-    LCMSImageLayout(int[] data, int np, int pixelType, int pixelSize) {
-        this(np, pixelType, pixelSize);
-        dataType = DT_INT;
+    LCMSImageLayout(float[] data, int nc) {
+        pixelType = CHANNELS_SH(nc) | BYTES_SH(4) | FLOAT_SH;
+        width = data.length / nc;
+        height = 1;
+        dataType = DT_FLOAT;
+        //offset = 0;
+        nextPixelOffset = nc << 2;
+        nextRowOffset = safeMult(4, data.length);
         dataArray = data;
-        dataArrayLength = 4 * data.length;
+        dataArrayLength = nextRowOffset;
 
         verify();
     }
@@ -315,10 +324,10 @@ final class LCMSImageLayout {
     }
 
     private static int checkIndex(long index, int length) {
-        if (index < 0 || index >= length) {
-            throw new CMMException("Invalid image layout");
+        if (index >= 0 && index < length) {
+            return (int) index;
         }
-        return (int) index;
+        throw new CMMException("Invalid image layout");
     }
 
     private static int safeMult(int a, int b) {
