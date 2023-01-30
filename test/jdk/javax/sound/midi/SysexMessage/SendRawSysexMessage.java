@@ -21,6 +21,8 @@
  * questions.
  */
 
+import java.util.concurrent.TimeUnit;
+
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
@@ -28,8 +30,6 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
-
-import java.util.concurrent.TimeUnit;
 
 import static javax.sound.midi.SysexMessage.SPECIAL_SYSTEM_EXCLUSIVE;
 import static javax.sound.midi.SysexMessage.SYSTEM_EXCLUSIVE;
