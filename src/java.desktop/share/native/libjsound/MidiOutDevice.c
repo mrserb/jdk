@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1999, 2020, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1999, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -121,12 +121,13 @@ Java_com_sun_media_sound_MidiOutDevice_nSendLongMessage(JNIEnv* e, jobject thisO
                                                         jbyteArray jData, jint size, jlong timeStamp) {
 #if USE_PLATFORM_MIDI_OUT == TRUE
     UBYTE* data;
+    UBYTE* arr;
 #endif
 
     TRACE0("Java_com_sun_media_sound_MidiOutDevice_nSendLongMessage.\n");
 
 #if USE_PLATFORM_MIDI_OUT == TRUE
-    data = (UBYTE*) ((*e)->GetByteArrayElements(e, jData, NULL));
+    arr = data = (UBYTE*) ((*e)->GetByteArrayElements(e, jData, NULL));
     if (!data) {
         ERROR0("MidiOutDevice: Java_com_sun_media_sound_MidiOutDevice_nSendLongMessage: could not get array elements\n");
         return;
@@ -140,7 +141,7 @@ Java_com_sun_media_sound_MidiOutDevice_nSendLongMessage(JNIEnv* e, jobject thisO
     MIDI_OUT_SendLongMessage((MidiDeviceHandle*) (UINT_PTR) deviceHandle, data,
                              (UINT32) size, (UINT32)timeStamp);
     // release the byte array
-    (*e)->ReleaseByteArrayElements(e, jData, (jbyte*) data, JNI_ABORT);
+    (*e)->ReleaseByteArrayElements(e, jData, (jbyte*) arr, JNI_ABORT);
 #endif
 
     TRACE0("Java_com_sun_media_sound_MidiOutDevice_nSendLongMessage succeeded\n");
