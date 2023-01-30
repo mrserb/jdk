@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -29,15 +29,20 @@ import javax.sound.midi.Receiver;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 
+import java.util.concurrent.TimeUnit;
+
 import static javax.sound.midi.SysexMessage.SPECIAL_SYSTEM_EXCLUSIVE;
 import static javax.sound.midi.SysexMessage.SYSTEM_EXCLUSIVE;
 
 /**
  * @test
- * @bug 8237495
+ * @bug 8237495 8301310
  * @summary fail with a dereferenced memory error when asked to send a raw 0xF7
  */
 public final class SendRawSysexMessage {
+
+    // Will run the test no more than 10 seconds
+    static long endtime = System.nanoTime() + TimeUnit.SECONDS.toNanos(10);
 
     private static final class RawMidiMessage extends MidiMessage {
         @Override
@@ -55,6 +60,30 @@ public final class SendRawSysexMessage {
     }
 
     public static void main(String[] args) throws Exception {
+        test(1000);
+        Thread[] ths = new Thread[10];
+        for (int i = 0; i < ths.length; i++) {
+            int sleep = i; // more chance to reproduce
+            ths[i] = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (!isComplete()) {
+                        try {
+                            test(sleep);
+                        } catch (Exception ignore) {}
+                    }
+                }
+            });
+        }
+        for (Thread th : ths) {
+            th.start();
+        }
+        for (Thread th : ths) {
+            th.join();
+        }
+    }
+
+    private static void test(int sleep) throws Exception {
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
         System.err.println("List of devices to test:");
         for (int i = 0; i < infos.length; i++) {
@@ -63,14 +92,14 @@ public final class SendRawSysexMessage {
         for (int i = 0; i < infos.length; i++) {
             System.err.printf("%d.\t%s%n", i, infos[i]);
             try {
-                test(infos[i]);
+                test(infos[i], sleep);
             } catch (MidiUnavailableException ignored){
                 // try next
             }
         }
     }
 
-    private static void test(MidiDevice.Info info) throws Exception {
+    private static void test(MidiDevice.Info info, int sleep) throws Exception {
         try (MidiDevice device = MidiSystem.getMidiDevice(info)) {
             System.err.println("Sending to " + device + " (" + info + ")");
             if (!device.isOpen())
@@ -102,12 +131,12 @@ public final class SendRawSysexMessage {
                 r.send(new RawMidiMessage(new byte[]{
                         (byte) SYSTEM_EXCLUSIVE, 0x02, 0x03, 0x04}), -1);
                 System.err.println("sleep");
-                Thread.sleep(1000);
+                Thread.sleep(sleep);
                 System.err.println("raw 7");
                 r.send(new RawMidiMessage(new byte[]{
                         (byte) 0x02, 0x02, 0x03, 0x04}), -1);
                 System.err.println("sleep");
-                Thread.sleep(1000);
+                Thread.sleep(sleep);
                 System.err.println("raw 8");
                 r.send(new RawMidiMessage(new byte[]{
                         (byte) SPECIAL_SYSTEM_EXCLUSIVE}), -1);
@@ -117,5 +146,9 @@ public final class SendRawSysexMessage {
                 System.err.println();
             }
         }
+    }
+
+    private static boolean isComplete() {
+        return endtime - System.nanoTime() < 0;
     }
 }
