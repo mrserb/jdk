@@ -471,9 +471,9 @@ enum {
  * checkBounds        - flag showing necessity of checking the clip
  *
  */
-void  ProcessFixedLine(ProcessHandler* hnd,jint x1,jint y1,jint x2,jint y2,
-                       jint* pixelInfo,jboolean checkBounds,
-                       jboolean endSubPath)
+static void ProcessFixedLine(ProcessHandler* hnd,jint x1,jint y1,jint x2,jint y2,
+                             jint* pixelInfo,jboolean checkBounds,
+                             jboolean endSubPath)
 {
     /* Checking if line is inside a (X,Y),(X+MDP_MULT,Y+MDP_MULT) box */
     jint c = ((x1 ^ x2) | (y1 ^ y2));
@@ -1458,10 +1458,10 @@ static void ProcessLine(ProcessHandler* hnd,
     }
 }
 
-jboolean ProcessPath(ProcessHandler* hnd,
-                     jfloat transXf, jfloat transYf,
-                     jfloat* coords, jint maxCoords,
-                     jbyte* types, jint numTypes)
+static jboolean ProcessPath(ProcessHandler* hnd,
+                            jfloat transXf, jfloat transYf,
+                            jfloat* coords, jint maxCoords,
+                            jbyte* types, jint numTypes)
 {
     jfloat tCoords[8];
     jfloat closeCoord[2];
@@ -1943,8 +1943,7 @@ do {                                                                \
     nact++;                                                         \
 } while(0);
 
-void FillPolygon(ProcessHandler* hnd,
-                 jint fillRule) {
+static void FillPolygon(ProcessHandler* hnd, jint fillRule) {
     jint k, y, xl, xr;
     jint drawing;
     Edge* activeList, *active;
@@ -2092,9 +2091,9 @@ void FillPolygon(ProcessHandler* hnd,
 
 
 
-void  StoreFixedLine(ProcessHandler* hnd,jint x1,jint y1,jint x2,jint y2,
-                     jint* pixelInfo,jboolean checkBounds,
-                     jboolean endSubPath)  {
+static void StoreFixedLine(ProcessHandler* hnd,jint x1,jint y1,jint x2,jint y2,
+                           jint* pixelInfo,jboolean checkBounds,
+                           jboolean endSubPath)  {
     FillData* pfd;
     jint outXMin, outXMax, outYMin, outYMax;
     jint x3, y3, res;
