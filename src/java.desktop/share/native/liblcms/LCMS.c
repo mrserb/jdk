@@ -513,37 +513,37 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
    jint srcNextRowOffset, jint dstOffset, jint dstNextRowOffset,
    jobject srcData, jobject dstData, jint srcDType, jint dstDType)
 {
-    cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
-
-    if (sTrans == NULL) {
-        J2dRlsTraceLn(J2D_TRACE_ERROR, "LCMS_colorConvert: transform == NULL");
-        JNU_ThrowByName(env, "java/awt/color/CMMException",
-                        "Cannot get color transform");
-        return;
-    }
-
-    void *inputBuffer = getILData(env, srcData, srcDType);
-    if (inputBuffer == NULL) {
-        J2dRlsTraceLn(J2D_TRACE_ERROR, "");
-        // An exception should have already been thrown.
-        return;
-    }
-
-    void *outputBuffer = getILData(env, dstData, dstDType);
-    if (outputBuffer == NULL) {
-        releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
-        // An exception should have already been thrown.
-        return;
-    }
-
-    char *input = (char *) inputBuffer + srcOffset;
-    char *output = (char *) outputBuffer + dstOffset;
-
-    cmsDoTransformLineStride(sTrans, input, output, width, height,
-                             srcNextRowOffset, dstNextRowOffset, 0, 0);
-
-    releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
-    releaseILData(env, outputBuffer, dstDType, dstData, 0);
+//    cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
+//
+//    if (sTrans == NULL) {
+//        J2dRlsTraceLn(J2D_TRACE_ERROR, "LCMS_colorConvert: transform == NULL");
+//        JNU_ThrowByName(env, "java/awt/color/CMMException",
+//                        "Cannot get color transform");
+//        return;
+//    }
+//
+//    void *inputBuffer = getILData(env, srcData, srcDType);
+//    if (inputBuffer == NULL) {
+//        J2dRlsTraceLn(J2D_TRACE_ERROR, "");
+//        // An exception should have already been thrown.
+//        return;
+//    }
+//
+//    void *outputBuffer = getILData(env, dstData, dstDType);
+//    if (outputBuffer == NULL) {
+//        releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
+//        // An exception should have already been thrown.
+//        return;
+//    }
+//
+//    char *input = (char *) inputBuffer + srcOffset;
+//    char *output = (char *) outputBuffer + dstOffset;
+//
+//    cmsDoTransformLineStride(sTrans, input, output, width, height,
+//                             srcNextRowOffset, dstNextRowOffset, 0, 0);
+//
+//    releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
+//    releaseILData(env, outputBuffer, dstDType, dstData, 0);
 }
 
 static cmsBool _getHeaderInfo(cmsHPROFILE pf, jbyte* pBuffer, jint bufferSize)
