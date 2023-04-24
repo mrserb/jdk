@@ -95,16 +95,6 @@ final class LCMSImageLayout {
         offset = 0;
     }
 
-    private LCMSImageLayout(int width, int height, int pixelType, int pixelSize)
-    {
-        this.pixelType = pixelType;
-        this.width = width;
-        this.height = height;
-        nextPixelOffset = pixelSize;
-        nextRowOffset = safeMult(pixelSize, width);
-        offset = 0;
-    }
-
     LCMSImageLayout(byte[] data, int np, int pixelType, int pixelSize) {
         this(np, pixelType, pixelSize);
         dataType = DT_BYTE;
@@ -119,24 +109,6 @@ final class LCMSImageLayout {
         dataType = DT_SHORT;
         dataArray = data;
         dataArrayLength = 2 * data.length;
-
-        verify();
-    }
-
-    LCMSImageLayout(int[] data, int np, int pixelType, int pixelSize) {
-        this(np, pixelType, pixelSize);
-        dataType = DT_INT;
-        dataArray = data;
-        dataArrayLength = 4 * data.length;
-
-        verify();
-    }
-
-    LCMSImageLayout(double[] data, int np, int pixelType, int pixelSize) {
-        this(np, pixelType, pixelSize);
-        dataType = DT_DOUBLE;
-        dataArray = data;
-        dataArrayLength = 8 * data.length;
 
         verify();
     }
