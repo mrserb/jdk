@@ -32,7 +32,9 @@ import java.awt.image.ComponentColorModel;
 import java.awt.image.ComponentSampleModel;
 import java.awt.image.Raster;
 import java.nio.ByteOrder;
+import java.util.Objects;
 
+import jdk.internal.util.Preconditions;
 import sun.awt.image.ByteComponentRaster;
 import sun.awt.image.IntegerComponentRaster;
 import sun.awt.image.ShortComponentRaster;
@@ -105,7 +107,6 @@ final class LCMSImageLayout {
         height = 1;
         nextPixelOffset = nc * type;
         nextRowOffset = dataArrayLength;
-//        offset = 0;
 
         verify();
     }
@@ -286,10 +287,9 @@ final class LCMSImageLayout {
     }
 
     private static int checkIndex(long index, int length) {
-        if (index < 0 || index >= length) {
-            throw new CMMException("Invalid image layout");
-        }
-        return (int) index;
+        return (int) Preconditions.checkIndex(index, length, (s, numbers) -> {
+            return new CMMException("Invalid image layout");
+        });
     }
 
     private static int safeMult(int a, int b) {
