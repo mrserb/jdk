@@ -97,15 +97,15 @@ final class LCMSImageLayout {
     }
 
     private LCMSImageLayout(Object data, int length, int nc, int type) {
+        dataType = type;
+        dataArray = data;
+        dataArrayLength = length * type;
         pixelType = CHANNELS_SH(nc) | BYTES_SH(type);
         width = length / nc;
         height = 1;
         nextPixelOffset = nc * type;
-        nextRowOffset = safeMult(nextPixelOffset, width);
-        offset = 0;
-        dataType = type;
-        dataArray = data;
-        dataArrayLength = length * type;
+        nextRowOffset = dataArrayLength;
+//        offset = 0;
 
         verify();
     }
