@@ -45,9 +45,9 @@
 
 #define SigHead TagIdConst('h','e','a','d')
 
-#define DT_BYTE     0
-#define DT_SHORT    1
-#define DT_INT      2
+#define DT_BYTE     1
+#define DT_SHORT    2
+#define DT_INT      4
 
 /* Default temp profile list size */
 #define DF_ICC_BUF_SIZE 32
