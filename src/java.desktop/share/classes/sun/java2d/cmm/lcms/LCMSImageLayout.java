@@ -32,7 +32,6 @@ import java.awt.image.ComponentColorModel;
 import java.awt.image.ComponentSampleModel;
 import java.awt.image.Raster;
 import java.nio.ByteOrder;
-import java.util.Objects;
 
 import jdk.internal.util.Preconditions;
 import sun.awt.image.ByteComponentRaster;
@@ -43,7 +42,7 @@ import static java.nio.ByteOrder.LITTLE_ENDIAN;
 
 final class LCMSImageLayout {
 
-    static int BYTES_SH(int x) {
+    private static int BYTES_SH(int x) {
         return x;
     }
 
@@ -51,11 +50,11 @@ final class LCMSImageLayout {
         return x << 7;
     }
 
-    static int CHANNELS_SH(int x) {
+    private static int CHANNELS_SH(int x) {
         return x << 3;
     }
 
-    static int PREMUL_SH(int x) {
+    private static int PREMUL_SH(int x) {
         return x << 23;
     }
     private static final int SWAPFIRST  = 1 << 14;

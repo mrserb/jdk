@@ -529,19 +529,19 @@ final class LCMSTransform implements ColorTransform {
        components */
     public short[] colorConvert(short[] src, short[] dst) {
         if (dst == null) {
-            dst = new short [(src.length/getNumInComponents())*getNumOutComponents()];
+            dst = new short[(src.length / numInComponents) * numOutComponents];
         }
-        doTransform(new LCMSImageLayout(src, getNumInComponents()),
-                    new LCMSImageLayout(dst, getNumOutComponents()));
+        doTransform(new LCMSImageLayout(src, numInComponents),
+                    new LCMSImageLayout(dst, numOutComponents));
         return dst;
     }
 
     public byte[] colorConvert(byte[] src, byte[] dst) {
         if (dst == null) {
-            dst = new byte [(src.length/getNumInComponents())*getNumOutComponents()];
+            dst = new byte[(src.length / numInComponents) * numOutComponents];
         }
-        doTransform(new LCMSImageLayout(src, getNumInComponents()),
-                    new LCMSImageLayout(dst, getNumOutComponents()));
+        doTransform(new LCMSImageLayout(src, numInComponents),
+                    new LCMSImageLayout(dst, numOutComponents));
         return dst;
     }
 }

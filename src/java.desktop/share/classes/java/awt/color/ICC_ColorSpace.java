@@ -211,7 +211,7 @@ public class ICC_ColorSpace extends ColorSpace {
             }
         }
 
-        int nc = this.getNumComponents();
+        int nc = getNumComponents();
         short[] tmp = new short[nc];
         for (int i = 0; i < nc; i++) {
             tmp[i] = (short)
@@ -264,7 +264,7 @@ public class ICC_ColorSpace extends ColorSpace {
             tmp[i] = (short) ((rgbvalue[i] * 65535.0f) + 0.5f);
         }
         tmp = srgb2this.colorConvert(tmp, null);
-        int nc = this.getNumComponents();
+        int nc = getNumComponents();
         float[] result = new float[nc];
         for (int i = 0; i < nc; i++) {
             result[i] = (((float) (tmp[i] & 0xffff)) / 65535.0f) *
@@ -388,7 +388,7 @@ public class ICC_ColorSpace extends ColorSpace {
             }
         }
 
-        int nc = this.getNumComponents();
+        int nc = getNumComponents();
         short[] tmp = new short[nc];
         for (int i = 0; i < nc; i++) {
             tmp[i] = (short)
@@ -527,7 +527,7 @@ public class ICC_ColorSpace extends ColorSpace {
             tmp[i] = (short) ((colorvalue[i] * factor) + 0.5f);
         }
         tmp = xyz2this.colorConvert(tmp, null);
-        int nc = this.getNumComponents();
+        int nc = getNumComponents();
         float[] result = new float[nc];
         for (int i = 0; i < nc; i++) {
             result[i] = (((float) (tmp[i] & 0xffff)) / 65535.0f) *
@@ -582,7 +582,7 @@ public class ICC_ColorSpace extends ColorSpace {
     }
 
     private void setMinMax() {
-        int nc = this.getNumComponents();
+        int nc = getNumComponents();
         int type = this.getType();
         minVal = new float[nc];
         maxVal = new float[nc];
@@ -605,7 +605,7 @@ public class ICC_ColorSpace extends ColorSpace {
     }
 
     private void setComponentScaling() {
-        int nc = this.getNumComponents();
+        int nc = getNumComponents();
         diffMinMax = new float[nc];
         invDiffMinMax = new float[nc];
         for (int i = 0; i < nc; i++) {
