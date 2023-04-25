@@ -48,7 +48,6 @@
 #define DT_BYTE     0
 #define DT_SHORT    1
 #define DT_INT      2
-#define DT_DOUBLE   3
 
 /* Default temp profile list size */
 #define DF_ICC_BUF_SIZE 32
@@ -478,8 +477,6 @@ static void *getILData(JNIEnv *env, jobject data, jint type) {
             return (*env)->GetShortArrayElements(env, data, 0);
         case DT_INT:
             return (*env)->GetIntArrayElements(env, data, 0);
-        case DT_DOUBLE:
-            return (*env)->GetDoubleArrayElements(env, data, 0);
         default:
             return NULL;
     }
@@ -496,9 +493,6 @@ static void releaseILData(JNIEnv *env, void *pData, jint type, jobject data,
             break;
         case DT_INT:
             (*env)->ReleaseIntArrayElements(env, data, (jint *) pData, mode);
-            break;
-        case DT_DOUBLE:
-            (*env)->ReleaseDoubleArrayElements(env, data, (jdouble *) pData, mode);
             break;
     }
 }

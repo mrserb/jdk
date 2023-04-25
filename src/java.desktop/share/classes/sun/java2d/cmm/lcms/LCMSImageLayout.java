@@ -70,10 +70,9 @@ final class LCMSImageLayout {
 //  private static final int PT_BGRA_8        = PT_ABGR_8 | SWAPFIRST;
     private static final int SWAP_ENDIAN =
             ByteOrder.nativeOrder() == LITTLE_ENDIAN ? DOSWAP : 0;
-    private static final int DT_BYTE = 0;
-    private static final int DT_SHORT = 1;
-    private static final int DT_INT = 2;
-    private static final int DT_DOUBLE = 3;
+    private static final int DT_BYTE  = 1;
+    private static final int DT_SHORT = 2;
+    private static final int DT_INT   = 4;
     int pixelType;
     int dataType;
     int width;
@@ -86,34 +85,29 @@ final class LCMSImageLayout {
 
     private int dataArrayLength; /* in bytes */
 
-    private LCMSImageLayout(int np, int pixelType, int pixelSize) {
-        this.pixelType = pixelType;
-        width = np;
-        height = 1;
-        nextPixelOffset = pixelSize;
-        nextRowOffset = safeMult(pixelSize, np);
-        offset = 0;
-    }
-
-    LCMSImageLayout(byte[] data, int np, int pixelType, int pixelSize) {
-        this(np, pixelType, pixelSize);
-        dataType = DT_BYTE;
-        dataArray = data;
-        dataArrayLength = data.length;
-
-        verify();
-    }
-
-    LCMSImageLayout(short[] data, int np, int pixelType, int pixelSize) {
-        this(np, pixelType, pixelSize);
-        dataType = DT_SHORT;
-        dataArray = data;
-        dataArrayLength = 2 * data.length;
-
-        verify();
-    }
-
     private LCMSImageLayout() {
+    }
+
+    LCMSImageLayout(byte[] data, int nc) {
+        this(data, data.length, nc, DT_BYTE);
+    }
+
+    LCMSImageLayout(short[] data, int nc) {
+        this(data, data.length, nc, DT_SHORT);
+    }
+
+    private LCMSImageLayout(Object data, int length, int nc, int type) {
+        pixelType = CHANNELS_SH(nc) | BYTES_SH(type);
+        width = length / nc;
+        height = 1;
+        nextPixelOffset = nc * type;
+        nextRowOffset = safeMult(nextPixelOffset, width);
+        offset = 0;
+        dataType = type;
+        dataArray = data;
+        dataArrayLength = length * type;
+
+        verify();
     }
 
     /* This method creates a layout object for given image.
