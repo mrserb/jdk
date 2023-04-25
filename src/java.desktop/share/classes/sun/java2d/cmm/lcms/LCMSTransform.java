@@ -528,15 +528,11 @@ final class LCMSTransform implements ColorTransform {
     /* the number of colors is (size of the array) / (number of input/output
        components */
     public short[] colorConvert(short[] src, short[] dst) {
-
         if (dst == null) {
             dst = new short [(src.length/getNumInComponents())*getNumOutComponents()];
         }
-        LCMSImageLayout srcIL = new LCMSImageLayout(src, getNumInComponents());
-        LCMSImageLayout dstIL = new LCMSImageLayout(dst, getNumOutComponents());
-
-        doTransform(srcIL, dstIL);
-
+        doTransform(new LCMSImageLayout(src, getNumInComponents()),
+                    new LCMSImageLayout(dst, getNumOutComponents()));
         return dst;
     }
 
@@ -544,12 +540,8 @@ final class LCMSTransform implements ColorTransform {
         if (dst == null) {
             dst = new byte [(src.length/getNumInComponents())*getNumOutComponents()];
         }
-
-        LCMSImageLayout srcIL = new LCMSImageLayout(src, getNumInComponents());
-        LCMSImageLayout dstIL = new LCMSImageLayout(dst, getNumOutComponents());
-
-        doTransform(srcIL, dstIL);
-
+        doTransform(new LCMSImageLayout(src, getNumInComponents()),
+                    new LCMSImageLayout(dst, getNumOutComponents()));
         return dst;
     }
 }
