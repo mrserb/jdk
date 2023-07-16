@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <memory.h>
 #include "sun_java2d_cmm_lcms_LCMS.h"
-#include "sun_java2d_cmm_lcms_LCMSImageLayout.h"
 #include "jni_util.h"
 #include "Trace.h"
 #include "Disposer.h"
