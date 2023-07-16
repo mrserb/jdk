@@ -31,7 +31,6 @@ import java.awt.image.ColorModel;
 import java.awt.image.ComponentColorModel;
 import java.awt.image.ComponentSampleModel;
 import java.awt.image.Raster;
-import java.lang.annotation.Native;
 import java.nio.ByteOrder;
 
 import sun.awt.image.ByteComponentRaster;
@@ -71,14 +70,7 @@ final class LCMSImageLayout {
 //  private static final int PT_BGRA_8        = PT_ABGR_8 | SWAPFIRST;
     private static final int SWAP_ENDIAN =
             ByteOrder.nativeOrder() == LITTLE_ENDIAN ? DOSWAP : 0;
-    @Native
-    private static final int DT_BYTE = 0;
-    @Native
-    private static final int DT_SHORT = 1;
-    @Native
-    private static final int DT_INT = 2;
     int pixelType;
-    int dataType;
     int width;
     int height;
     int nextRowOffset;
@@ -95,12 +87,10 @@ final class LCMSImageLayout {
      * @param  data the storage of pixels: {@code byte[], short[] or int[]}
      * @param  length the length of the data array
      * @param  nc the number of color components
-     * @param  dt the type of data array: DT_BYTE, DT_SHORT or DT_INT
      * @param  size the size of one color component in bytes
      */
-    private LCMSImageLayout(Object data, int length, int nc, int dt, int size) {
+    private LCMSImageLayout(Object data, int length, int nc, int size) {
         dataArray = data;
-        dataType = dt;
         dataArrayLength = length * size;
         pixelType = CHANNELS_SH(nc) | BYTES_SH(size);
         width = length / nc;
@@ -111,11 +101,11 @@ final class LCMSImageLayout {
     }
 
     LCMSImageLayout(byte[] data, int nc) {
-        this(data, data.length, nc, DT_BYTE, Byte.BYTES);
+        this(data, data.length, nc, Byte.BYTES);
     }
 
     LCMSImageLayout(short[] data, int nc) {
-        this(data, data.length, nc, DT_SHORT, Short.BYTES);
+        this(data, data.length, nc, Short.BYTES);
     }
 
     private LCMSImageLayout() {
@@ -184,7 +174,6 @@ final class LCMSImageLayout {
                 l.offset = safeMult(4, intRaster.getDataOffset(0));
                 l.dataArray = intRaster.getDataStorage();
                 l.dataArrayLength = 4 * intRaster.getDataStorage().length;
-                l.dataType = DT_INT;
             }
             case BufferedImage.TYPE_3BYTE_BGR, BufferedImage.TYPE_4BYTE_ABGR,
                  BufferedImage.TYPE_4BYTE_ABGR_PRE ->
@@ -196,7 +185,6 @@ final class LCMSImageLayout {
                 l.offset = byteRaster.getDataOffset(firstBand);
                 l.dataArray = byteRaster.getDataStorage();
                 l.dataArrayLength = byteRaster.getDataStorage().length;
-                l.dataType = DT_BYTE;
             }
             case BufferedImage.TYPE_BYTE_GRAY -> {
                 var byteRaster = (ByteComponentRaster) image.getRaster();
@@ -205,7 +193,6 @@ final class LCMSImageLayout {
                 l.offset = byteRaster.getDataOffset(0);
                 l.dataArray = byteRaster.getDataStorage();
                 l.dataArrayLength = byteRaster.getDataStorage().length;
-                l.dataType = DT_BYTE;
             }
             case BufferedImage.TYPE_USHORT_GRAY -> {
                 var shortRaster = (ShortComponentRaster) image.getRaster();
@@ -214,7 +201,6 @@ final class LCMSImageLayout {
                 l.offset = safeMult(2, shortRaster.getDataOffset(0));
                 l.dataArray = shortRaster.getDataStorage();
                 l.dataArrayLength = 2 * shortRaster.getDataStorage().length;
-                l.dataType = DT_SHORT;
             }
             default -> {
                 return null;
@@ -321,7 +307,6 @@ final class LCMSImageLayout {
             l.nextPixelOffset = br.getPixelStride();
 
             l.offset = br.getDataOffset(firstBand);
-            l.dataType = DT_BYTE;
             byte[] data = br.getDataStorage();
             l.dataArray = data;
             l.dataArrayLength = data.length;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2007, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -46,10 +46,6 @@
 
 #define SigHead TagIdConst('h','e','a','d')
 
-#define DT_BYTE     sun_java2d_cmm_lcms_LCMSImageLayout_DT_BYTE
-#define DT_SHORT    sun_java2d_cmm_lcms_LCMSImageLayout_DT_SHORT
-#define DT_INT      sun_java2d_cmm_lcms_LCMSImageLayout_DT_INT
-
 /* Default temp profile list size */
 #define DF_ICC_BUF_SIZE 32
 
@@ -90,6 +86,10 @@ void errorHandler(cmsContext ContextID, cmsUInt32Number errorCode,
     }
 }
 
+void emptyErrorHandler(cmsContext ContextID, cmsUInt32Number errorCode,
+                       const char *errorText) {
+}
+
 JNIEXPORT jint JNICALL DEF_JNI_OnLoad(JavaVM *jvm, void *reserved) {
     javaVM = jvm;
 
@@ -112,7 +112,9 @@ void LCMS_freeTransform(JNIEnv *env, jlong ID)
 {
     cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
     /* Passed ID is always valid native ref so there is no check for zero */
+    cmsContext ContextID = cmsGetTransformContextID(sTrans);
     cmsDeleteTransform(sTrans);
+    cmsDeleteContext(ContextID);
 }
 
 /*
@@ -149,6 +151,15 @@ JNIEXPORT jlong JNICALL Java_sun_java2d_cmm_lcms_LCMS_createNativeTransform
     cmsHTRANSFORM sTrans = NULL;
     int i, j, size;
     jlong* ids;
+
+    cmsContext ContextID = cmsCreateContext(NULL, NULL);
+    if (ContextID == NULL) {
+        if (!(*env)->ExceptionCheck(env)) { // errorHandler may throw it
+            JNU_ThrowByName(env, "java/awt/color/CMMException",
+                            "Cannot create context");
+        }
+        return 0L;
+    }
 
     size = (*env)->GetArrayLength (env, profileIDs);
     ids = (*env)->GetLongArrayElements(env, profileIDs, 0);
@@ -188,12 +199,16 @@ JNIEXPORT jlong JNICALL Java_sun_java2d_cmm_lcms_LCMS_createNativeTransform
         }
     }
 
-    sTrans = cmsCreateMultiprofileTransform(iccArray, j,
+    cmsSetLogErrorHandlerTHR(ContextID, errorHandler);
+    sTrans = cmsCreateMultiprofileTransformTHR(ContextID, iccArray, j,
         inFormatter, outFormatter, renderingIntent, cmsFLAGS_COPY_ALPHA);
+    // Set empty error handler because we use GetPrimitiveArrayCritical later
+    cmsSetLogErrorHandlerTHR(ContextID, emptyErrorHandler);
 
     (*env)->ReleaseLongArrayElements(env, profileIDs, ids, 0);
 
     if (sTrans == NULL) {
+        cmsDeleteContext(ContextID);
         J2dRlsTraceLn(J2D_TRACE_ERROR, "LCMS_createNativeTransform: "
                                        "sTrans == NULL");
         if (!(*env)->ExceptionCheck(env)) { // errorHandler may throw it
@@ -470,75 +485,40 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_setTagDataNative
     }
 }
 
-static void *getILData(JNIEnv *env, jobject data, jint type) {
-    switch (type) {
-        case DT_BYTE:
-            return (*env)->GetByteArrayElements(env, data, 0);
-        case DT_SHORT:
-            return (*env)->GetShortArrayElements(env, data, 0);
-        case DT_INT:
-            return (*env)->GetIntArrayElements(env, data, 0);
-        default:
-            return NULL;
-    }
-}
-
-static void releaseILData(JNIEnv *env, void *pData, jint type, jobject data,
-                          jint mode) {
-    switch (type) {
-        case DT_BYTE:
-            (*env)->ReleaseByteArrayElements(env, data, (jbyte *) pData, mode);
-            break;
-        case DT_SHORT:
-            (*env)->ReleaseShortArrayElements(env, data, (jshort *) pData, mode);
-            break;
-        case DT_INT:
-            (*env)->ReleaseIntArrayElements(env, data, (jint *) pData, mode);
-            break;
-    }
-}
-
 /*
  * Class:     sun_java2d_cmm_lcms_LCMS
  * Method:    colorConvert
- * Signature: (JIIIIIIZZLjava/lang/Object;Ljava/lang/Object;)V
+ * Signature: (JIIIIIILjava/lang/Object;Ljava/lang/Object;)V
  */
 JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
   (JNIEnv *env, jclass cls, jlong ID, jint width, jint height, jint srcOffset,
    jint srcNextRowOffset, jint dstOffset, jint dstNextRowOffset,
-   jobject srcData, jobject dstData, jint srcDType, jint dstDType)
+   jobject srcData, jobject dstData)
 {
     cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
 
     if (sTrans == NULL) {
-        J2dRlsTraceLn(J2D_TRACE_ERROR, "LCMS_colorConvert: transform == NULL");
         JNU_ThrowByName(env, "java/awt/color/CMMException",
                         "Cannot get color transform");
         return;
     }
 
-    void *inputBuffer = getILData(env, srcData, srcDType);
+    void *inputBuffer = (*env)->GetPrimitiveArrayCritical(env, srcData, 0);
     if (inputBuffer == NULL) {
-        J2dRlsTraceLn(J2D_TRACE_ERROR, "");
         // An exception should have already been thrown.
         return;
     }
 
-    void *outputBuffer = getILData(env, dstData, dstDType);
-    if (outputBuffer == NULL) {
-        releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
-        // An exception should have already been thrown.
-        return;
+    void *outputBuffer =  (*env)->GetPrimitiveArrayCritical(env, dstData, 0);
+    if (outputBuffer != NULL) {
+        char *input = (char *) inputBuffer + srcOffset;
+        char *output = (char *) outputBuffer + dstOffset;
+
+        cmsDoTransformLineStride(sTrans, input, output, width, height,
+                                 srcNextRowOffset, dstNextRowOffset, 0, 0);
+        (*env)->ReleasePrimitiveArrayCritical(env, dstData, outputBuffer, 0);
     }
-
-    char *input = (char *) inputBuffer + srcOffset;
-    char *output = (char *) outputBuffer + dstOffset;
-
-    cmsDoTransformLineStride(sTrans, input, output, width, height,
-                             srcNextRowOffset, dstNextRowOffset, 0, 0);
-
-    releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
-    releaseILData(env, outputBuffer, dstDType, dstData, 0);
+    (*env)->ReleasePrimitiveArrayCritical(env, srcData, inputBuffer, JNI_ABORT);
 }
 
 static cmsBool _getHeaderInfo(cmsHPROFILE pf, jbyte* pBuffer, jint bufferSize)
