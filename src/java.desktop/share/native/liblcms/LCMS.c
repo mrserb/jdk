@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2007, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <memory.h>
 #include "sun_java2d_cmm_lcms_LCMS.h"
-#include "sun_java2d_cmm_lcms_LCMSImageLayout.h"
 #include "jni_util.h"
 #include "Trace.h"
 #include "Disposer.h"
@@ -46,20 +45,10 @@
 
 #define SigHead TagIdConst('h','e','a','d')
 
-#define DT_BYTE     sun_java2d_cmm_lcms_LCMSImageLayout_DT_BYTE
-#define DT_SHORT    sun_java2d_cmm_lcms_LCMSImageLayout_DT_SHORT
-#define DT_INT      sun_java2d_cmm_lcms_LCMSImageLayout_DT_INT
-
 /* Default temp profile list size */
 #define DF_ICC_BUF_SIZE 32
 
 #define ERR_MSG_SIZE 256
-
-#ifdef _MSC_VER
-# ifndef snprintf
-#       define snprintf  _snprintf
-# endif
-#endif
 
 typedef struct lcmsProfile_s {
     cmsHPROFILE pf;
@@ -75,17 +64,15 @@ JavaVM *javaVM;
 void errorHandler(cmsContext ContextID, cmsUInt32Number errorCode,
                   const char *errorText) {
     JNIEnv *env;
-    char errMsg[ERR_MSG_SIZE];
-
-    int count = snprintf(errMsg, ERR_MSG_SIZE,
-                          "LCMS error %d: %s", errorCode, errorText);
-    if (count < 0 || count >= ERR_MSG_SIZE) {
-        count = ERR_MSG_SIZE - 1;
-    }
-    errMsg[count] = 0;
-
     (*javaVM)->AttachCurrentThread(javaVM, (void**)&env, NULL);
     if (!(*env)->ExceptionCheck(env)) { // errorHandler may throw it before
+        char errMsg[ERR_MSG_SIZE];
+
+        int count = snprintf(errMsg, ERR_MSG_SIZE,
+                             "LCMS error %d: %s", errorCode, errorText);
+        if (count < 0) {
+            errMsg[0] = 0;
+        }
         JNU_ThrowByName(env, "java/awt/color/CMMException", errMsg);
     }
 }
@@ -468,77 +455,6 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_setTagDataNative
         cmsCloseProfile(sProf->pf);
         sProf->pf = pfReplace;
     }
-}
-
-static void *getILData(JNIEnv *env, jobject data, jint type) {
-    switch (type) {
-        case DT_BYTE:
-            return (*env)->GetByteArrayElements(env, data, 0);
-        case DT_SHORT:
-            return (*env)->GetShortArrayElements(env, data, 0);
-        case DT_INT:
-            return (*env)->GetIntArrayElements(env, data, 0);
-        default:
-            return NULL;
-    }
-}
-
-static void releaseILData(JNIEnv *env, void *pData, jint type, jobject data,
-                          jint mode) {
-    switch (type) {
-        case DT_BYTE:
-            (*env)->ReleaseByteArrayElements(env, data, (jbyte *) pData, mode);
-            break;
-        case DT_SHORT:
-            (*env)->ReleaseShortArrayElements(env, data, (jshort *) pData, mode);
-            break;
-        case DT_INT:
-            (*env)->ReleaseIntArrayElements(env, data, (jint *) pData, mode);
-            break;
-    }
-}
-
-/*
- * Class:     sun_java2d_cmm_lcms_LCMS
- * Method:    colorConvert
- * Signature: (JIIIIIIZZLjava/lang/Object;Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
-  (JNIEnv *env, jclass cls, jlong ID, jint width, jint height, jint srcOffset,
-   jint srcNextRowOffset, jint dstOffset, jint dstNextRowOffset,
-   jobject srcData, jobject dstData, jint srcDType, jint dstDType)
-{
-    cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
-
-    if (sTrans == NULL) {
-        J2dRlsTraceLn(J2D_TRACE_ERROR, "LCMS_colorConvert: transform == NULL");
-        JNU_ThrowByName(env, "java/awt/color/CMMException",
-                        "Cannot get color transform");
-        return;
-    }
-
-    void *inputBuffer = getILData(env, srcData, srcDType);
-    if (inputBuffer == NULL) {
-        J2dRlsTraceLn(J2D_TRACE_ERROR, "");
-        // An exception should have already been thrown.
-        return;
-    }
-
-    void *outputBuffer = getILData(env, dstData, dstDType);
-    if (outputBuffer == NULL) {
-        releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
-        // An exception should have already been thrown.
-        return;
-    }
-
-    char *input = (char *) inputBuffer + srcOffset;
-    char *output = (char *) outputBuffer + dstOffset;
-
-    cmsDoTransformLineStride(sTrans, input, output, width, height,
-                             srcNextRowOffset, dstNextRowOffset, 0, 0);
-
-    releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
-    releaseILData(env, outputBuffer, dstDType, dstData, 0);
 }
 
 static cmsBool _getHeaderInfo(cmsHPROFILE pf, jbyte* pBuffer, jint bufferSize)
