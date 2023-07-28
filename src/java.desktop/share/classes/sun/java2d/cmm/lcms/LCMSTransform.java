@@ -163,44 +163,50 @@ final class LCMSTransform implements ColorTransform {
             }
         }
         if (panama) {
-            try (Arena arena = Arena.ofConfined()) {
-                MemorySegment srcNative;
-                if (in.dataType == DT_INT) {
-                    srcNative = arena.allocateArray(JAVA_INT,
-                                                    (int[]) in.dataArray);
-                } else if (in.dataType == DT_SHORT) {
-                    srcNative = arena.allocateArray(JAVA_SHORT,
-                                                    (short[]) in.dataArray);
-                } else {
-                    srcNative = arena.allocateArray(JAVA_BYTE,
-                                                    (byte[]) in.dataArray);
-                }
-                MemorySegment dstNative = arena.allocate(out.dataArrayLength);
-                cmsDoTransformLineStride.invoke(MemorySegment.ofAddress(tfm.ID),
-                                                srcNative.asSlice(in.offset),
-                                                dstNative.asSlice(out.offset),
-                                                in.width, in.height,
-                                                in.nextRowOffset,
-                                                out.nextRowOffset, 0, 0);
-                MemorySegment dst;
-                if (out.dataType == DT_INT) {
-                    dst = MemorySegment.ofArray((int[]) out.dataArray);
-                } else if (out.dataType == DT_SHORT) {
-                    dst = MemorySegment.ofArray((short[]) out.dataArray);
-                } else {
-                    dst = MemorySegment.ofArray((byte[]) out.dataArray);
-                }
-                dst.copyFrom(dstNative);
-            } catch (Throwable e) {
-                throw new CMMException(e.getMessage());
-            }
+            panama(in, out, tfm);
         } else {
+            // via jni
             LCMS.colorConvert(tfm.ID, in.width, in.height, in.offset,
                               in.nextRowOffset, out.offset, out.nextRowOffset,
                               in.dataArray, out.dataArray,
                               in.dataType, out.dataType);
         }
         Reference.reachabilityFence(tfm); // prevent deallocation of "tfm.ID"
+    }
+
+    private static void panama(LCMSImageLayout in, LCMSImageLayout out,
+                               NativeTransform tfm) {
+        try (Arena arena = Arena.ofConfined()) {
+            MemorySegment srcNative;
+            if (in.dataType == DT_INT) {
+                srcNative = arena.allocateArray(JAVA_INT,
+                                                (int[]) in.dataArray);
+            } else if (in.dataType == DT_SHORT) {
+                srcNative = arena.allocateArray(JAVA_SHORT,
+                                                (short[]) in.dataArray);
+            } else {
+                srcNative = arena.allocateArray(JAVA_BYTE,
+                                                (byte[]) in.dataArray);
+            }
+            MemorySegment dstNative = arena.allocate(out.dataArrayLength);
+            cmsDoTransformLineStride.invoke(MemorySegment.ofAddress(tfm.ID),
+                                            srcNative.asSlice(in.offset),
+                                            dstNative.asSlice(out.offset),
+                                            in.width, in.height,
+                                            in.nextRowOffset,
+                                            out.nextRowOffset, 0, 0);
+            MemorySegment dst;
+            if (out.dataType == DT_INT) {
+                dst = MemorySegment.ofArray((int[]) out.dataArray);
+            } else if (out.dataType == DT_SHORT) {
+                dst = MemorySegment.ofArray((short[]) out.dataArray);
+            } else {
+                dst = MemorySegment.ofArray((byte[]) out.dataArray);
+            }
+            dst.copyFrom(dstNative);
+        } catch (Throwable e) {
+            throw new CMMException(e.getMessage());
+        }
     }
 
     /**
