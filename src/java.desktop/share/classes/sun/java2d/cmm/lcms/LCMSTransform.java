@@ -50,6 +50,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import sun.awt.AWTAccessor;
 import sun.java2d.cmm.ColorTransform;
@@ -61,27 +62,24 @@ import static sun.java2d.cmm.lcms.LCMSImageLayout.DT_SHORT;
 
 final class LCMSTransform implements ColorTransform {
 
-    static final MethodHandle cmsDoTransformLineStride;
+    private static final MethodHandle cmsDoTransformLineStride;
+    private static final String symbolName = "cmsDoTransformLineStride";
+
     static {
-        List<Linker.Option> options = new ArrayList<>();
-        options.add(Linker.Option.isTrivial());
-        Linker nativeLinker = Linker.nativeLinker();
-        SymbolLookup stdlibLookup = nativeLinker.defaultLookup();
-        SymbolLookup loaderLookup = SymbolLookup.loaderLookup();
-
-        String symbolName = "cmsDoTransformLineStride";
-        var printfDescriptor = FunctionDescriptor.ofVoid(ADDRESS, ADDRESS,
-                                                         ADDRESS,
-                                                         JAVA_INT, JAVA_INT,
-                                                         JAVA_INT, JAVA_INT,
-                                                         JAVA_INT, JAVA_INT);
-        cmsDoTransformLineStride = loaderLookup.find(symbolName)
-                .or(() -> stdlibLookup.find(symbolName))
-                .map(symbolSegment -> nativeLinker.downcallHandle(symbolSegment,
-                                          printfDescriptor,
-                                          options.toArray(Linker.Option[]::new)))
-                .orElseThrow();
-
+        Linker linker = Linker.nativeLinker();
+        SymbolLookup lookup = SymbolLookup.loaderLookup();
+        var signature = FunctionDescriptor.ofVoid(ADDRESS, ADDRESS,
+                                                           ADDRESS,
+                                                           JAVA_INT, JAVA_INT,
+                                                           JAVA_INT, JAVA_INT,
+                                                           JAVA_INT, JAVA_INT);
+        Optional<MemorySegment> symbol = lookup.find(symbolName);
+        if (symbol.isPresent()) {
+            cmsDoTransformLineStride = linker.downcallHandle(symbol.get(),
+                                                             signature);
+        } else {
+            throw new CMMException(symbolName + "not found");
+        }
     }
 
     private static final class NativeTransform {
@@ -154,16 +152,16 @@ final class LCMSTransform implements ColorTransform {
             }
         }
 
-        try (Arena memorySession = Arena.ofConfined()) {
+        try (Arena arena = Arena.ofConfined()) {
             MemorySegment srcNative;
             if (in.dataType == DT_INT){
-                srcNative = memorySession.allocateArray(JAVA_INT,(int[]) in.dataArray);
+                srcNative = arena.allocateArray(JAVA_INT,(int[]) in.dataArray);
             } else if (in.dataType == DT_SHORT){
-                srcNative = memorySession.allocateArray(JAVA_SHORT,(short[]) in.dataArray);
+                srcNative = arena.allocateArray(JAVA_SHORT,(short[]) in.dataArray);
             } else {
-                srcNative = memorySession.allocateArray(JAVA_BYTE,(byte[]) in.dataArray);
+                srcNative = arena.allocateArray(JAVA_BYTE,(byte[]) in.dataArray);
             }
-            MemorySegment dstNative = memorySession.allocate(out.dataArrayLength);
+            MemorySegment dstNative = arena.allocate(out.dataArrayLength);
             cmsDoTransformLineStride.invoke(MemorySegment.ofAddress(tfm.ID),
                                             srcNative.asSlice(in.offset),
                                             dstNative.asSlice(out.offset),
