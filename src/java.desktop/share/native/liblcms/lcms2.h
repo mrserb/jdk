@@ -56,7 +56,7 @@
 //
 
 #ifndef _lcms2_H
-#include "jni_util.h"
+
 // ********** Configuration toggles ****************************************
 
 // Uncomment this one if you are using big endian machines
@@ -1820,7 +1820,7 @@ CMSAPI void             CMSEXPORT cmsDoTransformStride(cmsHTRANSFORM Transform, 
                                                  cmsUInt32Number Size,
                                                  cmsUInt32Number Stride);
 
-JNIEXPORT CMSAPI void             CMSEXPORT cmsDoTransformLineStride(cmsHTRANSFORM  Transform,
+CMSAPI void             CMSEXPORT cmsDoTransformLineStride(cmsHTRANSFORM  Transform,
                                                  const void* InputBuffer,
                                                  void* OutputBuffer,
                                                  cmsUInt32Number PixelsPerLine,

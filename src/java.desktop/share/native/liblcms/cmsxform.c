@@ -255,7 +255,7 @@ void CMSEXPORT cmsDoTransformStride(cmsHTRANSFORM  Transform,
 }
 
 // This is the "fast" function for plugins
-JNIEXPORT void CMSEXPORT cmsDoTransformLineStride(cmsHTRANSFORM  Transform,
+void CMSEXPORT cmsDoTransformLineStride(cmsHTRANSFORM  Transform,
                               const void* InputBuffer,
                               void* OutputBuffer,
                               cmsUInt32Number PixelsPerLine,

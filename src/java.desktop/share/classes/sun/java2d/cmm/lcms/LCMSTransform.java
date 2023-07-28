@@ -63,7 +63,7 @@ import static sun.java2d.cmm.lcms.LCMSImageLayout.DT_SHORT;
 final class LCMSTransform implements ColorTransform {
 
     private static final MethodHandle cmsDoTransformLineStride;
-    private static final String symbolName = "cmsDoTransformLineStride";
+    private static final String symbolName = "cmsDoTransformLineStride_panama";
 
     static {
         Linker linker = Linker.nativeLinker();
@@ -78,7 +78,7 @@ final class LCMSTransform implements ColorTransform {
             cmsDoTransformLineStride = linker.downcallHandle(symbol.get(),
                                                              signature);
         } else {
-            throw new CMMException(symbolName + "not found");
+            throw new CMMException(symbolName + " not found");
         }
     }
 
@@ -180,6 +180,12 @@ final class LCMSTransform implements ColorTransform {
         } catch (Throwable e) {
             throw new CMMException(e.getMessage());
         }
+
+        LCMS.colorConvert(tfm.ID, in.width, in.height, in.offset,
+                          in.nextRowOffset, out.offset, out.nextRowOffset,
+                          in.dataArray, out.dataArray,
+                          in.dataType, out.dataType);
+        Reference.reachabilityFence(tfm); // prevent deallocation of "tfm.ID"
     }
 
     /**

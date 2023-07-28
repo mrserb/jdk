@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include "sun_java2d_cmm_lcms_LCMS.h"
+#include "sun_java2d_cmm_lcms_LCMSImageLayout.h"
 #include "jni_util.h"
 #include "Trace.h"
 #include "Disposer.h"
@@ -44,6 +45,10 @@
                 ((int) SigMake ((a), (b), (c), (d)))
 
 #define SigHead TagIdConst('h','e','a','d')
+
+#define DT_BYTE     sun_java2d_cmm_lcms_LCMSImageLayout_DT_BYTE
+#define DT_SHORT    sun_java2d_cmm_lcms_LCMSImageLayout_DT_SHORT
+#define DT_INT      sun_java2d_cmm_lcms_LCMSImageLayout_DT_INT
 
 /* Default temp profile list size */
 #define DF_ICC_BUF_SIZE 32
@@ -455,6 +460,95 @@ JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_setTagDataNative
         cmsCloseProfile(sProf->pf);
         sProf->pf = pfReplace;
     }
+}
+
+static void *getILData(JNIEnv *env, jobject data, jint type) {
+    switch (type) {
+        case DT_BYTE:
+            return (*env)->GetByteArrayElements(env, data, 0);
+        case DT_SHORT:
+            return (*env)->GetShortArrayElements(env, data, 0);
+        case DT_INT:
+            return (*env)->GetIntArrayElements(env, data, 0);
+        default:
+            return NULL;
+    }
+}
+
+static void releaseILData(JNIEnv *env, void *pData, jint type, jobject data,
+                          jint mode) {
+    switch (type) {
+        case DT_BYTE:
+            (*env)->ReleaseByteArrayElements(env, data, (jbyte *) pData, mode);
+            break;
+        case DT_SHORT:
+            (*env)->ReleaseShortArrayElements(env, data, (jshort *) pData, mode);
+            break;
+        case DT_INT:
+            (*env)->ReleaseIntArrayElements(env, data, (jint *) pData, mode);
+            break;
+    }
+}
+
+
+JNIEXPORT void CMSEXPORT cmsDoTransformLineStride_panama(
+                                              cmsHTRANSFORM Transform,
+                                              const void* InputBuffer,
+                                              void* OutputBuffer,
+                                              cmsUInt32Number PixelsPerLine,
+                                              cmsUInt32Number LineCount,
+                                              cmsUInt32Number BytesPerLineIn,
+                                              cmsUInt32Number BytesPerLineOut,
+                                              cmsUInt32Number BytesPerPlaneIn,
+                                              cmsUInt32Number BytesPerPlaneOut)
+{
+    cmsDoTransformLineStride(Transform, InputBuffer, OutputBuffer,
+                             PixelsPerLine, LineCount, BytesPerLineIn,
+                             BytesPerLineOut, BytesPerPlaneIn,
+                             BytesPerPlaneOut);
+}
+
+/*
+ * Class:     sun_java2d_cmm_lcms_LCMS
+ * Method:    colorConvert
+ * Signature: (JIIIIIIZZLjava/lang/Object;Ljava/lang/Object;)V
+ */
+JNIEXPORT void JNICALL Java_sun_java2d_cmm_lcms_LCMS_colorConvert
+  (JNIEnv *env, jclass cls, jlong ID, jint width, jint height, jint srcOffset,
+   jint srcNextRowOffset, jint dstOffset, jint dstNextRowOffset,
+   jobject srcData, jobject dstData, jint srcDType, jint dstDType)
+{
+    cmsHTRANSFORM sTrans = jlong_to_ptr(ID);
+
+    if (sTrans == NULL) {
+        J2dRlsTraceLn(J2D_TRACE_ERROR, "LCMS_colorConvert: transform == NULL");
+        JNU_ThrowByName(env, "java/awt/color/CMMException",
+                        "Cannot get color transform");
+        return;
+    }
+
+    void *inputBuffer = getILData(env, srcData, srcDType);
+    if (inputBuffer == NULL) {
+        J2dRlsTraceLn(J2D_TRACE_ERROR, "");
+        // An exception should have already been thrown.
+        return;
+    }
+
+    void *outputBuffer = getILData(env, dstData, dstDType);
+    if (outputBuffer == NULL) {
+        releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
+        // An exception should have already been thrown.
+        return;
+    }
+
+    char *input = (char *) inputBuffer + srcOffset;
+    char *output = (char *) outputBuffer + dstOffset;
+
+    cmsDoTransformLineStride(sTrans, input, output, width, height,
+                             srcNextRowOffset, dstNextRowOffset, 0, 0);
+
+    releaseILData(env, inputBuffer, srcDType, srcData, JNI_ABORT);
+    releaseILData(env, outputBuffer, dstDType, dstData, 0);
 }
 
 static cmsBool _getHeaderInfo(cmsHPROFILE pf, jbyte* pBuffer, jint bufferSize)

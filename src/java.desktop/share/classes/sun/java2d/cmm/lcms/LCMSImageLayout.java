@@ -71,8 +71,11 @@ final class LCMSImageLayout {
 //  private static final int PT_BGRA_8        = PT_ABGR_8 | SWAPFIRST;
     private static final int SWAP_ENDIAN =
             ByteOrder.nativeOrder() == LITTLE_ENDIAN ? DOSWAP : 0;
+    @Native
     static final int DT_BYTE = 0;
+    @Native
     static final int DT_SHORT = 1;
+    @Native
     static final int DT_INT = 2;
     int pixelType;
     int dataType;
