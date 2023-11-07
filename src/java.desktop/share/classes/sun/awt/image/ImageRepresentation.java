@@ -43,6 +43,8 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.util.Hashtable;
 
+import sun.awt.NativeLibLoader;
+
 public class ImageRepresentation extends ImageWatched implements ImageConsumer
 {
     InputStreamImageSource src;
@@ -75,7 +77,7 @@ public class ImageRepresentation extends ImageWatched implements ImageConsumer
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        NativeLibLoader.loadLibraries();
+        NativeLibLoader.loadAWT();
         initIDs();
     }
 

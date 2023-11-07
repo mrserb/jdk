@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1995, 2004, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1995, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -37,6 +37,8 @@ import java.awt.image.ColorModel;
 import java.awt.image.ImageProducer;
 import java.awt.image.ImageConsumer;
 import java.awt.image.ImageObserver;
+
+import sun.awt.NativeLibLoader;
 import sun.awt.image.ImageRepresentation;
 import sun.awt.image.FileImageSource;
 
@@ -54,7 +56,7 @@ public class ToolkitImage extends Image {
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        NativeLibLoader.loadLibraries();
+        NativeLibLoader.loadAWT();
     }
 
     protected ToolkitImage() {

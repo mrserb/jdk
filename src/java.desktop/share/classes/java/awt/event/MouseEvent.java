@@ -35,6 +35,7 @@ import java.io.ObjectInputStream;
 import java.io.Serial;
 
 import sun.awt.AWTAccessor;
+import sun.awt.NativeLibLoader;
 import sun.awt.SunToolkit;
 
 /**
@@ -395,7 +396,7 @@ public non-sealed class MouseEvent extends InputEvent {
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        NativeLibLoader.loadLibraries();
+        NativeLibLoader.loadAWT();
         if (!GraphicsEnvironment.isHeadless()) {
             initIDs();
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -34,6 +34,8 @@ import java.awt.image.Raster;
 import java.awt.image.RasterFormatException;
 import java.awt.image.SampleModel;
 import java.awt.image.WritableRaster;
+
+import sun.awt.NativeLibLoader;
 
 /**
  * This class is useful for describing 1, 2, or 4 bit image data
@@ -77,7 +79,7 @@ public class BytePackedRaster extends SunWritableRaster {
     private static native void initIDs();
     static {
         /* ensure that the necessary native libraries are loaded */
-        NativeLibLoader.loadLibraries();
+        NativeLibLoader.loadAWT();
         initIDs();
     }
 
