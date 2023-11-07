@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -129,6 +129,7 @@ import sun.awt.AWTPermissions;
 import sun.awt.AppContext;
 import sun.awt.DisplayChangedListener;
 import sun.awt.LightweightFrame;
+import sun.awt.NativeLibLoader;
 import sun.awt.SunToolkit;
 import sun.awt.Win32GraphicsDevice;
 import sun.awt.Win32GraphicsEnvironment;
@@ -167,26 +168,11 @@ public final class WToolkit extends SunToolkit implements Runnable {
      * Initialize JNI field and method IDs
      */
     private static native void initIDs();
-    private static boolean loaded = false;
-    @SuppressWarnings("removal")
-    public static void loadLibraries() {
-        if (!loaded) {
-            java.security.AccessController.doPrivileged(
-                new java.security.PrivilegedAction<Void>() {
-                    @Override
-                    public Void run() {
-                        System.loadLibrary("awt");
-                        return null;
-                    }
-                });
-            loaded = true;
-        }
-    }
 
     private static native String getWindowsVersion();
 
     static {
-        loadLibraries();
+        NativeLibLoader.loadAWT();
         initIDs();
 
         // Print out which version of Windows is running

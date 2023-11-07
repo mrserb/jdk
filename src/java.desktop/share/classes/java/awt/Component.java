@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1995, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1995, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -95,6 +95,7 @@ import sun.awt.AppContext;
 import sun.awt.ComponentFactory;
 import sun.awt.ConstrainableGraphics;
 import sun.awt.EmbeddedFrame;
+import sun.awt.NativeLibLoader;
 import sun.awt.RequestFocusController;
 import sun.awt.SubRegionShowable;
 import sun.awt.SunToolkit;
@@ -621,7 +622,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
     static int incRate;
     static {
         /* ensure that the necessary native libraries are loaded */
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         /* initialize JNI field and method ids */
         if (!GraphicsEnvironment.isHeadless()) {
             initIDs();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -65,6 +65,7 @@ import javax.swing.JTree;
 import javax.swing.KeyStroke;
 
 import sun.awt.AWTAccessor;
+import sun.awt.NativeLibLoader;
 import sun.lwawt.LWWindowPeer;
 import sun.swing.SwingAccessor;
 
@@ -72,19 +73,7 @@ class CAccessibility implements PropertyChangeListener {
     private static Set<String> ignoredRoles;
 
     static {
-        loadAWTLibrary();
-    }
-
-    @SuppressWarnings("removal")
-    private static void loadAWTLibrary() {
-            // Need to load the native library for this code.
-        java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Void>() {
-                public Void run() {
-                    System.loadLibrary("awt");
-                    return null;
-                }
-            });
+        NativeLibLoader.loadAWT();
     }
 
     static CAccessibility sAccessibility;

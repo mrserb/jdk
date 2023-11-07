@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2003, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,7 +25,7 @@
 
 package sun.java2d.windows;
 
-import sun.awt.windows.WToolkit;
+import sun.awt.NativeLibLoader;
 import sun.java2d.opengl.WGLGraphicsConfig;
 
 public class WindowsFlags {
@@ -109,7 +109,7 @@ public class WindowsFlags {
     static {
         // Ensure awt is loaded already.  Also, this forces static init
         // of WToolkit and Toolkit, which we depend upon.
-        WToolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         // First, init all Java level flags
         initJavaFlags();
         // Now, init things on the native side.  This may call up through

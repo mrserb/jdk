@@ -46,6 +46,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import sun.awt.NativeLibLoader;
 import sun.awt.OSInfo;
 import sun.awt.util.ThreadGroupUtils;
 import sun.util.logging.PlatformLogger;
@@ -76,7 +77,7 @@ final class Win32ShellFolderManager2 extends ShellFolderManager {
 
     static {
         // Load library here
-        sun.awt.windows.WToolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
     }
 
     public ShellFolder createShellFolder(File file) throws FileNotFoundException {

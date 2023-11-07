@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -55,6 +55,7 @@ import javax.swing.plaf.basic.BasicLookAndFeel;
 
 import apple.laf.JRSUIControl;
 import apple.laf.JRSUIUtils;
+import sun.awt.NativeLibLoader;
 import sun.swing.SwingAccessor;
 import sun.swing.SwingUtilities2;
 
@@ -154,12 +155,7 @@ public class AquaLookAndFeel extends BasicLookAndFeel {
      */
     @SuppressWarnings("removal")
     public void initialize() {
-        java.security.AccessController.doPrivileged(new PrivilegedAction<Void>() {
-                public Void run() {
-                    System.loadLibrary("osxui");
-                    return null;
-                }
-            });
+        NativeLibLoader.loadOSXUI();
 
         java.security.AccessController.doPrivileged(new PrivilegedAction<Void>(){
             @Override

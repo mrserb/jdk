@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -37,6 +37,7 @@ import javax.swing.JMenuBar;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicMenuBarUI;
 
+import sun.awt.NativeLibLoader;
 import sun.lwawt.macosx.LWCToolkit;
 import sun.security.action.GetBooleanAction;
 
@@ -45,11 +46,7 @@ import sun.security.action.GetBooleanAction;
 public class AquaMenuBarUI extends BasicMenuBarUI implements ScreenMenuBarProvider {
 
     static {
-        java.security.AccessController.doPrivileged(
-                (java.security.PrivilegedAction<Void>) () -> {
-            System.loadLibrary("osxui");
-            return null;
-        });
+        NativeLibLoader.loadOSXUI();
     }
 
     // Utilities

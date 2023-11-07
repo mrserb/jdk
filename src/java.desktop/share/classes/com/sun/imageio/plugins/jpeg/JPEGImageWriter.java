@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2000, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -59,6 +59,7 @@ import javax.imageio.stream.ImageOutputStream;
 
 import com.sun.imageio.plugins.common.ImageUtil;
 import org.w3c.dom.Node;
+import sun.awt.NativeLibLoader;
 import sun.java2d.Disposer;
 import sun.java2d.DisposerRecord;
 
@@ -177,14 +178,7 @@ public class JPEGImageWriter extends ImageWriter {
 
     @SuppressWarnings("removal")
     private static void initStatic() {
-        java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Void>() {
-                @Override
-                public Void run() {
-                    System.loadLibrary("javajpeg");
-                    return null;
-                }
-            });
+        NativeLibLoader.loadJAVAJPEG();
         initWriterIDs(JPEGQTable.class,
                       JPEGHuffmanTable.class);
     }

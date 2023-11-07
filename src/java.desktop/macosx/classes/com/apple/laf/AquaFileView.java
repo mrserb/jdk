@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -36,6 +36,7 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileView;
 
 import com.apple.laf.AquaUtils.RecyclableSingleton;
+import sun.awt.NativeLibLoader;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -62,18 +63,7 @@ class AquaFileView extends FileView {
     static final int kLSItemInfoExtensionIsHidden  = 0x00100000; /* Item has a hidden extension*/
 
     static {
-        loadOSXUILibrary();
-    }
-
-    @SuppressWarnings("removal")
-    private static void loadOSXUILibrary() {
-        java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Void>() {
-                public Void run() {
-                    System.loadLibrary("osxui");
-                    return null;
-                }
-            });
+        NativeLibLoader.loadOSXUI();
     }
 
     // TODO: Un-comment this out when the native version exists

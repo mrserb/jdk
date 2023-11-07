@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -36,6 +36,7 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 import sun.awt.AWTAccessor;
+import sun.awt.NativeLibLoader;
 import sun.util.logging.PlatformLogger;
 
 /**
@@ -185,7 +186,7 @@ public class Cursor implements java.io.Serializable {
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         if (!GraphicsEnvironment.isHeadless()) {
             initIDs();
         }

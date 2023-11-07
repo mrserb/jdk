@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -37,6 +37,7 @@ import java.util.Hashtable;
 import java.util.Set;
 import java.util.Vector;
 
+import sun.awt.NativeLibLoader;
 import sun.awt.image.ByteComponentRaster;
 import sun.awt.image.BytePackedRaster;
 import sun.awt.image.IntegerComponentRaster;
@@ -283,7 +284,7 @@ public class BufferedImage extends java.awt.Image
 
     private static native void initIDs();
     static {
-        ColorModel.loadLibraries();
+        NativeLibLoader.loadAWT();
         initIDs();
     }
 

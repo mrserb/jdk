@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1995, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1995, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -28,6 +28,8 @@ package java.awt;
 import java.awt.geom.Dimension2D;
 import java.beans.Transient;
 import java.io.Serial;
+
+import sun.awt.NativeLibLoader;
 
 /**
  * The {@code Dimension} class encapsulates the width and
@@ -87,7 +89,7 @@ public class Dimension extends Dimension2D implements java.io.Serializable {
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         if (!GraphicsEnvironment.isHeadless()) {
             initIDs();
         }

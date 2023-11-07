@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2003, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -31,6 +31,8 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import sun.awt.NativeLibLoader;
 import sun.print.IPPPrintService;
 import sun.print.CustomMediaSizeName;
 import sun.print.CustomMediaTray;
@@ -88,13 +90,7 @@ public class CUPSPrinter  {
     @SuppressWarnings("removal")
     private static void initStatic() {
         // load awt library to access native code
-        java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Void>() {
-                public Void run() {
-                    System.loadLibrary("awt");
-                    return null;
-                }
-            });
+        NativeLibLoader.loadAWT();
         libFound = initIDs();
         if (libFound) {
            cupsServer = getCupsServer();

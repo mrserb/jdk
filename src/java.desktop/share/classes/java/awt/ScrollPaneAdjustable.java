@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2000, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -32,6 +32,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import sun.awt.AWTAccessor;
+import sun.awt.NativeLibLoader;
 
 /**
  * This class represents the state of a horizontal or vertical
@@ -160,7 +161,7 @@ public final class ScrollPaneAdjustable implements Adjustable, Serializable {
     private static native void initIDs();
 
     static {
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         if (!GraphicsEnvironment.isHeadless()) {
             initIDs();
         }

@@ -40,6 +40,8 @@ import java.awt.image.WritableRaster;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
+import sun.awt.NativeLibLoader;
+
 /**
  * This class provides a hook to access platform-specific
  * imaging code.
@@ -94,7 +96,7 @@ public class ImagingLib {
             new PrivilegedAction<Boolean>() {
                 public Boolean run() {
                     try {
-                        System.loadLibrary("mlib_image");
+                        NativeLibLoader.loadMLIB();
                     } catch (UnsatisfiedLinkError e) {
                         return Boolean.FALSE;
                     }

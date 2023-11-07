@@ -41,6 +41,7 @@ import javax.accessibility.Accessible;
 import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
 
+import sun.awt.NativeLibLoader;
 import sun.awt.ScrollPaneWheelScroller;
 import sun.awt.SunToolkit;
 
@@ -106,7 +107,7 @@ public class ScrollPane extends Container implements Accessible {
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         if (!GraphicsEnvironment.isHeadless()) {
             initIDs();
         }

@@ -29,6 +29,7 @@ import java.awt.color.CMMException;
 import java.awt.color.ICC_Profile;
 import java.util.concurrent.locks.StampedLock;
 
+import sun.awt.NativeLibLoader;
 import sun.java2d.cmm.ColorTransform;
 import sun.java2d.cmm.PCMM;
 import sun.java2d.cmm.Profile;
@@ -149,17 +150,11 @@ final class LCMS implements PCMM {
             return theLcms;
         }
 
-        java.security.AccessController.doPrivileged(
-                new java.security.PrivilegedAction<Object>() {
-                    public Object run() {
-                        /* We need to load awt here because of usage trace and
-                         * disposer frameworks
-                         */
-                        System.loadLibrary("awt");
-                        System.loadLibrary("lcms");
-                        return null;
-                    }
-                });
+        /* We need to load awt here because of usage trace and
+         * disposer frameworks
+         */
+        NativeLibLoader.loadAWT();
+        NativeLibLoader.loadLCMS();
 
         theLcms = new LCMS();
 

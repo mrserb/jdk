@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1995, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1995, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -68,6 +68,7 @@ import sun.awt.AWTAccessor;
 import sun.awt.AWTPermissions;
 import sun.awt.AppContext;
 import sun.awt.DebugSettings;
+import sun.awt.NativeLibLoader;
 import sun.awt.SunToolkit;
 import sun.awt.util.IdentityArrayList;
 import sun.java2d.pipe.Region;
@@ -409,7 +410,7 @@ public class Window extends Container implements Accessible {
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         if (!GraphicsEnvironment.isHeadless()) {
             initIDs();
         }

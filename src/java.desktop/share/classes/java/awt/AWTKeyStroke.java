@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2000, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import sun.awt.AppContext;
+import sun.awt.NativeLibLoader;
 import sun.swing.SwingAccessor;
 
 /**
@@ -108,7 +109,7 @@ public class AWTKeyStroke implements Serializable {
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
     }
 
     /**

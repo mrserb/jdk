@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1998, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,7 +25,15 @@
 
 package sun.awt;
 
-class NativeLibLoader {
+/**
+ * This class intentionally has no static dependencies on any other classes.
+ */
+public final class NativeLibLoader {
+
+    /**
+     * Prevent instantiation.
+     */
+    private NativeLibLoader() { }
 
     /**
      * This is copied from java.awt.Toolkit since we need the library
@@ -52,14 +60,84 @@ class NativeLibLoader {
      * For now, we know it's done by the implementation, and we assume
      * that the name of the library is "awt".  -br.
      */
-    @SuppressWarnings("removal")
-    static void loadLibraries() {
-        java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Void>() {
-                public Void run() {
-                    System.loadLibrary("awt");
-                    return null;
-                }
-            });
+    private static volatile boolean loadAWT;
+
+    public static void loadAWT() {
+        if (!loadAWT) {
+            jdk.internal.loader.BootLoader.loadLibrary("awt");
+            loadAWT = true;
+        }
+    }
+
+    private static volatile boolean loadLCMS;
+
+    public static void loadLCMS() {
+        if (!loadLCMS) {
+            jdk.internal.loader.BootLoader.loadLibrary("lcms");
+            loadLCMS = true;
+        }
+    }
+
+    private static volatile boolean loadFREETYPE;
+
+    public static void loadFREETYPE() {
+        if (!loadFREETYPE) {
+            jdk.internal.loader.BootLoader.loadLibrary("freetype");
+            loadFREETYPE = true;
+        }
+    }
+
+    private static volatile boolean loadFONTMANAGER;
+
+    public static void loadFONTMANAGER() {
+        if (!loadFONTMANAGER) {
+            jdk.internal.loader.BootLoader.loadLibrary("fontmanager");
+            loadFONTMANAGER = true;
+        }
+    }
+
+    private static volatile boolean loadJAVAJPEG;
+
+    public static void loadJAVAJPEG() {
+        if (!loadJAVAJPEG) {
+            jdk.internal.loader.BootLoader.loadLibrary("javajpeg");
+            loadJAVAJPEG = true;
+        }
+    }
+
+    private static volatile boolean loadSPLASHSCREEN;
+
+    public static void loadSPLASHSCREEN() {
+        if (!loadSPLASHSCREEN) {
+            jdk.internal.loader.BootLoader.loadLibrary("splashscreen");
+            loadSPLASHSCREEN = true;
+        }
+    }
+
+    private static volatile boolean loadMLIB;
+
+    public static void loadMLIB() {
+        if (!loadMLIB) {
+            jdk.internal.loader.BootLoader.loadLibrary("mlib_image");
+            loadMLIB = true;
+        }
+    }
+
+    private static volatile boolean loadOSX;
+
+    public static void loadOSX() {
+        if (!loadOSX) {
+            jdk.internal.loader.BootLoader.loadLibrary("osx");
+            loadOSX = true;
+        }
+    }
+
+    private static volatile boolean loadOSXUI;
+
+    public static void loadOSXUI() {
+        if (!loadOSXUI) {
+            jdk.internal.loader.BootLoader.loadLibrary("osxui");
+            loadOSXUI = true;
+        }
     }
 }

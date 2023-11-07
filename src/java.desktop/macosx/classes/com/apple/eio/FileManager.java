@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -26,6 +26,8 @@
 package com.apple.eio;
 
 import java.io.*;
+
+import sun.awt.NativeLibLoader;
 
 /**
  * Provides functionality to query and modify Mac-specific file attributes. The methods in this class are based on Finder
@@ -55,18 +57,7 @@ import java.io.*;
  */
 public class FileManager {
     static {
-        loadOSXLibrary();
-    }
-
-    @SuppressWarnings("removal")
-    private static void loadOSXLibrary() {
-        java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Void>() {
-                public Void run() {
-                    System.loadLibrary("osx");
-                    return null;
-                }
-            });
+        NativeLibLoader.loadOSX();
     }
 
     /**

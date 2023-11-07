@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2000, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -43,6 +43,7 @@ import javax.print.attribute.PrintServiceAttribute;
 import javax.print.attribute.PrintServiceAttributeSet;
 import javax.print.attribute.standard.PrinterName;
 
+import sun.awt.NativeLibLoader;
 import sun.awt.util.ThreadGroupUtils;
 
 public class PrintServiceLookupProvider extends PrintServiceLookup {
@@ -51,18 +52,7 @@ public class PrintServiceLookupProvider extends PrintServiceLookup {
     private PrintService[] printServices; /* includes the default printer */
 
     static {
-        loadAWTLibrary();
-    }
-
-    @SuppressWarnings("removal")
-    private static void loadAWTLibrary() {
-        java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Void>() {
-                public Void run() {
-                    System.loadLibrary("awt");
-                    return null;
-                }
-            });
+        NativeLibLoader.loadAWT();
     }
 
     /* The singleton win32 print lookup service.

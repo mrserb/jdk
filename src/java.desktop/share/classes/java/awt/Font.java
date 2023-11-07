@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1995, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1995, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -54,6 +54,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import sun.awt.ComponentFactory;
+import sun.awt.NativeLibLoader;
 import sun.font.AttributeMap;
 import sun.font.AttributeValues;
 import sun.font.CompositeFont;
@@ -285,7 +286,7 @@ public class Font implements java.io.Serializable
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         initIDs();
         FontAccess.setFontAccess(new FontAccessImpl());
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1995, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1995, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -43,6 +43,7 @@ import javax.accessibility.AccessibleRole;
 import javax.accessibility.AccessibleValue;
 
 import sun.awt.AWTAccessor;
+import sun.awt.NativeLibLoader;
 
 /**
  * All items in a menu must belong to the class
@@ -83,7 +84,7 @@ public class MenuItem extends MenuComponent implements Accessible {
 
     static {
         /* ensure that the necessary native libraries are loaded */
-        Toolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         if (!GraphicsEnvironment.isHeadless()) {
             initIDs();
         }

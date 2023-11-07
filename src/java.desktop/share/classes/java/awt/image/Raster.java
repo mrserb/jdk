@@ -38,6 +38,7 @@ package java.awt.image;
 import java.awt.Rectangle;
 import java.awt.Point;
 
+import sun.awt.NativeLibLoader;
 import sun.awt.image.ByteInterleavedRaster;
 import sun.awt.image.ShortInterleavedRaster;
 import sun.awt.image.IntegerInterleavedRaster;
@@ -169,7 +170,7 @@ public class Raster {
 
     private static native void initIDs();
     static {
-        ColorModel.loadLibraries();
+        NativeLibLoader.loadAWT();
         initIDs();
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -104,6 +104,7 @@ import sun.awt.AWTAccessor;
 import sun.awt.AppContext;
 import sun.awt.CGraphicsDevice;
 import sun.awt.LightweightFrame;
+import sun.awt.NativeLibLoader;
 import sun.awt.PlatformGraphicsInfo;
 import sun.awt.SunToolkit;
 import sun.awt.datatransfer.DataTransferer;
@@ -158,8 +159,8 @@ public final class LWCToolkit extends LWToolkit {
                     // No resource file; defaults will be used.
                 }
 
-                System.loadLibrary("awt");
-                System.loadLibrary("fontmanager");
+                NativeLibLoader.loadAWT();
+                NativeLibLoader.loadFONTMANAGER();
 
                 return platformResources;
             }

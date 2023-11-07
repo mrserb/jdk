@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -33,7 +33,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import sun.awt.windows.WToolkit;
 import sun.java2d.SunGraphicsEnvironment;
 import sun.java2d.SurfaceManagerFactory;
 import sun.java2d.WindowsSurfaceManagerFactory;
@@ -57,7 +56,7 @@ public final class Win32GraphicsEnvironment extends SunGraphicsEnvironment {
     static {
         // Ensure awt is loaded already.  Also, this forces static init
         // of WToolkit and Toolkit, which we depend upon
-        WToolkit.loadLibraries();
+        NativeLibLoader.loadAWT();
         // setup flags before initializing native layer
         WindowsFlags.initFlags();
         initDisplayWrapper();

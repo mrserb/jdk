@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -29,6 +29,8 @@ import java.awt.image.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.io.File;
+
+import sun.awt.NativeLibLoader;
 import sun.util.logging.PlatformLogger;
 import sun.awt.image.SunWritableRaster;
 
@@ -129,13 +131,7 @@ public final class SplashScreen {
             }
             // SplashScreen class is now a singleton
             if (!wasClosed && theInstance == null) {
-                java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction<Void>() {
-                        public Void run() {
-                            System.loadLibrary("splashscreen");
-                            return null;
-                        }
-                    });
+                NativeLibLoader.loadSPLASHSCREEN();
                 long ptr = _getInstance();
                 if (ptr != 0 && _isVisible(ptr)) {
                     theInstance = new SplashScreen(ptr);

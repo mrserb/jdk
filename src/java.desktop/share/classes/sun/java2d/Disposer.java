@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2002, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,6 +25,7 @@
 
 package sun.java2d;
 
+import sun.awt.NativeLibLoader;
 import sun.awt.util.ThreadGroupUtils;
 
 import java.lang.ref.Reference;
@@ -62,13 +63,7 @@ public class Disposer implements Runnable {
     public static int refType = PHANTOM;
 
     static {
-        java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Void>() {
-                public Void run() {
-                    System.loadLibrary("awt");
-                    return null;
-                }
-            });
+        NativeLibLoader.loadAWT();;
         initIDs();
         String type = java.security.AccessController.doPrivileged(
                 new sun.security.action.GetPropertyAction("sun.java2d.reftype"));
