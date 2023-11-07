@@ -176,6 +176,7 @@ module java.base {
     exports jdk.internal.jimage.decompressor to
         jdk.jlink;
     exports jdk.internal.loader to
+        java.desktop,
         java.instrument,
         java.logging,
         java.naming;
