@@ -49,8 +49,8 @@ import java.util.EventListener;
      * appropriate, {@link DragGestureEvent#startDrag startDrag()} method on the
      * {@code DragGestureEvent} has to be invoked.
      *
-     * @param  dge the {@code DragGestureEvent} describing the gesture
-     *         that has just occurred
+     * @param  dge the {@code DragGestureEvent} describing the gesture that has
+     *         just occurred
      * @see java.awt.dnd.DragGestureRecognizer
      * @see java.awt.dnd.DragGestureEvent
      */

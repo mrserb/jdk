@@ -48,8 +48,7 @@ import java.io.Serial;
  * than the drag gesture motion threshold.
  * <p>
  * Drag gesture recognizers created with
- * {@link DragSource#createDefaultDragGestureRecognizer} follow this
- * convention.
+ * {@link DragSource#createDefaultDragGestureRecognizer} follow this convention.
  *
  * @author Laurence P. G. Cable
  * @see java.awt.dnd.DragGestureListener

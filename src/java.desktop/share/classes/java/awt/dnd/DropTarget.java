@@ -206,8 +206,8 @@ public class DropTarget implements DropTargetListener, Serializable {
      * <p>
      * The Component will receive drops only if it is enabled.
      *
-     * @param  c The new {@code Component} this {@code DropTarget} is to
-     *         be associated with
+     * @param  c The new {@code Component} this {@code DropTarget} is to be
+     *         associated with
      */
     public synchronized void setComponent(Component c) {
         if (component == c || component != null && component.equals(c))
@@ -298,14 +298,13 @@ public class DropTarget implements DropTargetListener, Serializable {
      * Adds a new {@code DropTargetListener} (UNICAST SOURCE).
      *
      * @param  dtl The new {@code DropTargetListener}
-     * @throws TooManyListenersException if a {@code DropTargetListener}
-     *         is already added to this {@code DropTarget}
+     * @throws TooManyListenersException if a {@code DropTargetListener} is
+     *         already added to this {@code DropTarget}
      */
     public synchronized void addDropTargetListener(DropTargetListener dtl) throws TooManyListenersException {
         if (dtl == null) return;
 
-        if (equals(dtl))
-            throw new IllegalArgumentException("DropTarget may not be its own Listener");
+        if (equals(dtl)) throw new IllegalArgumentException("DropTarget may not be its own Listener");
 
         if (dtListener == null)
             dtListener = dtl;
@@ -414,9 +413,9 @@ public class DropTarget implements DropTargetListener, Serializable {
      * {@code DropTarget} is active.
      *
      * @param  dtde the {@code DropTargetDropEvent}
-     * @throws NullPointerException if {@code dtde} is null and at least
-     *         one of the following is true: this {@code DropTarget} is not
-     *         active, or there is no a {@code DropTargetListener} registered.
+     * @throws NullPointerException if {@code dtde} is null and at least one of
+     *         the following is true: this {@code DropTarget} is not active, or
+     *         there is no a {@code DropTargetListener} registered.
      * @see #isActive
      */
     public synchronized void drop(DropTargetDropEvent dtde) {
@@ -443,8 +442,8 @@ public class DropTarget implements DropTargetListener, Serializable {
     /**
      * Sets the {@code FlavorMap} associated with this {@code DropTarget}.
      *
-     * @param  fm the new {@code FlavorMap}, or null to associate the
-     *         default FlavorMap with this DropTarget
+     * @param  fm the new {@code FlavorMap}, or null to associate the default
+     *         FlavorMap with this DropTarget
      */
     public void setFlavorMap(FlavorMap fm) {
         flavorMap = fm == null ? SystemFlavorMap.getDefaultFlavorMap() : fm;
@@ -546,9 +545,9 @@ public class DropTarget implements DropTargetListener, Serializable {
      *
      * @param  s the {@code ObjectOutputStream} to write
      * @throws IOException if an I/O error occurs
-     * @serialData The default serializable fields, in alphabetical
-     *         order, followed by either a {@code DropTargetListener} instance,
-     *         or {@code null}
+     * @serialData The default serializable fields, in alphabetical order,
+     *         followed by either a {@code DropTargetListener} instance, or
+     *         {@code null}
      * @since 1.4
      */
     @Serial
@@ -569,8 +568,8 @@ public class DropTarget implements DropTargetListener, Serializable {
      * object in the stream is used instead.
      *
      * @param  s the {@code ObjectInputStream} to read
-     * @throws ClassNotFoundException if the class of a serialized
-     *         object could not be found
+     * @throws ClassNotFoundException if the class of a serialized object could
+     *         not be found
      * @throws IOException if an I/O error occurs
      * @since 1.4
      */
@@ -788,7 +787,7 @@ public class DropTarget implements DropTargetListener, Serializable {
     private Component component;
 
     /*
-     * That Component's  Peer
+     * That Component's Peer
      */
     private transient ComponentPeer componentPeer;
 
@@ -796,7 +795,6 @@ public class DropTarget implements DropTargetListener, Serializable {
      * That Component's "native" Peer
      */
     private transient DropTargetPeer nativePeer;
-
 
     /**
      * Default permissible actions supported by this DropTarget.

@@ -35,11 +35,10 @@ import java.io.Serial;
  * with its associated {@code DragSource}.
  * <p>
  * The {@code DragSourceDragEvent} reports the <i>target drop action</i> and the
- * <i>user drop action</i> that reflect the current state of the drag
- * operation.
+ * <i>user drop action</i> that reflect the current state of the drag operation.
  * <p>
- * <i>Target drop action</i> is one of {@code DnDConstants} that represents
- * the drop action selected by the current drop target if this drop action is
+ * <i>Target drop action</i> is one of {@code DnDConstants} that represents the
+ * drop action selected by the current drop target if this drop action is
  * supported by the drag source or {@code DnDConstants.ACTION_NONE} if this drop
  * action is not supported by the drag source.
  * <p>
@@ -209,9 +208,7 @@ public class DragSourceDragEvent extends DragSourceEvent {
      *
      * @return the user drop action
      */
-    public int getUserAction() {
-        return dropAction;
-    }
+    public int getUserAction() { return dropAction; }
 
     /**
      * This method returns the logical intersection of the target drop action
@@ -243,8 +240,7 @@ public class DragSourceDragEvent extends DragSourceEvent {
     private int     dropAction       = DnDConstants.ACTION_NONE;
 
     /**
-     * The state of the input device modifiers associated with the user
-     * gesture.
+     * The state of the input device modifiers associated with the user gesture.
      *
      * @serial
      */

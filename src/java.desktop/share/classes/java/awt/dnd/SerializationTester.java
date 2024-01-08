@@ -25,9 +25,9 @@
 
 package java.awt.dnd;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**

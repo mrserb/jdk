@@ -39,9 +39,9 @@ import java.util.List;
  * the <i>user drop action</i> that reflect the current state of the drag
  * operation.
  * <p>
- * <i>Source drop actions</i> is a bitwise mask of {@code DnDConstants}
- * that represents the set of drop actions supported by the drag source for this
- * drag operation.
+ * <i>Source drop actions</i> is a bitwise mask of {@code DnDConstants} that
+ * represents the set of drop actions supported by the drag source for this drag
+ * operation.
  * <p>
  * <i>User drop action</i> depends on the drop actions supported by the drag
  * source and the drop action selected by the user. The user can select a drop
@@ -162,17 +162,15 @@ public class DropTargetDragEvent extends DropTargetEvent {
      *
      * @return the user drop action
      */
-    public int getDropAction() {
-        return dropAction;
-    }
+    public int getDropAction() { return dropAction; }
 
     /**
      * This method returns the Transferable object that represents the data
      * associated with the current drag operation.
      *
      * @return the Transferable associated with the drag operation
-     * @throws InvalidDnDOperationException if the data associated with
-     *         the drag operation is not available
+     * @throws InvalidDnDOperationException if the data associated with the drag
+     *         operation is not available
      * @since 1.5
      */
     public Transferable getTransferable() {

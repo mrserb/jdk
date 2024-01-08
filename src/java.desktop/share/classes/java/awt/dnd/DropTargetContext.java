@@ -63,7 +63,6 @@ public final class DropTargetContext implements Serializable {
             public void reset(DropTargetContext dtc) {
                 dtc.reset();
             }
-
             @Override
             public void setDropTargetContextPeer(DropTargetContext dtc,
                                                  DropTargetContextPeer dtcp) {

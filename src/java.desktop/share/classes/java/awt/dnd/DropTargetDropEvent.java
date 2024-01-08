@@ -39,8 +39,8 @@ import java.util.List;
  * the <i>user drop action</i> that reflect the current state of the
  * drag-and-drop operation.
  * <p>
- * <i>Source drop actions</i> is a bitwise mask of {@code DnDConstants}
- * that represents the set of drop actions supported by the drag source for this
+ * <i>Source drop actions</i> is a bitwise mask of {@code DnDConstants} that
+ * represents the set of drop actions supported by the drag source for this
  * drag-and-drop operation.
  * <p>
  * <i>User drop action</i> depends on the drop actions supported by the drag
@@ -126,7 +126,7 @@ public class DropTargetDropEvent extends DropTargetEvent {
      * @param  dropAction the user drop action
      * @param  srcActions the source drop actions
      * @param  isLocal True if the source is in the same JVM as the target
-     * @throws NullPointerException if cursorLocn is  {@code null}
+     * @throws NullPointerException if cursorLocn is {@code null}
      * @throws IllegalArgumentException if dropAction is not one of
      *         {@code DnDConstants}
      * @throws IllegalArgumentException if srcActions is not a bitwise mask of
@@ -223,8 +223,8 @@ public class DropTargetDropEvent extends DropTargetEvent {
      * This method notifies the {@code DragSource} that the drop transfer(s) are
      * completed.
      *
-     * @param  success a {@code boolean} indicating that the drop
-     *         transfer(s) are completed
+     * @param  success a {@code boolean} indicating that the drop transfer(s)
+     *         are completed
      */
     public void dropComplete(boolean success) {
         getDropTargetContext().dropComplete(success);
