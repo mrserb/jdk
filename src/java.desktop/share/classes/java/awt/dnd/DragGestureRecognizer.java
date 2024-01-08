@@ -168,7 +168,7 @@ public abstract class DragGestureRecognizer implements Serializable {
      * @param  ds the {@code DragSource} this
      *         {@code DragGestureRecognizer} will use to process the Drag and
      *         Drop operation
-     * @throws IllegalArgumentException if ds is {@code null}.
+     * @throws IllegalArgumentException if ds is {@code null}
      */
     protected DragGestureRecognizer(DragSource ds) {
         this(ds, null);
