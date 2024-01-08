@@ -159,21 +159,21 @@ public class DragSourceContext
      *         documentation</a> for more details on the cursor handling
      *         mechanism during drag and drop
      * @param  dragImage the {@code Image} to drag (or {@code null})
-     * @param  offset the offset of the image origin from the hotspot at
-     *         the instant of the triggering event
+     * @param  offset the offset of the image origin from the hotspot at the
+     *         instant of the triggering event
      * @param  t the {@code Transferable}
      * @param  dsl the {@code DragSourceListener}
-     * @throws IllegalArgumentException if the {@code Component}
-     *         associated with the trigger event is {@code null}
-     * @throws IllegalArgumentException if the {@code DragSource} for
+     * @throws IllegalArgumentException if the {@code Component} associated with
      *         the trigger event is {@code null}
-     * @throws IllegalArgumentException if the drag action for the
-     *         trigger event is {@code DnDConstants.ACTION_NONE}
+     * @throws IllegalArgumentException if the {@code DragSource} for the
+     *         trigger event is {@code null}
+     * @throws IllegalArgumentException if the drag action for the trigger event
+     *         is {@code DnDConstants.ACTION_NONE}
      * @throws IllegalArgumentException if the source actions for the
      *         {@code DragGestureRecognizer} associated with the trigger event
      *         are equal to {@code DnDConstants.ACTION_NONE}
-     * @throws NullPointerException if dscp, trigger, or t are null, or
-     *         if dragImage is non-null and offset is null
+     * @throws NullPointerException if dscp, trigger, or t are null, or if
+     *         dragImage is non-null and offset is null
      */
     public DragSourceContext(DragGestureEvent trigger, Cursor dragCursor,
                              Image dragImage, Point offset, Transferable t,
@@ -286,7 +286,7 @@ public class DragSourceContext
      * Returns the current custom drag {@code Cursor}.
      *
      * @return the current custom drag {@code Cursor}, if it was set otherwise
-     *         returns {@code null}.
+     *         returns {@code null}
      * @see #setCursor
      */
     public Cursor getCursor() { return cursor; }
@@ -299,8 +299,8 @@ public class DragSourceContext
      * @param  dsl the {@code DragSourceListener} to add. Note that while
      *         {@code null} is not prohibited, it is not acceptable as a
      *         parameter.
-     * @throws TooManyListenersException if a {@code DragSourceListener}
-     *         has already been added
+     * @throws TooManyListenersException if a {@code DragSourceListener} has
+     *         already been added
      */
     public synchronized void addDragSourceListener(DragSourceListener dsl) throws TooManyListenersException {
         if (dsl == null) return;

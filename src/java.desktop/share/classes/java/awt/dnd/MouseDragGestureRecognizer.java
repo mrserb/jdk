@@ -73,8 +73,7 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
      * @param  ds The DragSource for the Component c
      * @param  c The Component to observe
      * @param  act The actions permitted for this Drag
-     * @param  dgl The DragGestureListener to notify when a gesture is
-     *         detected
+     * @param  dgl The DragGestureListener to notify when a gesture is detected
      */
     protected MouseDragGestureRecognizer(DragSource ds, Component c, int act, DragGestureListener dgl) {
         super(ds, c, act, dgl);
@@ -116,7 +115,7 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
     }
 
     /**
-     * register this DragGestureRecognizer's Listeners with the Component
+     * register this DragGestureRecognizer's Listeners with the Component.
      */
     protected void registerListeners() {
         component.addMouseListener(this);
@@ -124,9 +123,9 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
     }
 
     /**
-     * unregister this DragGestureRecognizer's Listeners with the Component
+     * unregister this DragGestureRecognizer's Listeners with the Component.
      * <p>
-     * subclasses must override this method
+     * subclasses must override this method.
      */
     protected void unregisterListeners() {
         component.removeMouseListener(this);

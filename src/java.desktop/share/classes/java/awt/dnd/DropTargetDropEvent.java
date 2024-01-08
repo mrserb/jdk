@@ -90,8 +90,8 @@ public class DropTargetDropEvent extends DropTargetEvent {
      * @throws NullPointerException if cursorLocn is {@code null}
      * @throws IllegalArgumentException if dropAction is not one of
      *         {@code DnDConstants}
-     * @throws IllegalArgumentException if srcActions is not a bitwise
-     *         mask of {@code DnDConstants}
+     * @throws IllegalArgumentException if srcActions is not a bitwise mask of
+     *         {@code DnDConstants}
      * @throws IllegalArgumentException if dtc is {@code null}
      */
     public DropTargetDropEvent(DropTargetContext dtc, Point cursorLocn, int dropAction, int srcActions)  {
@@ -125,13 +125,12 @@ public class DropTargetDropEvent extends DropTargetEvent {
      *         Component's coordinates
      * @param  dropAction the user drop action
      * @param  srcActions the source drop actions
-     * @param  isLocal True if the source is in the same JVM as the
-     *         target
+     * @param  isLocal True if the source is in the same JVM as the target
      * @throws NullPointerException if cursorLocn is  {@code null}
      * @throws IllegalArgumentException if dropAction is not one of
      *         {@code DnDConstants}
-     * @throws IllegalArgumentException if srcActions is not a bitwise
-     *         mask of {@code DnDConstants}
+     * @throws IllegalArgumentException if srcActions is not a bitwise mask of
+     *         {@code DnDConstants}
      * @throws IllegalArgumentException if dtc is {@code null}
      */
     public DropTargetDropEvent(DropTargetContext dtc, Point cursorLocn, int dropAction, int srcActions, boolean isLocal)  {

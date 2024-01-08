@@ -87,8 +87,8 @@ public class DropTargetDragEvent extends DropTargetEvent {
      * @throws NullPointerException if cursorLocn is null
      * @throws IllegalArgumentException if dropAction is not one of
      *         {@code DnDConstants}
-     * @throws IllegalArgumentException if srcActions is not a bitwise
-     *         mask of {@code DnDConstants}
+     * @throws IllegalArgumentException if srcActions is not a bitwise mask of
+     *         {@code DnDConstants}
      * @throws IllegalArgumentException if dtc is {@code null}
      */
     public DropTargetDragEvent(DropTargetContext dtc, Point cursorLocn, int dropAction, int srcActions)  {
@@ -131,7 +131,7 @@ public class DropTargetDragEvent extends DropTargetEvent {
 
     /**
      * This method returns the current {@code DataFlavor}s as a
-     * {@code java.util.List}
+     * {@code java.util.List}.
      *
      * @return a {@code java.util.List} of the Current {@code DataFlavor}s
      */

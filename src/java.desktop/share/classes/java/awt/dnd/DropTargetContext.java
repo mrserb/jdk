@@ -113,8 +113,7 @@ public final class DropTargetContext implements Serializable {
      * This method sets the current actions acceptable to this
      * {@code DropTarget}.
      *
-     * @param  actions an {@code int} representing the supported
-     *         action(s)
+     * @param  actions an {@code int} representing the supported action(s)
      */
     protected void setTargetActions(int actions) {
         DropTargetContextPeer peer = getDropTargetContextPeer();
@@ -147,8 +146,7 @@ public final class DropTargetContext implements Serializable {
      * or not.
      *
      * @param  success true for success, false if not
-     * @throws InvalidDnDOperationException if a drop is not
-     *         outstanding/extant
+     * @throws InvalidDnDOperationException if a drop is not outstanding/extant
      */
     public void dropComplete(boolean success) throws InvalidDnDOperationException{
         DropTargetContextPeer peer = getDropTargetContextPeer();
@@ -241,8 +239,7 @@ public final class DropTargetContext implements Serializable {
      * get the Transferable (proxy) operand of this operation
      *
      * @return the {@code Transferable}
-     * @throws InvalidDnDOperationException if a drag is not
-     *         outstanding/extant
+     * @throws InvalidDnDOperationException if a drag is not outstanding/extant
      */
     protected Transferable getTransferable() throws InvalidDnDOperationException {
         DropTargetContextPeer peer = getDropTargetContextPeer();
@@ -283,8 +280,8 @@ public final class DropTargetContext implements Serializable {
      * Creates a TransferableProxy to proxy for the specified Transferable.
      *
      * @param  t the {@code Transferable} to be proxied
-     * @param  local {@code true} if {@code t} represents the result of a
-     *         local drag-n-drop operation
+     * @param  local {@code true} if {@code t} represents the result of a local
+     *         drag-n-drop operation
      * @return the new {@code TransferableProxy} instance
      */
     protected Transferable createTransferableProxy(Transferable t, boolean local) {
@@ -314,8 +311,8 @@ public final class DropTargetContext implements Serializable {
          * JVM).
          *
          * @param  t the {@code Transferable} object
-         * @param  local {@code true}, if {@code t} represents the result
-         *         of local drag-n-drop operation
+         * @param  local {@code true}, if {@code t} represents the result of
+         *         local drag-n-drop operation
          */
         TransferableProxy(Transferable t, boolean local) {
             proxy = new sun.awt.datatransfer.TransferableProxy(t, local);
@@ -357,8 +354,8 @@ public final class DropTargetContext implements Serializable {
          * @param  df the requested flavor for the data
          * @throws IOException if the data is no longer available in the
          *         requested flavor
-         * @throws UnsupportedFlavorException if the requested data
-         *         flavor is not supported
+         * @throws UnsupportedFlavorException if the requested data flavor is
+         *         not supported
          */
         public Object getTransferData(DataFlavor df)
             throws UnsupportedFlavorException, IOException
