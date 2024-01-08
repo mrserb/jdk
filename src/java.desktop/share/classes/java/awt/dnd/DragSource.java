@@ -107,7 +107,6 @@ public class DragSource implements Serializable {
     /*
      * load a system default cursor
      */
-
     private static Cursor load(String name) {
         if (GraphicsEnvironment.isHeadless()) {
             return null;
@@ -121,7 +120,6 @@ public class DragSource implements Serializable {
             throw new RuntimeException("failed to load system cursor: " + name + " : " + e.getMessage());
         }
     }
-
 
     /**
      * The default {@code Cursor} to use with a copy operation indicating that a
@@ -197,8 +195,8 @@ public class DragSource implements Serializable {
      * platform.
      *
      * @return the platform DragSource
-     * @throws HeadlessException if GraphicsEnvironment.isHeadless()
-     *         returns true
+     * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}
+     *         returns {@code true}
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public static DragSource getDefaultDragSource() {
@@ -232,8 +230,8 @@ public class DragSource implements Serializable {
     /**
      * Creates a new {@code DragSource}.
      *
-     * @throws HeadlessException if GraphicsEnvironment.isHeadless()
-     *         returns true
+     * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}
+     *         returns {@code true}
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DragSource() throws HeadlessException {
@@ -249,22 +247,21 @@ public class DragSource implements Serializable {
      * instant of the trigger, the {@code Transferable} subject data of the
      * drag, the {@code DragSourceListener}, and the {@code FlavorMap}.
      *
-     * @param  trigger the {@code DragGestureEvent} that initiated the
-     *         drag
-     * @param  dragCursor the initial {@code Cursor} for this drag
-     *         operation or {@code null} for the default cursor handling; see <a
+     * @param  trigger the {@code DragGestureEvent} that initiated the drag
+     * @param  dragCursor the initial {@code Cursor} for this drag operation or
+     *         {@code null} for the default cursor handling; see <a
      *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
      *         for more details on the cursor handling mechanism during drag and
      *         drop
      * @param  dragImage the image to drag or {@code null}
-     * @param  imageOffset the offset of the {@code Image} origin from
-     *         the hotspot of the {@code Cursor} at the instant of the trigger
+     * @param  imageOffset the offset of the {@code Image} origin from the
+     *         hotspot of the {@code Cursor} at the instant of the trigger
      * @param  transferable the subject data of the drag
      * @param  dsl the {@code DragSourceListener}
      * @param  flavorMap the {@code FlavorMap} to use, or {@code null}
-     * @throws java.awt.dnd.InvalidDnDOperationException if the Drag and
-     *         Drop system is unable to initiate a drag operation, or if the
-     *         user attempts to start a drag while an existing drag operation is
+     * @throws java.awt.dnd.InvalidDnDOperationException if the Drag and Drop
+     *         system is unable to initiate a drag operation, or if the user
+     *         attempts to start a drag while an existing drag operation is
      *         still executing
      */
     public void startDrag(DragGestureEvent   trigger,
@@ -301,19 +298,18 @@ public class DragSource implements Serializable {
      * the initial {@code Cursor} to use, the {@code Transferable} subject data
      * of the drag, the {@code DragSourceListener}, and the {@code FlavorMap}.
      *
-     * @param  trigger the {@code DragGestureEvent} that initiated the
-     *         drag
-     * @param  dragCursor the initial {@code Cursor} for this drag
-     *         operation or {@code null} for the default cursor handling; see <a
+     * @param  trigger the {@code DragGestureEvent} that initiated the drag
+     * @param  dragCursor the initial {@code Cursor} for this drag operation or
+     *         {@code null} for the default cursor handling; see <a
      *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
      *         for more details on the cursor handling mechanism during drag and
      *         drop
      * @param  transferable the subject data of the drag
      * @param  dsl the {@code DragSourceListener}
      * @param  flavorMap the {@code FlavorMap} to use or {@code null}
-     * @throws java.awt.dnd.InvalidDnDOperationException if the Drag and
-     *         Drop system is unable to initiate a drag operation, or if the
-     *         user attempts to start a drag while an existing drag operation is
+     * @throws java.awt.dnd.InvalidDnDOperationException if the Drag and Drop
+     *         system is unable to initiate a drag operation, or if the user
+     *         attempts to start a drag while an existing drag operation is
      *         still executing
      */
     public void startDrag(DragGestureEvent   trigger,
@@ -342,9 +338,9 @@ public class DragSource implements Serializable {
      *         hotspot of the {@code Cursor} at the instant of the trigger
      * @param  transferable the subject data of the drag
      * @param  dsl the {@code DragSourceListener}
-     * @throws java.awt.dnd.InvalidDnDOperationException if the Drag and
-     *         Drop system is unable to initiate a drag operation, or if the
-     *         user attempts to start a drag while an existing drag operation is
+     * @throws java.awt.dnd.InvalidDnDOperationException if the Drag and Drop
+     *         system is unable to initiate a drag operation, or if the user
+     *         attempts to start a drag while an existing drag operation is
      *         still executing
      */
     public void startDrag(DragGestureEvent   trigger,
@@ -362,16 +358,16 @@ public class DragSource implements Serializable {
      * of the drag, and the {@code DragSourceListener}.
      *
      * @param  trigger the {@code DragGestureEvent} that initiated the drag
-     * @param  dragCursor the initial {@code Cursor} for this drag
-     *         operation or {@code null} for the default cursor handling; see <a
+     * @param  dragCursor the initial {@code Cursor} for this drag operation or
+     *         {@code null} for the default cursor handling; see <a
      *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
      *         class for more details on the cursor handling mechanism during
      *         drag and drop
      * @param  transferable the subject data of the drag
      * @param  dsl the {@code DragSourceListener}
-     * @throws java.awt.dnd.InvalidDnDOperationException if the Drag and
-     *         Drop system is unable to initiate a drag operation, or if the
-     *         user attempts to start a drag while an existing drag operation is
+     * @throws java.awt.dnd.InvalidDnDOperationException if the Drag and Drop
+     *         system is unable to initiate a drag operation, or if the user
+     *         attempts to start a drag while an existing drag operation is
      *         still executing
      */
     public void startDrag(DragGestureEvent   trigger,
@@ -403,8 +399,8 @@ public class DragSource implements Serializable {
      *         class for more details on the cursor handling mechanism during
      *         drag and drop
      * @param  dragImage The {@code Image} to drag or {@code null}
-     * @param  imageOffset The offset of the {@code Image} origin from
-     *         the hotspot of the cursor at the instant of the trigger
+     * @param  imageOffset The offset of the {@code Image} origin from the
+     *         hotspot of the cursor at the instant of the trigger
      * @param  t The subject data of the drag
      * @param  dsl The {@code DragSourceListener}
      * @return the {@code DragSourceContext}
@@ -437,9 +433,7 @@ public class DragSource implements Serializable {
      *
      * @return the {@code FlavorMap} for this {@code DragSource}
      */
-    public FlavorMap getFlavorMap() {
-        return flavorMap;
-    }
+    public FlavorMap getFlavorMap() { return flavorMap; }
 
     /**
      * Creates a new {@code DragGestureRecognizer} that implements the specified
@@ -464,7 +458,6 @@ public class DragSource implements Serializable {
     {
         return Toolkit.getDefaultToolkit().createDragGestureRecognizer(recognizerAbstractClass, this, c, actions, dgl);
     }
-
 
     /**
      * Creates a new {@code DragGestureRecognizer} that implements the default
@@ -580,7 +573,7 @@ public class DragSource implements Serializable {
     }
 
     /**
-     * Gets all of the  {@code DragSourceMotionListener}s registered with this
+     * Gets all of the {@code DragSourceMotionListener}s registered with this
      * {@code DragSource}.
      *
      * @return all of this {@code DragSource}'s
@@ -605,9 +598,8 @@ public class DragSource implements Serializable {
      *         should specify an interface that descends from
      *         {@code java.util.EventListener}
      * @return an array of all objects registered as
-     *         <code><em>Foo</em>Listener</code>s on this
-     *         {@code DragSource}, or an empty array if no such listeners have
-     *         been added
+     *         <code><em>Foo</em>Listener</code>s on this {@code DragSource}, or
+     *         an empty array if no such listeners have been added
      * @throws ClassCastException if {@code listenerType} doesn't specify a
      *         class or interface that implements
      *         {@code java.util.EventListener}

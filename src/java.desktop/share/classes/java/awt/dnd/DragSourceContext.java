@@ -153,8 +153,8 @@ public class DragSourceContext
      * If {@code DragSourceListener} is {@code null} no exception is thrown.
      *
      * @param  trigger the triggering event
-     * @param  dragCursor the initial {@code Cursor} for this drag
-     *         operation or {@code null} for the default cursor handling; see <a
+     * @param  dragCursor the initial {@code Cursor} for this drag operation or
+     *         {@code null} for the default cursor handling; see <a
      *         href="DragSourceContext.html#defaultCursor">class level
      *         documentation</a> for more details on the cursor handling
      *         mechanism during drag and drop
@@ -268,7 +268,7 @@ public class DragSourceContext
 
     /**
      * Sets the custom cursor for this drag operation to the specified
-     * {@code Cursor}.  If the specified {@code Cursor} is {@code null}, the
+     * {@code Cursor}. If the specified {@code Cursor} is {@code null}, the
      * default drag cursor behavior is activated for this drag operation,
      * otherwise it is deactivated.
      *
@@ -314,11 +314,11 @@ public class DragSourceContext
     }
 
     /**
-     * Removes the specified {@code DragSourceListener} from  this
+     * Removes the specified {@code DragSourceListener} from this
      * {@code DragSourceContext}.
      *
-     * @param  dsl the {@code DragSourceListener} to remove; note that
-     *         while {@code null} is not prohibited, it is not acceptable as a
+     * @param  dsl the {@code DragSourceListener} to remove; note that while
+     *         {@code null} is not prohibited, it is not acceptable as a
      *         parameter
      */
     public synchronized void removeDragSourceListener(DragSourceListener dsl) {
@@ -517,10 +517,10 @@ public class DragSourceContext
      *
      * @param  s the {@code ObjectOutputStream} to write
      * @throws IOException if an I/O error occurs
-     * @serialData The default serializable fields, in alphabetical
-     *         order, followed by either a {@code Transferable} instance, or
+     * @serialData The default serializable fields, in alphabetical order,
+     *         followed by either a {@code Transferable} instance, or
      *         {@code null}, followed by either a {@code DragSourceListener}
-     *         instance, or {@code null}.
+     *         instance, or {@code null}
      * @since 1.4
      */
     @Serial
@@ -543,8 +543,8 @@ public class DragSourceContext
      * supports no {@code DataFlavor}s.
      *
      * @param  s the {@code ObjectInputStream} to read
-     * @throws ClassNotFoundException if the class of a serialized
-     *         object could not be found
+     * @throws ClassNotFoundException if the class of a serialized object could
+     *         not be found
      * @throws IOException if an I/O error occurs
      * @since 1.4
      */

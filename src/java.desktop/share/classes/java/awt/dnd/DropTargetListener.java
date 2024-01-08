@@ -100,10 +100,11 @@ public interface DropTargetListener extends EventListener {
      * This method is responsible for undertaking the transfer of the data
      * associated with the gesture. The {@code DropTargetDropEvent} provides a
      * means to obtain a {@code Transferable} object that represents the data
-     * object(s) to be transferred.<P> From this method, the
-     * {@code DropTargetListener} shall accept or reject the drop via the
-     * acceptDrop(int dropAction) or rejectDrop() methods of the
-     * {@code DropTargetDropEvent} parameter.
+     * object(s) to be transferred.
+     * <p>
+     * From this method, the {@code DropTargetListener} shall accept or reject
+     * the drop via the acceptDrop(int dropAction) or rejectDrop() methods of
+     * the {@code DropTargetDropEvent} parameter.
      * <p>
      * Subsequent to acceptDrop(), but not before, {@code DropTargetDropEvent}'s
      * getTransferable() method may be invoked, and data transfer may be
@@ -115,7 +116,7 @@ public interface DropTargetListener extends EventListener {
      * {@code boolean} to the {@code DropTargetDropEvent}'s dropComplete(boolean
      * success) method.
      * <p>
-     * Note: The data transfer should be completed before the call  to the
+     * Note: The data transfer should be completed before the call to the
      * {@code DropTargetDropEvent}'s dropComplete(boolean success) method. After
      * that, a call to the getTransferData() method of the {@code Transferable}
      * returned by {@code DropTargetDropEvent.getTransferable()} is guaranteed

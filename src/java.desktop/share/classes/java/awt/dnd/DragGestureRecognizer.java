@@ -124,11 +124,10 @@ public abstract class DragGestureRecognizer implements Serializable {
      * drag initiating gestures, and the action(s) supported for this Drag and
      * Drop operation.
      *
-     * @param  ds the {@code DragSource} this
-     *         {@code DragGestureRecognizer} will use to process the Drag and
-     *         Drop operation
-     * @param  c the {@code Component} this {@code DragGestureRecognizer}
-     *         should "observe" the event stream to, in order to detect a drag
+     * @param  ds the {@code DragSource} this {@code DragGestureRecognizer} will
+     *         use to process the Drag and Drop operation
+     * @param  c the {@code Component} this {@code DragGestureRecognizer} should
+     *         "observe" the event stream to, in order to detect a drag
      *         initiating gesture. If this value is {@code null}, the
      *         {@code DragGestureRecognizer} is not associated with any
      *         {@code Component}.
@@ -146,11 +145,10 @@ public abstract class DragGestureRecognizer implements Serializable {
      * {@code Component} this {@code DragGestureRecognizer} should "observe" for
      * drag initiating gestures.
      *
-     * @param  ds the {@code DragSource} this
-     *         {@code DragGestureRecognizer} will use to process the Drag and
-     *         Drop operation
-     * @param  c the {@code Component} this {@code DragGestureRecognizer}
-     *         should "observe" the event stream to, in order to detect a drag
+     * @param  ds the {@code DragSource} this {@code DragGestureRecognizer} will
+     *         use to process the Drag and Drop operation
+     * @param  c the {@code Component} this {@code DragGestureRecognizer} should
+     *         "observe" the event stream to, in order to detect a drag
      *         initiating gesture. If this value is {@code null}, the
      *         {@code DragGestureRecognizer} is not associated with any
      *         {@code Component}.
@@ -164,9 +162,8 @@ public abstract class DragGestureRecognizer implements Serializable {
      * Construct a new {@code DragGestureRecognizer} given the
      * {@code DragSource} to be used in this Drag and Drop operation.
      *
-     * @param  ds the {@code DragSource} this
-     *         {@code DragGestureRecognizer} will use to process the Drag and
-     *         Drop operation
+     * @param  ds the {@code DragSource} this {@code DragGestureRecognizer} will
+     *         use to process the Drag and Drop operation
      * @throws IllegalArgumentException if ds is {@code null}
      */
     protected DragGestureRecognizer(DragSource ds) {
@@ -332,9 +329,8 @@ public abstract class DragGestureRecognizer implements Serializable {
      *
      * @param  s the {@code ObjectOutputStream} to write
      * @throws IOException if an I/O error occurs
-     * @serialData The default serializable fields, in alphabetical
-     *         order, followed by either a {@code DragGestureListener}, or
-     *         {@code null}
+     * @serialData The default serializable fields, in alphabetical order,
+     *         followed by either a {@code DragGestureListener}, or {@code null}
      * @since 1.4
      */
     @Serial
@@ -352,8 +348,8 @@ public abstract class DragGestureRecognizer implements Serializable {
      * using the next object in the stream.
      *
      * @param  s the {@code ObjectInputStream} to read
-     * @throws ClassNotFoundException if the class of a serialized
-     *         object could not be found
+     * @throws ClassNotFoundException if the class of a serialized object could
+     *         not be found
      * @throws IOException if an I/O error occurs
      * @since 1.4
      */

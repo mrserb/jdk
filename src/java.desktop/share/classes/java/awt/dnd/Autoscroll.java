@@ -65,8 +65,8 @@ public interface Autoscroll {
     /**
      * notify the {@code Component} to autoscroll.
      *
-     * @param  cursorLocn A {@code Point} indicating the location of the
-     *         cursor that triggered this operation
+     * @param  cursorLocn A {@code Point} indicating the location of the cursor
+     *         that triggered this operation
      */
     public void autoscroll(Point cursorLocn);
 }
