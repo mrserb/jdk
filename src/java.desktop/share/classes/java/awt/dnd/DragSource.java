@@ -215,7 +215,6 @@ public class DragSource implements Serializable {
      *
      * @return if the Drag Image support is available on this platform
      */
-
     public static boolean isDragImageSupported() {
         Toolkit t = Toolkit.getDefaultToolkit();
 

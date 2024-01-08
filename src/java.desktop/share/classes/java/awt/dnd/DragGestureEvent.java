@@ -203,8 +203,7 @@ public class DragGestureEvent extends EventObject {
      * will be thrown.
      *
      * @param  dragCursor The initial {@code Cursor} for this drag
-     *         operation or {@code null} for the default cursor handling; see
-     *         <a
+     *         operation or {@code null} for the default cursor handling; see <a
      *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
      *         for more details on the cursor handling mechanism during drag and
      *         drop
@@ -228,8 +227,7 @@ public class DragGestureEvent extends EventObject {
      * {@code Transferable} object, and the {@code DragSourceListener} to use.
      *
      * @param  dragCursor The initial {@code Cursor} for this drag
-     *         operation or {@code null} for the default cursor handling; see
-     *         <a
+     *         operation or {@code null} for the default cursor handling; see <a
      *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
      *         for more details on the cursor handling mechanism during drag and
      *         drop
@@ -250,8 +248,7 @@ public class DragGestureEvent extends EventObject {
      * object, and the {@code DragSourceListener} to use.
      *
      * @param  dragCursor The initial {@code Cursor} for this drag
-     *         operation or {@code null} for the default cursor handling; see
-     *         <a
+     *         operation or {@code null} for the default cursor handling; see <a
      *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
      *         for more details on the cursor handling mechanism during drag and
      *         drop
