@@ -25,10 +25,9 @@
 package java.awt.dnd;
 
 import java.awt.AWTEventMulticaster;
-import java.io.ObjectOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.EventListener;
-
 
 /**
  * A class extends {@code AWTEventMulticaster} to implement efficient and

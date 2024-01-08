@@ -31,7 +31,6 @@ import java.awt.Point;
 import java.awt.dnd.DragSourceContext;
 import java.awt.dnd.InvalidDnDOperationException;
 
-
 /**
  * <p>
  * This interface is supplied by the underlying window system platform to

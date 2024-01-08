@@ -23,8 +23,6 @@
  * questions.
  */
 
-
-
 package java.awt.dnd;
 
 import java.util.EventListener;

@@ -27,9 +27,6 @@ package java.awt.dnd;
 
 import java.util.EventListener;
 
-import java.awt.dnd.DropTargetDragEvent;
-import java.awt.dnd.DropTargetDropEvent;
-
 /**
  * The {@code DropTargetListener} interface
  * is the callback interface used by the
