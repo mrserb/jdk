@@ -46,12 +46,12 @@ public class InvalidDnDOperationException extends IllegalStateException {
     private static String dft_msg = "The operation requested cannot be performed by the DnD system since it is not in the appropriate state";
 
     /**
-     * Create a default Exception
+     * Create a default Exception.
      */
     public InvalidDnDOperationException() { super(dft_msg); }
 
     /**
-     * Create an Exception with its own descriptive message
+     * Create an Exception with its own descriptive message.
      *
      * @param msg the detail message
      */

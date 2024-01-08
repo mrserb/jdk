@@ -208,7 +208,7 @@ public final class DropTargetContext implements Serializable {
      * operation.
      *
      * @return a {@code DataFlavor[]} containing the supported
-     *         {@code DataFlavor}s of the {@code Transferable} operand.
+     *         {@code DataFlavor}s of the {@code Transferable} operand
      */
     protected DataFlavor[] getCurrentDataFlavors() {
         DropTargetContextPeer peer = getDropTargetContextPeer();
@@ -263,7 +263,7 @@ public final class DropTargetContext implements Serializable {
     }
 
     /**
-     * Get the {@code DropTargetContextPeer}
+     * Get the {@code DropTargetContextPeer}.
      *
      * @return the platform peer
      */
@@ -272,7 +272,7 @@ public final class DropTargetContext implements Serializable {
     }
 
     /**
-     * Sets the {@code DropTargetContextPeer}
+     * Sets the {@code DropTargetContextPeer}.
      */
     void setDropTargetContextPeer(final DropTargetContextPeer dtcp) {
         dropTargetContextPeer = dtcp;
@@ -283,8 +283,8 @@ public final class DropTargetContext implements Serializable {
      *
      * @param t the {@code Transferable} to be proxied
      * @param local {@code true} if {@code t} represents the result of a
-     *         local drag-n-drop operation.
-     * @return the new {@code TransferableProxy} instance.
+     *         local drag-n-drop operation
+     * @return the new {@code TransferableProxy} instance
      */
     protected Transferable createTransferableProxy(Transferable t, boolean local) {
         return new TransferableProxy(t, local);

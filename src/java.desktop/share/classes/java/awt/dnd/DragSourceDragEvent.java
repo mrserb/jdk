@@ -89,14 +89,14 @@ public class DragSourceDragEvent extends DragSourceEvent {
      * {@code action} and {@code modifiers}.
      *
      * @param dsc the {@code DragSourceContext} that is to manage
-     *         notifications for this event.
-     * @param dropAction the user drop action.
-     * @param action the target drop action.
+     *         notifications for this event
+     * @param dropAction the user drop action
+     * @param action the target drop action
      * @param modifiers the modifier keys down during event (shift,
      *         ctrl, alt, meta) Either extended _DOWN_MASK or old _MASK
      *         modifiers should be used, but both models should not be mixed in
      *         one event. Use of the extended modifiers is preferred.
-     * @throws IllegalArgumentException if {@code dsc} is {@code null}.
+     * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @see java.awt.event.InputEvent
      * @see DragSourceEvent#getLocation
      */
@@ -133,15 +133,15 @@ public class DragSourceDragEvent extends DragSourceEvent {
      *
      * @param dsc the {@code DragSourceContext} associated with this
      *         event.
-     * @param dropAction the user drop action.
-     * @param action the target drop action.
+     * @param dropAction the user drop action
+     * @param action the target drop action
      * @param modifiers the modifier keys down during event (shift,
      *         ctrl, alt, meta) Either extended _DOWN_MASK or old _MASK
      *         modifiers should be used, but both models should not be mixed in
      *         one event. Use of the extended modifiers is preferred.
      * @param x the horizontal coordinate for the cursor location
      * @param y the vertical coordinate for the cursor location
-     * @throws IllegalArgumentException if {@code dsc} is {@code null}.
+     * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @see java.awt.event.InputEvent
      * @since 1.4
      */
@@ -166,7 +166,7 @@ public class DragSourceDragEvent extends DragSourceEvent {
     /**
      * This method returns the target drop action.
      *
-     * @return the target drop action.
+     * @return the target drop action
      */
     public int getTargetActions() {
         return targetActions;
@@ -208,7 +208,7 @@ public class DragSourceDragEvent extends DragSourceEvent {
     /**
      * This method returns the user drop action.
      *
-     * @return the user drop action.
+     * @return the user drop action
      */
     public int getUserAction() {
         return dropAction;
@@ -219,7 +219,7 @@ public class DragSourceDragEvent extends DragSourceEvent {
      * and the set of drop actions supported by the drag source.
      *
      * @return the logical intersection of the target drop action and the set of
-     *         drop actions supported by the drag source.
+     *         drop actions supported by the drag source
      */
     public int getDropAction() {
         return targetActions & getDragSourceContext().getSourceActions();

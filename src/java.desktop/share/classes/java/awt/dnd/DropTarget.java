@@ -86,7 +86,7 @@ public class DropTarget implements DropTargetListener, Serializable {
      *         {@code DropTarget}
      * @param dtl The {@code DropTargetListener} for this
      *         {@code DropTarget}
-     * @param act Is the {@code DropTarget} accepting drops.
+     * @param act Is the {@code DropTarget} accepting drops
      * @param fm The {@code FlavorMap} to use, or null for the default
      *         {@code FlavorMap}
      * @throws HeadlessException if GraphicsEnvironment.isHeadless()
@@ -138,7 +138,7 @@ public class DropTarget implements DropTargetListener, Serializable {
      *         {@code DropTarget}
      * @param dtl The {@code DropTargetListener} for this
      *         {@code DropTarget}
-     * @param act Is the {@code DropTarget} accepting drops.
+     * @param act Is the {@code DropTarget} accepting drops
      * @throws HeadlessException if GraphicsEnvironment.isHeadless()
      *         returns true
      * @see java.awt.GraphicsEnvironment#isHeadless
@@ -281,7 +281,7 @@ public class DropTarget implements DropTargetListener, Serializable {
     /**
      * Sets the DropTarget active if {@code true}, inactive if {@code false}.
      *
-     * @param isActive sets the {@code DropTarget} (in)active.
+     * @param isActive sets the {@code DropTarget} (in)active
      */
     public synchronized void setActive(boolean isActive) {
         if (isActive != active) {
@@ -323,7 +323,7 @@ public class DropTarget implements DropTargetListener, Serializable {
     /**
      * Removes the current {@code DropTargetListener} (UNICAST SOURCE).
      *
-     * @param dtl the DropTargetListener to deregister.
+     * @param dtl the DropTargetListener to deregister
      */
     public synchronized void removeDropTargetListener(DropTargetListener dtl) {
         if (dtl != null && dtListener != null) {
@@ -451,7 +451,7 @@ public class DropTarget implements DropTargetListener, Serializable {
      * Sets the {@code FlavorMap} associated with this {@code DropTarget}.
      *
      * @param fm the new {@code FlavorMap}, or null to associate the
-     *         default FlavorMap with this DropTarget.
+     *         default FlavorMap with this DropTarget
      */
     public void setFlavorMap(FlavorMap fm) {
         flavorMap = fm == null ? SystemFlavorMap.getDefaultFlavorMap() : fm;
@@ -525,7 +525,7 @@ public class DropTarget implements DropTargetListener, Serializable {
      * {@code DropTarget}.
      *
      * @return the {@code DropTargetContext} associated with this
-     *         {@code DropTarget}.
+     *         {@code DropTarget}
      */
     public DropTargetContext getDropTargetContext() {
         return dropTargetContext;
@@ -555,7 +555,7 @@ public class DropTarget implements DropTargetListener, Serializable {
      * @throws IOException if an I/O error occurs
      * @serialData The default serializable fields, in alphabetical
      *         order, followed by either a {@code DropTargetListener} instance,
-     *         or {@code null}.
+     *         or {@code null}
      * @since 1.4
      */
     @Serial
@@ -623,7 +623,6 @@ public class DropTarget implements DropTargetListener, Serializable {
          * @param c the {@code Component}
          * @param p the {@code Point}
          */
-
         protected DropTargetAutoScroller(Component c, Point p) {
             super();
 
@@ -667,7 +666,6 @@ public class DropTarget implements DropTargetListener, Serializable {
         /**
          * update the geometry of the autoscroll region
          */
-
         @SuppressWarnings("deprecation")
         private void updateRegion() {
            Insets    i    = autoScroll.getAutoscrollInsets();
@@ -688,7 +686,7 @@ public class DropTarget implements DropTargetListener, Serializable {
         }
 
         /**
-         * cause autoscroll to occur
+         * cause autoscroll to occur.
          *
          * @param newLocn the {@code Point}
          */
@@ -710,7 +708,7 @@ public class DropTarget implements DropTargetListener, Serializable {
         protected void stop() { timer.stop(); }
 
         /**
-         * cause autoscroll to occur
+         * cause autoscroll to occur.
          *
          * @param e the {@code ActionEvent}
          */
@@ -742,7 +740,7 @@ public class DropTarget implements DropTargetListener, Serializable {
     /*********************************************************************/
 
     /**
-     * create an embedded autoscroller
+     * create an embedded autoscroller.
      *
      * @param c the {@code Component}
      * @param p the {@code Point}
@@ -753,7 +751,7 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * initialize autoscrolling
+     * initialize autoscrolling.
      *
      * @param p the {@code Point}
      */
@@ -764,7 +762,7 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * update autoscrolling with current cursor location
+     * update autoscrolling with current cursor location.
      *
      * @param dragCursorLocn the {@code Point}
      */
@@ -773,7 +771,7 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * clear autoscrolling
+     * clear autoscrolling.
      */
     protected void clearAutoscroll() {
         if (autoScroller != null) {

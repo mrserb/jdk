@@ -60,7 +60,7 @@ public class DragSourceDropEvent extends DragSourceEvent {
      *         {@code DragSourceDropEvent}
      * @param action the drop action
      * @param success a boolean indicating if the drop was successful
-     * @throws IllegalArgumentException if {@code dsc} is {@code null}.
+     * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @see DragSourceEvent#getLocation
      */
     public DragSourceDropEvent(DragSourceContext dsc, int action, boolean success) {
@@ -85,7 +85,7 @@ public class DragSourceDropEvent extends DragSourceEvent {
      * @param success a boolean indicating if the drop was successful
      * @param x the horizontal coordinate for the cursor location
      * @param y the vertical coordinate for the cursor location
-     * @throws IllegalArgumentException if {@code dsc} is {@code null}.
+     * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @since 1.4
      */
     public DragSourceDropEvent(DragSourceContext dsc, int action,
@@ -103,7 +103,7 @@ public class DragSourceDropEvent extends DragSourceEvent {
      * event.
      *
      * @param dsc the {@code DragSourceContext}
-     * @throws IllegalArgumentException if {@code dsc} is {@code null}.
+     * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @see DragSourceEvent#getLocation
      */
     public DragSourceDropEvent(DragSourceContext dsc) {

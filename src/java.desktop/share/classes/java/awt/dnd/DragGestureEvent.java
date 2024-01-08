@@ -55,7 +55,8 @@ import java.util.List;
  * <li> {@code DnDConstants.ACTION_MOVE}
  * <li> {@code DnDConstants.ACTION_LINK}
  * </ul>
- * Assigning the value different from listed above will cause an unspecified behavior.
+ * Assigning the value different from listed above will cause an unspecified
+ * behavior.
  *
  * @see java.awt.dnd.DragGestureRecognizer
  * @see java.awt.dnd.DragGestureListener
@@ -143,7 +144,7 @@ public class DragGestureEvent extends EventObject {
      * Returns a {@code Point} in the coordinates of the {@code Component} over
      * which the drag originated.
      *
-     * @return the Point where the drag originated in Component coords.
+     * @return the Point where the drag originated in Component coords
      */
     public Point getDragOrigin() {
         return origin;
@@ -208,11 +209,11 @@ public class DragGestureEvent extends EventObject {
      *         for more details on the cursor handling mechanism during drag and
      *         drop
      * @param transferable The {@code Transferable} representing the
-     *         source data for this drag operation.
+     *         source data for this drag operation
      * @throws InvalidDnDOperationException if the Drag and Drop system
      *         is unable to initiate a drag operation, or if the user attempts
      *         to start a drag while an existing drag operation is still
-     *         executing.
+     *         executing
      * @throws NullPointerException if the {@code Transferable} is
      *         {@code null}
      * @since 1.4
@@ -237,7 +238,7 @@ public class DragGestureEvent extends EventObject {
      * @throws InvalidDnDOperationException if the Drag and Drop system
      *         is unable to initiate a drag operation, or if the user attempts
      *         to start a drag while an existing drag operation is still
-     *         executing.
+     *         executing
      */
     public void startDrag(Cursor dragCursor, Transferable transferable, DragSourceListener dsl) throws InvalidDnDOperationException {
         dragSource.startDrag(this, dragCursor, transferable, dsl);
@@ -261,7 +262,7 @@ public class DragGestureEvent extends EventObject {
      * @throws InvalidDnDOperationException if the Drag and Drop system
      *         is unable to initiate a drag operation, or if the user attempts
      *         to start a drag while an existing drag operation is still
-     *         executing.
+     *         executing
      */
     public void startDrag(Cursor dragCursor, Image dragImage, Point imageOffset, Transferable transferable, DragSourceListener dsl) throws InvalidDnDOperationException {
         dragSource.startDrag(this,  dragCursor, dragImage, imageOffset, transferable, dsl);
@@ -279,7 +280,7 @@ public class DragGestureEvent extends EventObject {
      * @throws IOException if an I/O error occurs
      * @serialData The default serializable fields, in alphabetical
      *         order, followed by either a {@code List} instance, or
-     *         {@code null}.
+     *         {@code null}
      * @since 1.4
      */
     @Serial

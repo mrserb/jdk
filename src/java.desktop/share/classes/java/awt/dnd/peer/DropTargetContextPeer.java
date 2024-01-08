@@ -32,42 +32,42 @@ import java.awt.dnd.InvalidDnDOperationException;
 
 /**
  * This interface is exposed by the underlying window system platform to enable
- * control of platform DnD operations
+ * control of platform DnD operations.
  *
  * @since 1.2
  */
 public interface DropTargetContextPeer {
 
     /**
-     * update the peer's notion of the Target's actions
+     * update the peer's notion of the Target's actions.
      *
      * @param  actions the actions
      */
     void setTargetActions(int actions);
 
     /**
-     * get the current Target actions
+     * get the current Target actions.
      *
      * @return the current Target actions
      */
     int getTargetActions();
 
     /**
-     * get the DropTarget associated with this peer
+     * get the DropTarget associated with this peer.
      *
      * @return the DropTarget associated with this peer
      */
     DropTarget getDropTarget();
 
     /**
-     * get the (remote) DataFlavors from the peer
+     * get the (remote) DataFlavors from the peer.
      *
      * @return the (remote) DataFlavors from the peer
      */
     DataFlavor[] getTransferDataFlavors();
 
     /**
-     * get an input stream to the remote data
+     * get an input stream to the remote data.
      *
      * @return an input stream to the remote data
      */
@@ -82,31 +82,31 @@ public interface DropTargetContextPeer {
     boolean isTransferableJVMLocal();
 
     /**
-     * accept the Drag
+     * accept the Drag.
      *
      * @param  dragAction the drag action
      */
     void acceptDrag(int dragAction);
 
     /**
-     * reject the Drag
+     * reject the Drag.
      */
     void rejectDrag();
 
     /**
-     * accept the Drop
+     * accept the Drop.
      *
      * @param  dropAction the drop action
      */
     void acceptDrop(int dropAction);
 
     /**
-     * reject the Drop
+     * reject the Drop.
      */
     void rejectDrop();
 
     /**
-     * signal complete
+     * signal complete.
      *
      * @param  success the signal
      */

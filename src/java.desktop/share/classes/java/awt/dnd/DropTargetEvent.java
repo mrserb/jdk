@@ -48,7 +48,7 @@ public class DropTargetEvent extends java.util.EventObject {
      * {@code DropTargetContext}.
      *
      * @param dtc The {@code DropTargetContext}
-     * @throws NullPointerException if {@code dtc} equals {@code null}.
+     * @throws NullPointerException if {@code dtc} equals {@code null}
      * @see #getSource()
      * @see #getDropTargetContext()
      */

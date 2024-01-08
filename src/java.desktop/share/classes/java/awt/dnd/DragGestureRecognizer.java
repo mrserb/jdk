@@ -100,7 +100,7 @@ public abstract class DragGestureRecognizer implements Serializable {
      *         this Drag and Drop operation will support
      * @param dgl the {@code DragGestureRecognizer} to notify when a
      *         drag gesture is detected
-     * @throws IllegalArgumentException if ds is {@code null}.
+     * @throws IllegalArgumentException if ds is {@code null}
      */
     protected DragGestureRecognizer(DragSource ds, Component c, int sa, DragGestureListener dgl) {
         super();
@@ -135,7 +135,7 @@ public abstract class DragGestureRecognizer implements Serializable {
      *         {@code Component}.
      * @param sa the set (logical OR) of the {@code DnDConstants} that
      *         this Drag and Drop operation will support
-     * @throws IllegalArgumentException if ds is {@code null}.
+     * @throws IllegalArgumentException if ds is {@code null}
      */
     protected DragGestureRecognizer(DragSource ds, Component c, int sa) {
         this(ds, c, sa, null);
@@ -155,7 +155,7 @@ public abstract class DragGestureRecognizer implements Serializable {
      *         initiating gesture. If this value is {@code null}, the
      *         {@code DragGestureRecognizer} is not associated with any
      *         {@code Component}.
-     * @throws IllegalArgumentException if ds is {@code null}.
+     * @throws IllegalArgumentException if ds is {@code null}
      */
     protected DragGestureRecognizer(DragSource ds, Component c) {
         this(ds, c, DnDConstants.ACTION_NONE);
@@ -258,9 +258,9 @@ public abstract class DragGestureRecognizer implements Serializable {
      * Register a new {@code DragGestureListener}.
      *
      * @param dgl the {@code DragGestureListener} to register with this
-     *         {@code DragGestureRecognizer}.
+     *         {@code DragGestureRecognizer}
      * @throws java.util.TooManyListenersException if a
-     *         {@code DragGestureListener} has already been added.
+     *         {@code DragGestureListener} has already been added
      */
     public synchronized void addDragGestureListener(DragGestureListener dgl) throws TooManyListenersException {
         if (dragGestureListener != null)
@@ -278,7 +278,7 @@ public abstract class DragGestureRecognizer implements Serializable {
      * @param dgl the {@code DragGestureListener} to unregister from
      *         this {@code DragGestureRecognizer}
      * @throws IllegalArgumentException if dgl is not (equal to) the
-     *         currently registered {@code DragGestureListener}.
+     *         currently registered {@code DragGestureListener}
      */
     public synchronized void removeDragGestureListener(DragGestureListener dgl) {
         if (dragGestureListener == null || !dragGestureListener.equals(dgl))
@@ -337,7 +337,7 @@ public abstract class DragGestureRecognizer implements Serializable {
      * @throws IOException if an I/O error occurs
      * @serialData The default serializable fields, in alphabetical
      *         order, followed by either a {@code DragGestureListener}, or
-     *         {@code null}.
+     *         {@code null}
      * @since 1.4
      */
     @Serial

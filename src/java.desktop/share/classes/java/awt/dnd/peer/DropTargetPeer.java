@@ -31,21 +31,21 @@ import java.awt.dnd.DropTarget;
  * The DropTargetPeer class is the interface to the platform dependent DnD
  * facilities. Since the DnD system is based on the native platform's
  * facilities, a DropTargetPeer will be associated with a ComponentPeer of the
- * nearest enclosing native Container (in the case of lightweights)
+ * nearest enclosing native Container (in the case of lightweights).
  *
  * @since 1.2
  */
 public interface DropTargetPeer {
 
     /**
-     * Add the DropTarget to the System
+     * Add the DropTarget to the System.
      *
      * @param  dt The DropTarget effected
      */
     void addDropTarget(DropTarget dt);
 
     /**
-     * Remove the DropTarget from the system
+     * Remove the DropTarget from the system.
      *
      * @param  dt The DropTarget effected
      */

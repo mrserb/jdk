@@ -164,14 +164,14 @@ public class DragSourceContext
      * @param t the {@code Transferable}
      * @param dsl the {@code DragSourceListener}
      * @throws IllegalArgumentException if the {@code Component}
-     *         associated with the trigger event is {@code null}.
+     *         associated with the trigger event is {@code null}
      * @throws IllegalArgumentException if the {@code DragSource} for
-     *         the trigger event is {@code null}.
+     *         the trigger event is {@code null}
      * @throws IllegalArgumentException if the drag action for the
-     *         trigger event is {@code DnDConstants.ACTION_NONE}.
+     *         trigger event is {@code DnDConstants.ACTION_NONE}
      * @throws IllegalArgumentException if the source actions for the
      *         {@code DragGestureRecognizer} associated with the trigger event
-     *         are equal to {@code DnDConstants.ACTION_NONE}.
+     *         are equal to {@code DnDConstants.ACTION_NONE}
      * @throws NullPointerException if dscp, trigger, or t are null, or
      *         if dragImage is non-null and offset is null
      */

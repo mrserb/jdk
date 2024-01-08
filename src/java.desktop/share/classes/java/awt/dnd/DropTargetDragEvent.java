@@ -86,10 +86,10 @@ public class DropTargetDragEvent extends DropTargetEvent {
      * @param srcActions The source drop actions
      * @throws NullPointerException if cursorLocn is null
      * @throws IllegalArgumentException if dropAction is not one of
-     *         {@code DnDConstants}.
+     *         {@code DnDConstants}
      * @throws IllegalArgumentException if srcActions is not a bitwise
-     *         mask of {@code DnDConstants}.
-     * @throws IllegalArgumentException if dtc is {@code null}.
+     *         mask of {@code DnDConstants}
+     * @throws IllegalArgumentException if dtc is {@code null}
      */
     public DropTargetDragEvent(DropTargetContext dtc, Point cursorLocn, int dropAction, int srcActions)  {
         super(dtc);
@@ -113,7 +113,7 @@ public class DropTargetDragEvent extends DropTargetEvent {
      * This method returns a {@code Point} indicating the {@code Cursor}'s
      * current location within the {@code Component'}s coordinates.
      *
-     * @return the current cursor location in {@code Component}'s coords.
+     * @return the current cursor location in {@code Component}'s coords
      */
     public Point getLocation() {
         return location;

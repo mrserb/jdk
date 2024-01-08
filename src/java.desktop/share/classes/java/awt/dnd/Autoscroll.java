@@ -63,10 +63,10 @@ public interface Autoscroll {
     public Insets getAutoscrollInsets();
 
     /**
-     * notify the {@code Component} to autoscroll
+     * notify the {@code Component} to autoscroll.
      *
      * @param  cursorLocn A {@code Point} indicating the location of the
-     *         cursor that triggered this operation.
+     *         cursor that triggered this operation
      */
     public void autoscroll(Point cursorLocn);
 }
