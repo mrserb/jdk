@@ -87,8 +87,8 @@ public class DropTarget implements DropTargetListener, Serializable {
      * @param  act Is the {@code DropTarget} accepting drops
      * @param  fm The {@code FlavorMap} to use, or null for the default
      *         {@code FlavorMap}
-     * @throws HeadlessException if GraphicsEnvironment.isHeadless() returns
-     *         true
+     * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}
+     *         returns {@code true}
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget(Component c, int ops, DropTargetListener dtl,
@@ -135,8 +135,8 @@ public class DropTarget implements DropTargetListener, Serializable {
      * @param  ops The default acceptable actions for this {@code DropTarget}
      * @param  dtl The {@code DropTargetListener} for this {@code DropTarget}
      * @param  act Is the {@code DropTarget} accepting drops
-     * @throws HeadlessException if GraphicsEnvironment.isHeadless() returns
-     *         true
+     * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}
+     *         returns {@code true}
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget(Component c, int ops, DropTargetListener dtl,
@@ -149,8 +149,8 @@ public class DropTarget implements DropTargetListener, Serializable {
     /**
      * Creates a {@code DropTarget}.
      *
-     * @throws HeadlessException if GraphicsEnvironment.isHeadless() returns
-     *         true
+     * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}
+     *         returns {@code true}
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget() throws HeadlessException {
@@ -167,8 +167,8 @@ public class DropTarget implements DropTargetListener, Serializable {
      * @param  c The {@code Component} with which this {@code DropTarget} is
      *         associated
      * @param  dtl The {@code DropTargetListener} for this {@code DropTarget}
-     * @throws HeadlessException if GraphicsEnvironment.isHeadless() returns
-     *         true
+     * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}
+     *         returns {@code true}
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget(Component c, DropTargetListener dtl)
@@ -188,8 +188,8 @@ public class DropTarget implements DropTargetListener, Serializable {
      *         associated
      * @param  ops The default acceptable actions for this {@code DropTarget}
      * @param  dtl The {@code DropTargetListener} for this {@code DropTarget}
-     * @throws HeadlessException if GraphicsEnvironment.isHeadless() returns
-     *         true
+     * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}
+     *         returns {@code true}
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget(Component c, int ops, DropTargetListener dtl)
