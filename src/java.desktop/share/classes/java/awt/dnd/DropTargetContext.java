@@ -49,7 +49,6 @@ import sun.awt.AWTAccessor.DropTargetContextAccessor;
  *
  * @since 1.2
  */
-
 public final class DropTargetContext implements Serializable {
 
     /**

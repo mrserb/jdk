@@ -119,7 +119,6 @@ public class DropTargetDragEvent extends DropTargetEvent {
         return location;
     }
 
-
     /**
      * This method returns the current {@code DataFlavor}s from the
      * {@code DropTargetContext}.

@@ -52,7 +52,6 @@ public class DropTargetEvent extends java.util.EventObject {
      * @see #getSource()
      * @see #getDropTargetContext()
      */
-
     public DropTargetEvent(DropTargetContext dtc) {
         super(dtc.getDropTarget());
 
@@ -65,7 +64,6 @@ public class DropTargetEvent extends java.util.EventObject {
      *
      * @return the {@code DropTargetContext}
      */
-
     public DropTargetContext getDropTargetContext() {
         return context;
     }
