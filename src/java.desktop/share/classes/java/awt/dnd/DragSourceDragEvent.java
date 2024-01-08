@@ -88,11 +88,11 @@ public class DragSourceDragEvent extends DragSourceEvent {
      * constructor does not throw any exception for invalid {@code dropAction},
      * {@code action} and {@code modifiers}.
      *
-     * @param dsc the {@code DragSourceContext} that is to manage
+     * @param  dsc the {@code DragSourceContext} that is to manage
      *         notifications for this event
-     * @param dropAction the user drop action
-     * @param action the target drop action
-     * @param modifiers the modifier keys down during event (shift,
+     * @param  dropAction the user drop action
+     * @param  action the target drop action
+     * @param  modifiers the modifier keys down during event (shift,
      *         ctrl, alt, meta) Either extended _DOWN_MASK or old _MASK
      *         modifiers should be used, but both models should not be mixed in
      *         one event. Use of the extended modifiers is preferred.
@@ -131,16 +131,16 @@ public class DragSourceDragEvent extends DragSourceEvent {
      * constructor does not throw any exception for invalid {@code dropAction},
      * {@code action} and {@code modifiers}.
      *
-     * @param dsc the {@code DragSourceContext} associated with this
-     *         event.
-     * @param dropAction the user drop action
-     * @param action the target drop action
-     * @param modifiers the modifier keys down during event (shift,
+     * @param  dsc the {@code DragSourceContext} associated with this
+     *         event
+     * @param  dropAction the user drop action
+     * @param  action the target drop action
+     * @param  modifiers the modifier keys down during event (shift,
      *         ctrl, alt, meta) Either extended _DOWN_MASK or old _MASK
      *         modifiers should be used, but both models should not be mixed in
      *         one event. Use of the extended modifiers is preferred.
-     * @param x the horizontal coordinate for the cursor location
-     * @param y the vertical coordinate for the cursor location
+     * @param  x the horizontal coordinate for the cursor location
+     * @param  y the vertical coordinate for the cursor location
      * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @see java.awt.event.InputEvent
      * @since 1.4

@@ -79,11 +79,11 @@ public class DropTargetDragEvent extends DropTargetEvent {
      * {@code Cursor}'s hotspot in the {@code Component}'s coordinates, the user
      * drop action, and the source drop actions.
      *
-     * @param dtc The DropTargetContext for this operation
-     * @param cursorLocn The location of the "Drag" Cursor's hotspot in
+     * @param  dtc The DropTargetContext for this operation
+     * @param  cursorLocn The location of the "Drag" Cursor's hotspot in
      *         Component coordinates
-     * @param dropAction The user drop action
-     * @param srcActions The source drop actions
+     * @param  dropAction The user drop action
+     * @param  srcActions The source drop actions
      * @throws NullPointerException if cursorLocn is null
      * @throws IllegalArgumentException if dropAction is not one of
      *         {@code DnDConstants}
@@ -143,7 +143,7 @@ public class DropTargetDragEvent extends DropTargetEvent {
      * This method returns a {@code boolean} indicating if the specified
      * {@code DataFlavor} is supported.
      *
-     * @param df the {@code DataFlavor} to test
+     * @param  df the {@code DataFlavor} to test
      * @return if a particular DataFlavor is supported
      */
     public boolean isDataFlavorSupported(DataFlavor df) {
@@ -188,7 +188,7 @@ public class DropTargetDragEvent extends DropTargetEvent {
      * an operation from the srcActions other than the one selected by the user
      * as represented by the {@code dropAction}.
      *
-     * @param dragOperation the operation accepted by the target
+     * @param  dragOperation the operation accepted by the target
      */
     public void acceptDrag(int dragOperation) {
         getDropTargetContext().acceptDrag(dragOperation);

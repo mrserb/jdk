@@ -56,10 +56,10 @@ public class DragSourceDropEvent extends DragSourceEvent {
      * represents a single action. This constructor does not throw any exception
      * for invalid {@code action}.
      *
-     * @param dsc the {@code DragSourceContext} associated with this
+     * @param  dsc the {@code DragSourceContext} associated with this
      *         {@code DragSourceDropEvent}
-     * @param action the drop action
-     * @param success a boolean indicating if the drop was successful
+     * @param  action the drop action
+     * @param  success a boolean indicating if the drop was successful
      * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @see DragSourceEvent#getLocation
      */
@@ -79,12 +79,12 @@ public class DragSourceDropEvent extends DragSourceEvent {
      * represents a single action. This constructor does not throw any exception
      * for invalid {@code action}.
      *
-     * @param dsc the {@code DragSourceContext} associated with this
+     * @param  dsc the {@code DragSourceContext} associated with this
      *         {@code DragSourceDropEvent}
-     * @param action the drop action
-     * @param success a boolean indicating if the drop was successful
-     * @param x the horizontal coordinate for the cursor location
-     * @param y the vertical coordinate for the cursor location
+     * @param  action the drop action
+     * @param  success a boolean indicating if the drop was successful
+     * @param  x the horizontal coordinate for the cursor location
+     * @param  y the vertical coordinate for the cursor location
      * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @since 1.4
      */
@@ -102,7 +102,7 @@ public class DragSourceDropEvent extends DragSourceEvent {
      * specified, so {@code getLocation} will return {@code null} for this
      * event.
      *
-     * @param dsc the {@code DragSourceContext}
+     * @param  dsc the {@code DragSourceContext}
      * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @see DragSourceEvent#getLocation
      */

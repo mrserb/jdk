@@ -55,7 +55,7 @@ public interface DragSourceListener extends EventListener {
      * <LI>The drop site accepts the drag.
      * </UL>
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     void dragEnter(DragSourceDragEvent dsde);
 
@@ -70,7 +70,7 @@ public interface DragSourceListener extends EventListener {
      * <LI>The drop site accepts the drag.
      * </UL>
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     void dragOver(DragSourceDragEvent dsde);
 
@@ -80,7 +80,7 @@ public interface DragSourceListener extends EventListener {
      * interacting with changes. Such devices are typically the mouse buttons or
      * keyboard modifiers that the user is interacting with.
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     void dropActionChanged(DragSourceDragEvent dsde);
 
@@ -102,7 +102,7 @@ public interface DragSourceListener extends EventListener {
      * has rejected the drag.
      * </UL>
      *
-     * @param dse the {@code DragSourceEvent}
+     * @param  dse the {@code DragSourceEvent}
      */
     void dragExit(DragSourceEvent dse);
 
@@ -114,7 +114,7 @@ public interface DragSourceListener extends EventListener {
      * Drop operation. Once this method is complete, the current
      * {@code DragSourceContext} and associated resources become invalid.
      *
-     * @param dsde the {@code DragSourceDropEvent}
+     * @param  dsde the {@code DragSourceDropEvent}
      */
     void dragDropEnd(DragSourceDropEvent dsde);
 }

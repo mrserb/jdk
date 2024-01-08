@@ -42,10 +42,10 @@ public interface DragSourceContextPeer {
     /**
      * start a drag.
      *
-     * @param dsc the DragSourceContext
-     * @param c the cursor
-     * @param dragImage the image to be dragged
-     * @param imageOffset the offset
+     * @param  dsc the DragSourceContext
+     * @param  c the cursor
+     * @param  dragImage the image to be dragged
+     * @param  imageOffset the offset
      */
     void startDrag(DragSourceContext dsc, Cursor c, Image dragImage, Point imageOffset) throws InvalidDnDOperationException;
 
@@ -59,7 +59,7 @@ public interface DragSourceContextPeer {
     /**
      * set the current drag cursor.
      *
-     * @param c the cursor
+     * @param  c the cursor
      */
     void setCursor(Cursor c) throws InvalidDnDOperationException;
 

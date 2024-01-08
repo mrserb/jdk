@@ -71,7 +71,7 @@ public abstract class DragSourceAdapter
      * <LI>The drop site accepts the drag.
      * </UL>
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     public void dragEnter(DragSourceDragEvent dsde) {}
 
@@ -86,14 +86,14 @@ public abstract class DragSourceAdapter
      * <LI>The drop site accepts the drag.
      * </UL>
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     public void dragOver(DragSourceDragEvent dsde) {}
 
     /**
      * Called whenever the mouse is moved during a drag operation.
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     public void dragMouseMoved(DragSourceDragEvent dsde) {}
 
@@ -103,7 +103,7 @@ public abstract class DragSourceAdapter
      * interacting with changes. Such devices are typically the mouse buttons or
      * keyboard modifiers that the user is interacting with.
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     public void dropActionChanged(DragSourceDragEvent dsde) {}
 
@@ -125,7 +125,7 @@ public abstract class DragSourceAdapter
      * has rejected the drag.
      * </UL>
      *
-     * @param dse the {@code DragSourceEvent}
+     * @param  dse the {@code DragSourceEvent}
      */
     public void dragExit(DragSourceEvent dse) {}
 
@@ -137,7 +137,7 @@ public abstract class DragSourceAdapter
      * Drop operation. Once this method is complete, the current
      * {@code DragSourceContext} and associated resources become invalid.
      *
-     * @param dsde the {@code DragSourceDropEvent}
+     * @param  dsde the {@code DragSourceDropEvent}
      */
     public void dragDropEnd(DragSourceDropEvent dsde) {}
 }

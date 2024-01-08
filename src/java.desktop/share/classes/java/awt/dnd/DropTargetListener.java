@@ -63,7 +63,7 @@ public interface DropTargetListener extends EventListener {
      * the operable part of the drop site for the {@code DropTarget} registered
      * with this listener.
      *
-     * @param dtde the {@code DropTargetDragEvent}
+     * @param  dtde the {@code DropTargetDragEvent}
      */
     void dragEnter(DropTargetDragEvent dtde);
 
@@ -72,14 +72,14 @@ public interface DropTargetListener extends EventListener {
      * over the operable part of the drop site for the {@code DropTarget}
      * registered with this listener.
      *
-     * @param dtde the {@code DropTargetDragEvent}
+     * @param  dtde the {@code DropTargetDragEvent}
      */
     void dragOver(DropTargetDragEvent dtde);
 
     /**
      * Called if the user has modified the current drop gesture.
      *
-     * @param dtde the {@code DropTargetDragEvent}
+     * @param  dtde the {@code DropTargetDragEvent}
      */
     void dropActionChanged(DropTargetDragEvent dtde);
 
@@ -88,7 +88,7 @@ public interface DropTargetListener extends EventListener {
      * exited the operable part of the drop site for the {@code DropTarget}
      * registered with this listener.
      *
-     * @param dte the {@code DropTargetEvent}
+     * @param  dte the {@code DropTargetEvent}
      */
     void dragExit(DropTargetEvent dte);
 
@@ -123,7 +123,7 @@ public interface DropTargetListener extends EventListener {
      * {@code DropTargetDropEvent.isLocalTransfer()} returns {@code true}.
      * Otherwise, the behavior of the call is implementation-dependent.
      *
-     * @param dtde the {@code DropTargetDropEvent}
+     * @param  dtde the {@code DropTargetDropEvent}
      */
     void drop(DropTargetDropEvent dtde);
 }

@@ -75,7 +75,7 @@ public final class DropTargetContext implements Serializable {
      * Construct a {@code DropTargetContext} given a specified
      * {@code DropTarget}.
      *
-     * @param dt the DropTarget to associate with
+     * @param  dt the DropTarget to associate with
      */
     DropTargetContext(DropTarget dt) {
         super();
@@ -112,7 +112,7 @@ public final class DropTargetContext implements Serializable {
      * This method sets the current actions acceptable to this
      * {@code DropTarget}.
      *
-     * @param actions an {@code int} representing the supported
+     * @param  actions an {@code int} representing the supported
      *         action(s)
      */
     protected void setTargetActions(int actions) {
@@ -145,7 +145,7 @@ public final class DropTargetContext implements Serializable {
      * This method signals that the drop is completed and if it was successful
      * or not.
      *
-     * @param success true for success, false if not
+     * @param  success true for success, false if not
      * @throws InvalidDnDOperationException if a drop is not
      *         outstanding/extant
      */
@@ -159,7 +159,7 @@ public final class DropTargetContext implements Serializable {
     /**
      * accept the Drag.
      *
-     * @param dragOperation the supported action(s)
+     * @param  dragOperation the supported action(s)
      */
     protected void acceptDrag(int dragOperation) {
         DropTargetContextPeer peer = getDropTargetContextPeer();
@@ -183,7 +183,7 @@ public final class DropTargetContext implements Serializable {
      * operation. must be called during DropTargetListener.drop method
      * invocation.
      *
-     * @param dropOperation the supported action(s)
+     * @param  dropOperation the supported action(s)
      */
     protected void acceptDrop(int dropOperation) {
         DropTargetContextPeer peer = getDropTargetContextPeer();
@@ -229,7 +229,7 @@ public final class DropTargetContext implements Serializable {
      * This method returns a {@code boolean} indicating if the given
      * {@code DataFlavor} is supported by this {@code DropTargetContext}.
      *
-     * @param df the {@code DataFlavor}
+     * @param  df the {@code DataFlavor}
      * @return if the {@code DataFlavor} specified is supported
      */
     protected boolean isDataFlavorSupported(DataFlavor df) {
@@ -281,8 +281,8 @@ public final class DropTargetContext implements Serializable {
     /**
      * Creates a TransferableProxy to proxy for the specified Transferable.
      *
-     * @param t the {@code Transferable} to be proxied
-     * @param local {@code true} if {@code t} represents the result of a
+     * @param  t the {@code Transferable} to be proxied
+     * @param  local {@code true} if {@code t} represents the result of a
      *         local drag-n-drop operation
      * @return the new {@code TransferableProxy} instance
      */
@@ -312,8 +312,8 @@ public final class DropTargetContext implements Serializable {
          * indicates whether the drag-n-drop operation is local (within the same
          * JVM).
          *
-         * @param t the {@code Transferable} object
-         * @param local {@code true}, if {@code t} represents the result
+         * @param  t the {@code Transferable} object
+         * @param  local {@code true}, if {@code t} represents the result
          *         of local drag-n-drop operation
          */
         TransferableProxy(Transferable t, boolean local) {
@@ -337,7 +337,7 @@ public final class DropTargetContext implements Serializable {
          * Returns whether or not the specified data flavor is supported by the
          * encapsulated transferable.
          *
-         * @param flavor the requested flavor for the data
+         * @param  flavor the requested flavor for the data
          * @return {@code true} if the data flavor is supported, {@code false}
          *         otherwise
          */
@@ -353,11 +353,11 @@ public final class DropTargetContext implements Serializable {
          * the encapsulated transferable is provided when the data is requested
          * in application/x-java-serialized-object data flavor.
          *
-         * @param df the requested flavor for the data
+         * @param  df the requested flavor for the data
          * @throws IOException if the data is no longer available in the
-         *         requested flavor.
+         *         requested flavor
          * @throws UnsupportedFlavorException if the requested data
-         *         flavor is not supported.
+         *         flavor is not supported
          */
         public Object getTransferData(DataFlavor df)
             throws UnsupportedFlavorException, IOException

@@ -82,11 +82,11 @@ public class DropTargetDropEvent extends DropTargetEvent {
      * target is not in the same virtual machine as the source; that is,
      * {@link #isLocalTransfer()} will return {@code false}.
      *
-     * @param dtc The {@code DropTargetContext} for this operation
-     * @param cursorLocn The location of the "Drag" Cursor's hotspot in
+     * @param  dtc The {@code DropTargetContext} for this operation
+     * @param  cursorLocn The location of the "Drag" Cursor's hotspot in
      *         {@code Component} coordinates
-     * @param dropAction the user drop action
-     * @param srcActions the source drop actions
+     * @param  dropAction the user drop action
+     * @param  srcActions the source drop actions
      * @throws NullPointerException if cursorLocn is {@code null}
      * @throws IllegalArgumentException if dropAction is not one of
      *         {@code DnDConstants}
@@ -120,12 +120,12 @@ public class DropTargetDropEvent extends DropTargetEvent {
      * {@code boolean} indicating if the source is in the same JVM as the
      * target.
      *
-     * @param dtc The DropTargetContext for this operation
-     * @param cursorLocn The location of the "Drag" Cursor's hotspot in
+     * @param  dtc The DropTargetContext for this operation
+     * @param  cursorLocn The location of the "Drag" Cursor's hotspot in
      *         Component's coordinates
-     * @param dropAction the user drop action
-     * @param srcActions the source drop actions
-     * @param isLocal True if the source is in the same JVM as the
+     * @param  dropAction the user drop action
+     * @param  srcActions the source drop actions
+     * @param  isLocal True if the source is in the same JVM as the
      *         target
      * @throws NullPointerException if cursorLocn is  {@code null}
      * @throws IllegalArgumentException if dropAction is not one of
@@ -173,7 +173,7 @@ public class DropTargetDropEvent extends DropTargetEvent {
      * This method returns a {@code boolean} indicating if the specified
      * {@code DataFlavor} is available from the source.
      *
-     * @param df the {@code DataFlavor} to test
+     * @param  df the {@code DataFlavor} to test
      * @return if the DataFlavor specified is available from the source
      */
     public boolean isDataFlavorSupported(DataFlavor df) {
@@ -207,7 +207,7 @@ public class DropTargetDropEvent extends DropTargetEvent {
     /**
      * accept the drop, using the specified action.
      *
-     * @param dropAction the specified action
+     * @param  dropAction the specified action
      */
     public void acceptDrop(int dropAction) {
         getDropTargetContext().acceptDrop(dropAction);
@@ -224,7 +224,7 @@ public class DropTargetDropEvent extends DropTargetEvent {
      * This method notifies the {@code DragSource} that the drop transfer(s) are
      * completed.
      *
-     * @param success a {@code boolean} indicating that the drop
+     * @param  success a {@code boolean} indicating that the drop
      *         transfer(s) are completed
      */
     public void dropComplete(boolean success) {

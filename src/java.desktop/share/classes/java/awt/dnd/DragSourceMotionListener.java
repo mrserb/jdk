@@ -52,7 +52,7 @@ public interface DragSourceMotionListener extends EventListener {
     /**
      * Called whenever the mouse is moved during a drag operation.
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     void dragMouseMoved(DragSourceDragEvent dsde);
 }

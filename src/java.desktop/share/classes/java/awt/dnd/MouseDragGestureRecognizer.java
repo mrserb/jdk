@@ -70,10 +70,10 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
      * observe, the action(s) permitted for this drag operation, and the
      * {@code DragGestureListener} to notify when a drag gesture is detected.
      *
-     * @param ds The DragSource for the Component c
-     * @param c The Component to observe
-     * @param act The actions permitted for this Drag
-     * @param dgl The DragGestureListener to notify when a gesture is
+     * @param  ds The DragSource for the Component c
+     * @param  c The Component to observe
+     * @param  act The actions permitted for this Drag
+     * @param  dgl The DragGestureListener to notify when a gesture is
      *         detected
      */
     protected MouseDragGestureRecognizer(DragSource ds, Component c, int act, DragGestureListener dgl) {
@@ -85,9 +85,9 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
      * {@code DragSource} for the {@code Component} c, the {@code Component} to
      * observe, and the action(s) permitted for this drag operation.
      *
-     * @param ds The DragSource for the Component c
-     * @param c The Component to observe
-     * @param act The actions permitted for this drag
+     * @param  ds The DragSource for the Component c
+     * @param  c The Component to observe
+     * @param  act The actions permitted for this drag
      */
     protected MouseDragGestureRecognizer(DragSource ds, Component c, int act) {
         this(ds, c, act, null);
@@ -98,8 +98,8 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
      * {@code DragSource} for the {@code Component} c, and the {@code Component}
      * to observe.
      *
-     * @param ds The DragSource for the Component c
-     * @param c The Component to observe
+     * @param  ds The DragSource for the Component c
+     * @param  c The Component to observe
      */
     protected MouseDragGestureRecognizer(DragSource ds, Component c) {
         this(ds, c, DnDConstants.ACTION_NONE);
@@ -109,7 +109,7 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
      * Construct a new {@code MouseDragGestureRecognizer} given the
      * {@code DragSource} for the {@code Component}.
      *
-     * @param ds The DragSource for the Component
+     * @param  ds The DragSource for the Component
      */
     protected MouseDragGestureRecognizer(DragSource ds) {
         this(ds, null);
@@ -136,42 +136,42 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
     /**
      * Invoked when the mouse has been clicked on a component.
      *
-     * @param e the {@code MouseEvent}
+     * @param  e the {@code MouseEvent}
      */
     public void mouseClicked(MouseEvent e) { }
 
     /**
      * Invoked when a mouse button has been pressed on a {@code Component}.
      *
-     * @param e the {@code MouseEvent}
+     * @param  e the {@code MouseEvent}
      */
     public void mousePressed(MouseEvent e) { }
 
     /**
      * Invoked when a mouse button has been released on a component.
      *
-     * @param e the {@code MouseEvent}
+     * @param  e the {@code MouseEvent}
      */
     public void mouseReleased(MouseEvent e) { }
 
     /**
      * Invoked when the mouse enters a component.
      *
-     * @param e the {@code MouseEvent}
+     * @param  e the {@code MouseEvent}
      */
     public void mouseEntered(MouseEvent e) { }
 
     /**
      * Invoked when the mouse exits a component.
      *
-     * @param e the {@code MouseEvent}
+     * @param  e the {@code MouseEvent}
      */
     public void mouseExited(MouseEvent e) { }
 
     /**
      * Invoked when a mouse button is pressed on a component.
      *
-     * @param e the {@code MouseEvent}
+     * @param  e the {@code MouseEvent}
      */
     public void mouseDragged(MouseEvent e) { }
 
@@ -179,7 +179,7 @@ public abstract class MouseDragGestureRecognizer extends DragGestureRecognizer i
      * Invoked when the mouse button has been moved on a component (with no
      * buttons no down).
      *
-     * @param e the {@code MouseEvent}
+     * @param  e the {@code MouseEvent}
      */
     public void mouseMoved(MouseEvent e) { }
 }

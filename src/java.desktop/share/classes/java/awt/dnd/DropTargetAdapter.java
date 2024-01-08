@@ -77,7 +77,7 @@ public abstract class DropTargetAdapter implements DropTargetListener {
      * the operable part of the drop site for the {@code DropTarget} registered
      * with this listener.
      *
-     * @param dtde the {@code DropTargetDragEvent}
+     * @param  dtde the {@code DropTargetDragEvent}
      */
     public void dragEnter(DropTargetDragEvent dtde) {}
 
@@ -86,14 +86,14 @@ public abstract class DropTargetAdapter implements DropTargetListener {
      * over the operable part of the drop site for the {@code DropTarget}
      * registered with this listener.
      *
-     * @param dtde the {@code DropTargetDragEvent}
+     * @param  dtde the {@code DropTargetDragEvent}
      */
     public void dragOver(DropTargetDragEvent dtde) {}
 
     /**
      * Called if the user has modified the current drop gesture.
      *
-     * @param dtde the {@code DropTargetDragEvent}
+     * @param  dtde the {@code DropTargetDragEvent}
      */
     public void dropActionChanged(DropTargetDragEvent dtde) {}
 
@@ -102,7 +102,7 @@ public abstract class DropTargetAdapter implements DropTargetListener {
      * exited the operable part of the drop site for the {@code DropTarget}
      * registered with this listener.
      *
-     * @param dte the {@code DropTargetEvent}
+     * @param  dte the {@code DropTargetEvent}
      */
     public void dragExit(DropTargetEvent dte) {}
 }

@@ -152,17 +152,17 @@ public class DragSourceContext
      * <br>
      * If {@code DragSourceListener} is {@code null} no exception is thrown.
      *
-     * @param trigger the triggering event
-     * @param dragCursor the initial {@code Cursor} for this drag
+     * @param  trigger the triggering event
+     * @param  dragCursor the initial {@code Cursor} for this drag
      *         operation or {@code null} for the default cursor handling; see <a
      *         href="DragSourceContext.html#defaultCursor">class level
      *         documentation</a> for more details on the cursor handling
      *         mechanism during drag and drop
-     * @param dragImage the {@code Image} to drag (or {@code null})
-     * @param offset the offset of the image origin from the hotspot at
+     * @param  dragImage the {@code Image} to drag (or {@code null})
+     * @param  offset the offset of the image origin from the hotspot at
      *         the instant of the triggering event
-     * @param t the {@code Transferable}
-     * @param dsl the {@code DragSourceListener}
+     * @param  t the {@code Transferable}
+     * @param  dsl the {@code DragSourceListener}
      * @throws IllegalArgumentException if the {@code Component}
      *         associated with the trigger event is {@code null}
      * @throws IllegalArgumentException if the {@code DragSource} for
@@ -272,7 +272,7 @@ public class DragSourceContext
      * default drag cursor behavior is activated for this drag operation,
      * otherwise it is deactivated.
      *
-     * @param c the initial {@code Cursor} for this drag operation, or
+     * @param  c the initial {@code Cursor} for this drag operation, or
      *         {@code null} for the default cursor handling; see
      *         {@linkplain Cursor class level documentation} for more details on
      *         the cursor handling during drag and drop
@@ -296,7 +296,7 @@ public class DragSourceContext
      * has not already been added. If a {@code DragSourceListener} already
      * exists, this method throws a {@code TooManyListenersException}.
      *
-     * @param dsl the {@code DragSourceListener} to add. Note that while
+     * @param  dsl the {@code DragSourceListener} to add. Note that while
      *         {@code null} is not prohibited, it is not acceptable as a
      *         parameter.
      * @throws TooManyListenersException if a {@code DragSourceListener}
@@ -317,7 +317,7 @@ public class DragSourceContext
      * Removes the specified {@code DragSourceListener} from  this
      * {@code DragSourceContext}.
      *
-     * @param dsl the {@code DragSourceListener} to remove; note that
+     * @param  dsl the {@code DragSourceListener} to remove; note that
      *         while {@code null} is not prohibited, it is not acceptable as a
      *         parameter
      */
@@ -342,7 +342,7 @@ public class DragSourceContext
      * {@code DragSource}, and passes them the specified
      * {@code DragSourceDragEvent}.
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     public void dragEnter(DragSourceDragEvent dsde) {
         DragSourceListener dsl = listener;
@@ -360,7 +360,7 @@ public class DragSourceContext
      * {@code DragSource}, and passes them the specified
      * {@code DragSourceDragEvent}.
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     public void dragOver(DragSourceDragEvent dsde) {
         DragSourceListener dsl = listener;
@@ -378,7 +378,7 @@ public class DragSourceContext
      * {@code DragSource}, and passes them the specified
      * {@code DragSourceEvent}.
      *
-     * @param dse the {@code DragSourceEvent}
+     * @param  dse the {@code DragSourceEvent}
      */
     public void dragExit(DragSourceEvent dse) {
         DragSourceListener dsl = listener;
@@ -396,7 +396,7 @@ public class DragSourceContext
      * {@code DragSource}, and passes them the specified
      * {@code DragSourceDragEvent}.
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      */
     public void dropActionChanged(DragSourceDragEvent dsde) {
         DragSourceListener dsl = listener;
@@ -414,7 +414,7 @@ public class DragSourceContext
      * {@code DragSource}, and passes them the specified
      * {@code DragSourceDropEvent}.
      *
-     * @param dsde the {@code DragSourceDropEvent}
+     * @param  dsde the {@code DragSourceDropEvent}
      */
     public void dragDropEnd(DragSourceDropEvent dsde) {
         DragSourceListener dsl = listener;
@@ -430,7 +430,7 @@ public class DragSourceContext
      * {@code DragSourceContext}, and them passes the specified
      * {@code DragSourceDragEvent}.
      *
-     * @param dsde the {@code DragSourceDragEvent}
+     * @param  dsde the {@code DragSourceDragEvent}
      * @since 1.4
      */
     public void dragMouseMoved(DragSourceDragEvent dsde) {
@@ -451,9 +451,9 @@ public class DragSourceContext
      * source, the drop target action, and status, otherwise this method does
      * nothing.
      *
-     * @param sourceAct the actions supported by the drag source
-     * @param targetAct the drop target action
-     * @param status one of the fields {@code DEFAULT}, {@code ENTER},
+     * @param  sourceAct the actions supported by the drag source
+     * @param  targetAct the drop target action
+     * @param  status one of the fields {@code DEFAULT}, {@code ENTER},
      *         {@code OVER}, {@code CHANGED}
      */
     @SuppressWarnings("fallthrough")
@@ -515,7 +515,7 @@ public class DragSourceContext
      * object's {@code DragSourceListener} is written out if and only if it can
      * be serialized. If not, {@code null} is written instead.
      *
-     * @param s the {@code ObjectOutputStream} to write
+     * @param  s the {@code ObjectOutputStream} to write
      * @throws IOException if an I/O error occurs
      * @serialData The default serializable fields, in alphabetical
      *         order, followed by either a {@code Transferable} instance, or
@@ -542,7 +542,7 @@ public class DragSourceContext
      * {@code Transferable} is set to a dummy {@code Transferable} which
      * supports no {@code DataFlavor}s.
      *
-     * @param s the {@code ObjectInputStream} to read
+     * @param  s the {@code ObjectInputStream} to read
      * @throws ClassNotFoundException if the class of a serialized
      *         object could not be found
      * @throws IOException if an I/O error occurs

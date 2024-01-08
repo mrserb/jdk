@@ -94,7 +94,7 @@ public class DragSourceEvent extends EventObject {
      * {@code DragSourceEvent} are not specified, so {@code getLocation} will
      * return {@code null} for this event.
      *
-     * @param dsc the {@code DragSourceContext}
+     * @param  dsc the {@code DragSourceContext}
      * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @see #getLocation
      */
@@ -109,9 +109,9 @@ public class DragSourceEvent extends EventObject {
      * Construct a {@code DragSourceEvent} given a specified
      * {@code DragSourceContext}, and coordinates of the cursor location.
      *
-     * @param dsc the {@code DragSourceContext}
-     * @param x the horizontal coordinate for the cursor location
-     * @param y the vertical coordinate for the cursor location
+     * @param  dsc the {@code DragSourceContext}
+     * @param  x the horizontal coordinate for the cursor location
+     * @param  y the vertical coordinate for the cursor location
      * @throws IllegalArgumentException if {@code dsc} is {@code null}
      * @since 1.4
      */

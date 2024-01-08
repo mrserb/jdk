@@ -53,7 +53,7 @@ public class InvalidDnDOperationException extends IllegalStateException {
     /**
      * Create an Exception with its own descriptive message.
      *
-     * @param msg the detail message
+     * @param  msg the detail message
      */
     public InvalidDnDOperationException(String msg) { super(msg); }
 }
