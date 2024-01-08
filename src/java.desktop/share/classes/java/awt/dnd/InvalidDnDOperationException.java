@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -28,14 +28,13 @@ package java.awt.dnd;
 import java.io.Serial;
 
 /**
- * This exception is thrown by various methods in the java.awt.dnd package.
- * It is usually thrown to indicate that the target in question is unable
- * to undertake the requested operation that the present time, since the
- * underlying DnD system is not in the appropriate state.
+ * This exception is thrown by various methods in the java.awt.dnd package. It
+ * is usually thrown to indicate that the target in question is unable to
+ * undertake the requested operation that the present time, since the underlying
+ * DnD system is not in the appropriate state.
  *
  * @since 1.2
  */
-
 public class InvalidDnDOperationException extends IllegalStateException {
 
     /**
@@ -49,7 +48,6 @@ public class InvalidDnDOperationException extends IllegalStateException {
     /**
      * Create a default Exception
      */
-
     public InvalidDnDOperationException() { super(dft_msg); }
 
     /**
@@ -57,7 +55,5 @@ public class InvalidDnDOperationException extends IllegalStateException {
      *
      * @param msg the detail message
      */
-
     public InvalidDnDOperationException(String msg) { super(msg); }
-
 }

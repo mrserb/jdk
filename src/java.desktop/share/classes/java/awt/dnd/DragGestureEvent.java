@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1998, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -42,15 +42,14 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A {@code DragGestureEvent} is passed
- * to {@code DragGestureListener}'s
- * dragGestureRecognized() method
- * when a particular {@code DragGestureRecognizer} detects that a
- * platform dependent drag initiating gesture has occurred
- * on the {@code Component} that it is tracking.
- *
- * The {@code action} field of any {@code DragGestureEvent} instance should take one of the following
- * values:
+ * A {@code DragGestureEvent} is passed to {@code DragGestureListener}'s
+ * dragGestureRecognized() method when a particular
+ * {@code DragGestureRecognizer} detects that a platform dependent drag
+ * initiating gesture has occurred on the {@code Component} that it is
+ * tracking.
+ * <p>
+ * The {@code action} field of any {@code DragGestureEvent} instance should take
+ * one of the following values:
  * <ul>
  * <li> {@code DnDConstants.ACTION_COPY}
  * <li> {@code DnDConstants.ACTION_MOVE}
@@ -63,7 +62,6 @@ import java.util.List;
  * @see java.awt.dnd.DragSource
  * @see java.awt.dnd.DnDConstants
  */
-
 public class DragGestureEvent extends EventObject {
 
     /**
@@ -74,26 +72,24 @@ public class DragGestureEvent extends EventObject {
 
     /**
      * Constructs a {@code DragGestureEvent} object given by the
-     * {@code DragGestureRecognizer} instance firing this event,
-     * an {@code act} parameter representing
-     * the user's preferred action, an {@code ori} parameter
-     * indicating the origin of the drag, and a {@code List} of
-     * events that comprise the gesture({@code evs} parameter).
+     * {@code DragGestureRecognizer} instance firing this event, an {@code act}
+     * parameter representing the user's preferred action, an {@code ori}
+     * parameter indicating the origin of the drag, and a {@code List} of events
+     * that comprise the gesture({@code evs} parameter).
      *
      * @param dgr The {@code DragGestureRecognizer} firing this event
-     * @param act The user's preferred action.
-     *            For information on allowable values, see
-     *            the class description for {@link DragGestureEvent}
+     * @param act The user's preferred action. For information on
+     *         allowable values, see the class description for
+     *         {@link DragGestureEvent}
      * @param ori The origin of the drag
      * @param evs The {@code List} of events that comprise the gesture
-     *
-     * @throws IllegalArgumentException if any parameter equals {@code null}
-     * @throws IllegalArgumentException if the act parameter does not comply with
-     *                                  the values given in the class
-     *                                  description for {@link DragGestureEvent}
+     * @throws IllegalArgumentException if any parameter equals
+     *         {@code null}
+     * @throws IllegalArgumentException if the act parameter does not
+     *         comply with the values given in the class description for
+     *         {@link DragGestureEvent}
      * @see java.awt.dnd.DnDConstants
      */
-
     public DragGestureEvent(DragGestureRecognizer dgr, int act, Point ori,
                             List<? extends InputEvent> evs)
     {
@@ -124,18 +120,16 @@ public class DragGestureEvent extends EventObject {
      *
      * @return the source as a {@code DragGestureRecognizer}
      */
-
     public DragGestureRecognizer getSourceAsDragGestureRecognizer() {
         return (DragGestureRecognizer)getSource();
     }
 
     /**
-     * Returns the {@code Component} associated
-     * with this {@code DragGestureEvent}.
+     * Returns the {@code Component} associated with this
+     * {@code DragGestureEvent}.
      *
      * @return the Component
      */
-
     public Component getComponent() { return component; }
 
     /**
@@ -143,23 +137,20 @@ public class DragGestureEvent extends EventObject {
      *
      * @return the {@code DragSource}
      */
-
     public DragSource getDragSource() { return dragSource; }
 
     /**
-     * Returns a {@code Point} in the coordinates
-     * of the {@code Component} over which the drag originated.
+     * Returns a {@code Point} in the coordinates of the {@code Component} over
+     * which the drag originated.
      *
      * @return the Point where the drag originated in Component coords.
      */
-
     public Point getDragOrigin() {
         return origin;
     }
 
     /**
-     * Returns an {@code Iterator} for the events
-     * comprising the gesture.
+     * Returns an {@code Iterator} for the events comprising the gesture.
      *
      * @return an Iterator for the events comprising the gesture
      */
@@ -167,31 +158,27 @@ public class DragGestureEvent extends EventObject {
     public Iterator<InputEvent> iterator() { return events.iterator(); }
 
     /**
-     * Returns an {@code Object} array of the
-     * events comprising the drag gesture.
+     * Returns an {@code Object} array of the events comprising the drag
+     * gesture.
      *
      * @return an array of the events comprising the gesture
      */
-
     public Object[] toArray() { return events.toArray(); }
 
     /**
      * Returns an array of the events comprising the drag gesture.
      *
      * @param array the array of {@code EventObject} sub(types)
-     *
      * @return an array of the events comprising the gesture
      */
     @SuppressWarnings("unchecked")
     public Object[] toArray(Object[] array) { return events.toArray(array); }
 
     /**
-     * Returns an {@code int} representing the
-     * action selected by the user.
+     * Returns an {@code int} representing the action selected by the user.
      *
      * @return the action selected by the user
      */
-
     public int getDragAction() { return action; }
 
     /**
@@ -199,35 +186,35 @@ public class DragGestureEvent extends EventObject {
      *
      * @return the first "triggering" event in the sequence of the gesture
      */
-
     public InputEvent getTriggerEvent() {
         return getSourceAsDragGestureRecognizer().getTriggerEvent();
     }
 
     /**
      * Starts the drag operation given the {@code Cursor} for this drag
-     * operation and the {@code Transferable} representing the source data
-     * for this drag operation.
+     * operation and the {@code Transferable} representing the source data for
+     * this drag operation.
      * <br>
-     * If a {@code null Cursor} is specified no exception will
-     * be thrown and default drag cursors will be used instead.
+     * If a {@code null Cursor} is specified no exception will be thrown and
+     * default drag cursors will be used instead.
      * <br>
-     * If a {@code null Transferable} is specified
-     * {@code NullPointerException} will be thrown.
-     * @param dragCursor     The initial {@code Cursor} for this drag operation
-     *                       or {@code null} for the default cursor handling;
-     *                       see
-     *                       <a href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
-     *                       for more details on the cursor handling mechanism
-     *                       during drag and drop
-     * @param transferable The {@code Transferable} representing the source
-     *                     data for this drag operation.
+     * If a {@code null Transferable} is specified {@code NullPointerException}
+     * will be thrown.
      *
-     * @throws InvalidDnDOperationException if the Drag and Drop
-     *         system is unable to initiate a drag operation, or if the user
-     *         attempts to start a drag while an existing drag operation is
-     *         still executing.
-     * @throws NullPointerException if the {@code Transferable} is {@code null}
+     * @param dragCursor The initial {@code Cursor} for this drag
+     *         operation or {@code null} for the default cursor handling; see
+     *         <a
+     *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
+     *         for more details on the cursor handling mechanism during drag and
+     *         drop
+     * @param transferable The {@code Transferable} representing the
+     *         source data for this drag operation.
+     * @throws InvalidDnDOperationException if the Drag and Drop system
+     *         is unable to initiate a drag operation, or if the user attempts
+     *         to start a drag while an existing drag operation is still
+     *         executing.
+     * @throws NullPointerException if the {@code Transferable} is
+     *         {@code null}
      * @since 1.4
      */
     public void startDrag(Cursor dragCursor, Transferable transferable)
@@ -236,72 +223,63 @@ public class DragGestureEvent extends EventObject {
     }
 
     /**
-     * Starts the drag given the initial {@code Cursor} to display,
-     * the {@code Transferable} object,
-     * and the {@code DragSourceListener} to use.
+     * Starts the drag given the initial {@code Cursor} to display, the
+     * {@code Transferable} object, and the {@code DragSourceListener} to use.
      *
-     * @param dragCursor     The initial {@code Cursor} for this drag operation
-     *                       or {@code null} for the default cursor handling;
-     *                       see
-     *                       <a href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
-     *                       for more details on the cursor handling mechanism
-     *                       during drag and drop
+     * @param dragCursor The initial {@code Cursor} for this drag
+     *         operation or {@code null} for the default cursor handling; see
+     *         <a
+     *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
+     *         for more details on the cursor handling mechanism during drag and
+     *         drop
      * @param transferable The source's Transferable
-     * @param dsl          The source's DragSourceListener
-     *
-     * @throws InvalidDnDOperationException if
-     * the Drag and Drop system is unable to
-     * initiate a drag operation, or if the user
-     * attempts to start a drag while an existing
-     * drag operation is still executing.
+     * @param dsl The source's DragSourceListener
+     * @throws InvalidDnDOperationException if the Drag and Drop system
+     *         is unable to initiate a drag operation, or if the user attempts
+     *         to start a drag while an existing drag operation is still
+     *         executing.
      */
-
     public void startDrag(Cursor dragCursor, Transferable transferable, DragSourceListener dsl) throws InvalidDnDOperationException {
         dragSource.startDrag(this, dragCursor, transferable, dsl);
     }
 
     /**
-     * Start the drag given the initial {@code Cursor} to display,
-     * a drag {@code Image}, the offset of
-     * the {@code Image},
-     * the {@code Transferable} object, and
-     * the {@code DragSourceListener} to use.
+     * Start the drag given the initial {@code Cursor} to display, a drag
+     * {@code Image}, the offset of the {@code Image}, the {@code Transferable}
+     * object, and the {@code DragSourceListener} to use.
      *
-     * @param dragCursor     The initial {@code Cursor} for this drag operation
-     *                       or {@code null} for the default cursor handling;
-     *                       see
-     *                       <a href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
-     *                       for more details on the cursor handling mechanism
-     *                       during drag and drop
-     * @param dragImage    The source's dragImage
-     * @param imageOffset  The dragImage's offset
+     * @param dragCursor The initial {@code Cursor} for this drag
+     *         operation or {@code null} for the default cursor handling; see
+     *         <a
+     *         href="DragSourceContext.html#defaultCursor">DragSourceContext</a>
+     *         for more details on the cursor handling mechanism during drag and
+     *         drop
+     * @param dragImage The source's dragImage
+     * @param imageOffset The dragImage's offset
      * @param transferable The source's Transferable
-     * @param dsl          The source's DragSourceListener
-     *
-     * @throws InvalidDnDOperationException if
-     * the Drag and Drop system is unable to
-     * initiate a drag operation, or if the user
-     * attempts to start a drag while an existing
-     * drag operation is still executing.
+     * @param dsl The source's DragSourceListener
+     * @throws InvalidDnDOperationException if the Drag and Drop system
+     *         is unable to initiate a drag operation, or if the user attempts
+     *         to start a drag while an existing drag operation is still
+     *         executing.
      */
-
     public void startDrag(Cursor dragCursor, Image dragImage, Point imageOffset, Transferable transferable, DragSourceListener dsl) throws InvalidDnDOperationException {
         dragSource.startDrag(this,  dragCursor, dragImage, imageOffset, transferable, dsl);
     }
 
     /**
-     * Serializes this {@code DragGestureEvent}. Performs default
-     * serialization and then writes out this object's {@code List} of
-     * gesture events if and only if the {@code List} can be serialized.
-     * If not, {@code null} is written instead. In this case, a
-     * {@code DragGestureEvent} created from the resulting deserialized
-     * stream will contain an empty {@code List} of gesture events.
+     * Serializes this {@code DragGestureEvent}. Performs default serialization
+     * and then writes out this object's {@code List} of gesture events if and
+     * only if the {@code List} can be serialized. If not, {@code null} is
+     * written instead. In this case, a {@code DragGestureEvent} created from
+     * the resulting deserialized stream will contain an empty {@code List} of
+     * gesture events.
      *
-     * @param  s the {@code ObjectOutputStream} to write
+     * @param s the {@code ObjectOutputStream} to write
      * @throws IOException if an I/O error occurs
-     * @serialData The default serializable fields, in alphabetical order,
-     *             followed by either a {@code List} instance, or
-     *             {@code null}.
+     * @serialData The default serializable fields, in alphabetical
+     *         order, followed by either a {@code List} instance, or
+     *         {@code null}.
      * @since 1.4
      */
     @Serial
@@ -312,20 +290,19 @@ public class DragGestureEvent extends EventObject {
     }
 
     /**
-     * Deserializes this {@code DragGestureEvent}. This method first
-     * performs default deserialization for all non-{@code transient}
-     * fields. An attempt is then made to deserialize this object's
-     * {@code List} of gesture events as well. This is first attempted
-     * by deserializing the field {@code events}, because, in releases
-     * prior to 1.4, a non-{@code transient} field of this name stored the
-     * {@code List} of gesture events. If this fails, the next object in
-     * the stream is used instead. If the resulting {@code List} is
-     * {@code null}, this object's {@code List} of gesture events
-     * is set to an empty {@code List}.
+     * Deserializes this {@code DragGestureEvent}. This method first performs
+     * default deserialization for all non-{@code transient} fields. An attempt
+     * is then made to deserialize this object's {@code List} of gesture events
+     * as well. This is first attempted by deserializing the field
+     * {@code events}, because, in releases prior to 1.4, a
+     * non-{@code transient} field of this name stored the {@code List} of
+     * gesture events. If this fails, the next object in the stream is used
+     * instead. If the resulting {@code List} is {@code null}, this object's
+     * {@code List} of gesture events is set to an empty {@code List}.
      *
-     * @param  s the {@code ObjectInputStream} to read
-     * @throws ClassNotFoundException if the class of a serialized object could
-     *         not be found
+     * @param s the {@code ObjectInputStream} to read
+     * @throws ClassNotFoundException if the class of a serialized
+     *         object could not be found
      * @throws IOException if an I/O error occurs
      * @since 1.4
      */

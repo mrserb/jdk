@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -28,17 +28,13 @@ package java.awt.dnd;
 import java.io.Serial;
 
 /**
- * The {@code DropTargetEvent} is the base
- * class for both the {@code DropTargetDragEvent}
- * and the {@code DropTargetDropEvent}.
- * It encapsulates the current state of the Drag and
- * Drop operations, in particular the current
- * {@code DropTargetContext}.
+ * The {@code DropTargetEvent} is the base class for both the
+ * {@code DropTargetDragEvent} and the {@code DropTargetDropEvent}. It
+ * encapsulates the current state of the Drag and Drop operations, in particular
+ * the current {@code DropTargetContext}.
  *
  * @since 1.2
- *
  */
-
 public class DropTargetEvent extends java.util.EventObject {
 
     /**
@@ -48,8 +44,8 @@ public class DropTargetEvent extends java.util.EventObject {
     private static final long serialVersionUID = 2821229066521922993L;
 
     /**
-     * Construct a {@code DropTargetEvent} object with
-     * the specified {@code DropTargetContext}.
+     * Construct a {@code DropTargetEvent} object with the specified
+     * {@code DropTargetContext}.
      *
      * @param dtc The {@code DropTargetContext}
      * @throws NullPointerException if {@code dtc} equals {@code null}.
@@ -64,8 +60,8 @@ public class DropTargetEvent extends java.util.EventObject {
     }
 
     /**
-     * This method returns the {@code DropTargetContext}
-     * associated with this {@code DropTargetEvent}.
+     * This method returns the {@code DropTargetContext} associated with this
+     * {@code DropTargetEvent}.
      *
      * @return the {@code DropTargetContext}
      */

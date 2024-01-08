@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2013, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -28,8 +28,9 @@ package java.awt.dnd;
 import java.lang.annotation.Native;
 
 /**
- * This class contains constant values representing
- * the type of action(s) to be performed by a Drag and Drop operation.
+ * This class contains constant values representing the type of action(s) to be
+ * performed by a Drag and Drop operation.
+ *
  * @since 1.2
  */
 public final class DnDConstants {
@@ -52,33 +53,29 @@ public final class DnDConstants {
     @Native public static final int ACTION_MOVE         = 0x2;
 
     /**
-     * An {@code int} representing a "copy" or
-     * "move" action.
+     * An {@code int} representing a "copy" or "move" action.
      */
     @Native public static final int ACTION_COPY_OR_MOVE = ACTION_COPY | ACTION_MOVE;
 
     /**
      * An {@code int} representing a "link" action.
-     *
+     * <p>
      * The link verb is found in many, if not all native DnD platforms, and the
-     * actual interpretation of LINK semantics is both platform
-     * and application dependent. Broadly speaking, the
-     * semantic is "do not copy, or move the operand, but create a reference
-     * to it". Defining the meaning of "reference" is where ambiguity is
-     * introduced.
-     *
-     * The verb is provided for completeness, but its use is not recommended
-     * for DnD operations between logically distinct applications where
+     * actual interpretation of LINK semantics is both platform and application
+     * dependent. Broadly speaking, the semantic is "do not copy, or move the
+     * operand, but create a reference to it". Defining the meaning of
+     * "reference" is where ambiguity is introduced.
+     * <p>
+     * The verb is provided for completeness, but its use is not recommended for
+     * DnD operations between logically distinct applications where
      * misinterpretation of the operations semantics could lead to confusing
      * results for the user.
      */
-
     @Native public static final int ACTION_LINK         = 0x40000000;
 
     /**
-     * An {@code int} representing a "reference"
-     * action (synonym for ACTION_LINK).
+     * An {@code int} representing a "reference" action (synonym for
+     * ACTION_LINK).
      */
     @Native public static final int ACTION_REFERENCE    = ACTION_LINK;
-
 }

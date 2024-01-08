@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 1999, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -28,32 +28,26 @@ package java.awt.dnd.peer;
 import java.awt.dnd.DropTarget;
 
 /**
- * <p>
- * The DropTargetPeer class is the interface to the platform dependent
- * DnD facilities. Since the DnD system is based on the native platform's
- * facilities, a DropTargetPeer will be associated with a ComponentPeer
- * of the nearest enclosing native Container (in the case of lightweights)
- * </p>
+ * The DropTargetPeer class is the interface to the platform dependent DnD
+ * facilities. Since the DnD system is based on the native platform's
+ * facilities, a DropTargetPeer will be associated with a ComponentPeer of the
+ * nearest enclosing native Container (in the case of lightweights)
  *
  * @since 1.2
- *
  */
-
 public interface DropTargetPeer {
 
     /**
      * Add the DropTarget to the System
      *
-     * @param dt The DropTarget effected
+     * @param  dt The DropTarget effected
      */
-
     void addDropTarget(DropTarget dt);
 
     /**
      * Remove the DropTarget from the system
      *
-     * @param dt The DropTarget effected
+     * @param  dt The DropTarget effected
      */
-
     void removeDropTarget(DropTarget dt);
 }

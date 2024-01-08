@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -53,19 +53,15 @@ import sun.awt.AWTAccessor;
 import sun.awt.AWTAccessor.ComponentAccessor;
 
 /**
- * The {@code DropTarget} is associated
- * with a {@code Component} when that {@code Component}
- * wishes
- * to accept drops during Drag and Drop operations.
- * <P>
- *  Each
- * {@code DropTarget} is associated with a {@code FlavorMap}.
- * The default {@code FlavorMap} hereafter designates the
- * {@code FlavorMap} returned by {@code SystemFlavorMap.getDefaultFlavorMap()}.
+ * The {@code DropTarget} is associated with a {@code Component} when that
+ * {@code Component} wishes to accept drops during Drag and Drop operations.
+ * <p>
+ * Each {@code DropTarget} is associated with a {@code FlavorMap}. The default
+ * {@code FlavorMap} hereafter designates the {@code FlavorMap} returned by
+ * {@code SystemFlavorMap.getDefaultFlavorMap()}.
  *
  * @since 1.2
  */
-
 public class DropTarget implements DropTargetListener, Serializable {
 
     /**
@@ -75,22 +71,26 @@ public class DropTarget implements DropTargetListener, Serializable {
     private static final long serialVersionUID = -6283860791671019047L;
 
     /**
-     * Creates a new DropTarget given the {@code Component}
-     * to associate itself with, an {@code int} representing
-     * the default acceptable action(s) to
-     * support, a {@code DropTargetListener}
-     * to handle event processing, a {@code boolean} indicating
-     * if the {@code DropTarget} is currently accepting drops, and
-     * a {@code FlavorMap} to use (or null for the default {@code FlavorMap}).
-     * <P>
+     * Creates a new DropTarget given the {@code Component} to associate itself
+     * with, an {@code int} representing the default acceptable action(s) to
+     * support, a {@code DropTargetListener} to handle event processing, a
+     * {@code boolean} indicating if the {@code DropTarget} is currently
+     * accepting drops, and a {@code FlavorMap} to use (or null for the default
+     * {@code FlavorMap}).
+     * <p>
      * The Component will receive drops only if it is enabled.
-     * @param c         The {@code Component} with which this {@code DropTarget} is associated
-     * @param ops       The default acceptable actions for this {@code DropTarget}
-     * @param dtl       The {@code DropTargetListener} for this {@code DropTarget}
-     * @param act       Is the {@code DropTarget} accepting drops.
-     * @param fm        The {@code FlavorMap} to use, or null for the default {@code FlavorMap}
+     *
+     * @param c The {@code Component} with which this {@code DropTarget}
+     *         is associated
+     * @param ops The default acceptable actions for this
+     *         {@code DropTarget}
+     * @param dtl The {@code DropTargetListener} for this
+     *         {@code DropTarget}
+     * @param act Is the {@code DropTarget} accepting drops.
+     * @param fm The {@code FlavorMap} to use, or null for the default
+     *         {@code FlavorMap}
      * @throws HeadlessException if GraphicsEnvironment.isHeadless()
-     *            returns true
+     *         returns true
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget(Component c, int ops, DropTargetListener dtl,
@@ -124,20 +124,23 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Creates a {@code DropTarget} given the {@code Component}
-     * to associate itself with, an {@code int} representing
-     * the default acceptable action(s)
-     * to support, a {@code DropTargetListener}
-     * to handle event processing, and a {@code boolean} indicating
-     * if the {@code DropTarget} is currently accepting drops.
-     * <P>
+     * Creates a {@code DropTarget} given the {@code Component} to associate
+     * itself with, an {@code int} representing the default acceptable action(s)
+     * to support, a {@code DropTargetListener} to handle event processing, and
+     * a {@code boolean} indicating if the {@code DropTarget} is currently
+     * accepting drops.
+     * <p>
      * The Component will receive drops only if it is enabled.
-     * @param c         The {@code Component} with which this {@code DropTarget} is associated
-     * @param ops       The default acceptable actions for this {@code DropTarget}
-     * @param dtl       The {@code DropTargetListener} for this {@code DropTarget}
-     * @param act       Is the {@code DropTarget} accepting drops.
+     *
+     * @param c The {@code Component} with which this {@code DropTarget}
+     *         is associated
+     * @param ops The default acceptable actions for this
+     *         {@code DropTarget}
+     * @param dtl The {@code DropTargetListener} for this
+     *         {@code DropTarget}
+     * @param act Is the {@code DropTarget} accepting drops.
      * @throws HeadlessException if GraphicsEnvironment.isHeadless()
-     *            returns true
+     *         returns true
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget(Component c, int ops, DropTargetListener dtl,
@@ -149,8 +152,9 @@ public class DropTarget implements DropTargetListener, Serializable {
 
     /**
      * Creates a {@code DropTarget}.
+     *
      * @throws HeadlessException if GraphicsEnvironment.isHeadless()
-     *            returns true
+     *         returns true
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget() throws HeadlessException {
@@ -158,15 +162,18 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Creates a {@code DropTarget} given the {@code Component}
-     * to associate itself with, and the {@code DropTargetListener}
-     * to handle event processing.
-     * <P>
+     * Creates a {@code DropTarget} given the {@code Component} to associate
+     * itself with, and the {@code DropTargetListener} to handle event
+     * processing.
+     * <p>
      * The Component will receive drops only if it is enabled.
-     * @param c         The {@code Component} with which this {@code DropTarget} is associated
-     * @param dtl       The {@code DropTargetListener} for this {@code DropTarget}
+     *
+     * @param c The {@code Component} with which this {@code DropTarget}
+     *         is associated
+     * @param dtl The {@code DropTargetListener} for this
+     *         {@code DropTarget}
      * @throws HeadlessException if GraphicsEnvironment.isHeadless()
-     *            returns true
+     *         returns true
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget(Component c, DropTargetListener dtl)
@@ -176,17 +183,20 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Creates a {@code DropTarget} given the {@code Component}
-     * to associate itself with, an {@code int} representing
-     * the default acceptable action(s) to support, and a
-     * {@code DropTargetListener} to handle event processing.
-     * <P>
+     * Creates a {@code DropTarget} given the {@code Component} to associate
+     * itself with, an {@code int} representing the default acceptable action(s)
+     * to support, and a {@code DropTargetListener} to handle event processing.
+     * <p>
      * The Component will receive drops only if it is enabled.
-     * @param c         The {@code Component} with which this {@code DropTarget} is associated
-     * @param ops       The default acceptable actions for this {@code DropTarget}
-     * @param dtl       The {@code DropTargetListener} for this {@code DropTarget}
+     *
+     * @param c The {@code Component} with which this {@code DropTarget}
+     *         is associated
+     * @param ops The default acceptable actions for this
+     *         {@code DropTarget}
+     * @param dtl The {@code DropTargetListener} for this
+     *         {@code DropTarget}
      * @throws HeadlessException if GraphicsEnvironment.isHeadless()
-     *            returns true
+     *         returns true
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
     public DropTarget(Component c, int ops, DropTargetListener dtl)
@@ -196,16 +206,16 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Note: this interface is required to permit the safe association
-     * of a DropTarget with a Component in one of two ways, either:
-     * {@code component.setDropTarget(droptarget);}
-     * or {@code droptarget.setComponent(component);}
-     * <P>
+     * Note: this interface is required to permit the safe association of a
+     * DropTarget with a Component in one of two ways, either:
+     * {@code component.setDropTarget(droptarget);} or
+     * {@code droptarget.setComponent(component);}
+     * <p>
      * The Component will receive drops only if it is enabled.
-     * @param c The new {@code Component} this {@code DropTarget}
-     * is to be associated with.
+     *
+     * @param c The new {@code Component} this {@code DropTarget} is to
+     *         be associated with.
      */
-
     public synchronized void setComponent(Component c) {
         if (component == c || component != null && component.equals(c))
             return;
@@ -232,12 +242,10 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Gets the {@code Component} associated
-     * with this {@code DropTarget}.
+     * Gets the {@code Component} associated with this {@code DropTarget}.
      *
      * @return the current {@code Component}
      */
-
     public synchronized Component getComponent() {
         return component;
     }
@@ -248,7 +256,6 @@ public class DropTarget implements DropTargetListener, Serializable {
      * @param ops the default actions
      * @see java.awt.dnd.DnDConstants
      */
-
     public void setDefaultActions(int ops) {
         getDropTargetContext().setTargetActions(ops & (DnDConstants.ACTION_COPY_OR_MOVE | DnDConstants.ACTION_REFERENCE));
     }
@@ -262,23 +269,20 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Gets an {@code int} representing the
-     * current action(s) supported by this {@code DropTarget}.
+     * Gets an {@code int} representing the current action(s) supported by this
+     * {@code DropTarget}.
      *
      * @return the current default actions
      */
-
     public int getDefaultActions() {
         return actions;
     }
 
     /**
-     * Sets the DropTarget active if {@code true},
-     * inactive if {@code false}.
+     * Sets the DropTarget active if {@code true}, inactive if {@code false}.
      *
      * @param isActive sets the {@code DropTarget} (in)active.
      */
-
     public synchronized void setActive(boolean isActive) {
         if (isActive != active) {
             active = isActive;
@@ -288,13 +292,11 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Reports whether or not
-     * this {@code DropTarget}
-     * is currently active (ready to accept drops).
+     * Reports whether or not this {@code DropTarget} is currently active (ready
+     * to accept drops).
      *
      * @return {@code true} if active, {@code false} if not
      */
-
     public boolean isActive() {
         return active;
     }
@@ -303,16 +305,14 @@ public class DropTarget implements DropTargetListener, Serializable {
      * Adds a new {@code DropTargetListener} (UNICAST SOURCE).
      *
      * @param dtl The new {@code DropTargetListener}
-     *
-     * @throws TooManyListenersException if a
-     * {@code DropTargetListener} is already added to this
-     * {@code DropTarget}.
+     * @throws TooManyListenersException if a {@code DropTargetListener}
+     *         is already added to this {@code DropTarget}.
      */
-
     public synchronized void addDropTargetListener(DropTargetListener dtl) throws TooManyListenersException {
         if (dtl == null) return;
 
-        if (equals(dtl)) throw new IllegalArgumentException("DropTarget may not be its own Listener");
+        if (equals(dtl))
+            throw new IllegalArgumentException("DropTarget may not be its own Listener");
 
         if (dtListener == null)
             dtListener = dtl;
@@ -325,7 +325,6 @@ public class DropTarget implements DropTargetListener, Serializable {
      *
      * @param dtl the DropTargetListener to deregister.
      */
-
     public synchronized void removeDropTargetListener(DropTargetListener dtl) {
         if (dtl != null && dtListener != null) {
             if(dtListener.equals(dtl))
@@ -336,17 +335,13 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Calls {@code dragEnter} on the registered
-     * {@code DropTargetListener} and passes it
-     * the specified {@code DropTargetDragEvent}.
-     * Has no effect if this {@code DropTarget}
-     * is not active.
+     * Calls {@code dragEnter} on the registered {@code DropTargetListener} and
+     * passes it the specified {@code DropTargetDragEvent}. Has no effect if
+     * this {@code DropTarget} is not active.
      *
      * @param dtde the {@code DropTargetDragEvent}
-     *
-     * @throws NullPointerException if this {@code DropTarget}
-     *         is active and {@code dtde} is {@code null}
-     *
+     * @throws NullPointerException if this {@code DropTarget} is active
+     *         and {@code dtde} is {@code null}
      * @see #isActive
      */
     public synchronized void dragEnter(DropTargetDragEvent dtde) {
@@ -363,17 +358,13 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Calls {@code dragOver} on the registered
-     * {@code DropTargetListener} and passes it
-     * the specified {@code DropTargetDragEvent}.
-     * Has no effect if this {@code DropTarget}
-     * is not active.
+     * Calls {@code dragOver} on the registered {@code DropTargetListener} and
+     * passes it the specified {@code DropTargetDragEvent}. Has no effect if
+     * this {@code DropTarget} is not active.
      *
      * @param dtde the {@code DropTargetDragEvent}
-     *
-     * @throws NullPointerException if this {@code DropTarget}
-     *         is active and {@code dtde} is {@code null}
-     *
+     * @throws NullPointerException if this {@code DropTarget} is active
+     *         and {@code dtde} is {@code null}
      * @see #isActive
      */
     public synchronized void dragOver(DropTargetDragEvent dtde) {
@@ -386,16 +377,13 @@ public class DropTarget implements DropTargetListener, Serializable {
 
     /**
      * Calls {@code dropActionChanged} on the registered
-     * {@code DropTargetListener} and passes it
-     * the specified {@code DropTargetDragEvent}.
-     * Has no effect if this {@code DropTarget}
-     * is not active.
+     * {@code DropTargetListener} and passes it the specified
+     * {@code DropTargetDragEvent}. Has no effect if this {@code DropTarget} is
+     * not active.
      *
      * @param dtde the {@code DropTargetDragEvent}
-     *
-     * @throws NullPointerException if this {@code DropTarget}
-     *         is active and {@code dtde} is {@code null}
-     *
+     * @throws NullPointerException if this {@code DropTarget} is active
+     *         and {@code dtde} is {@code null}
      * @see #isActive
      */
     public synchronized void dropActionChanged(DropTargetDragEvent dtde) {
@@ -407,18 +395,14 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Calls {@code dragExit} on the registered
-     * {@code DropTargetListener} and passes it
-     * the specified {@code DropTargetEvent}.
-     * Has no effect if this {@code DropTarget}
-     * is not active.
+     * Calls {@code dragExit} on the registered {@code DropTargetListener} and
+     * passes it the specified {@code DropTargetEvent}. Has no effect if this
+     * {@code DropTarget} is not active.
      * <p>
-     * This method itself does not throw any exception
-     * for null parameter but for exceptions thrown by
-     * the respective method of the listener.
+     * This method itself does not throw any exception for null parameter but
+     * for exceptions thrown by the respective method of the listener.
      *
      * @param dte the {@code DropTargetEvent}
-     *
      * @see #isActive
      */
     public synchronized void dragExit(DropTargetEvent dte) {
@@ -432,18 +416,14 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Calls {@code drop} on the registered
-     * {@code DropTargetListener} and passes it
-     * the specified {@code DropTargetDropEvent}
-     * if this {@code DropTarget} is active.
+     * Calls {@code drop} on the registered {@code DropTargetListener} and
+     * passes it the specified {@code DropTargetDropEvent} if this
+     * {@code DropTarget} is active.
      *
      * @param dtde the {@code DropTargetDropEvent}
-     *
-     * @throws NullPointerException if {@code dtde} is null
-     *         and at least one of the following is true: this
-     *         {@code DropTarget} is not active, or there is
-     *         no a {@code DropTargetListener} registered.
-     *
+     * @throws NullPointerException if {@code dtde} is null and at least
+     *         one of the following is true: this {@code DropTarget} is not
+     *         active, or there is no a {@code DropTargetListener} registered.
      * @see #isActive
      */
     public synchronized void drop(DropTargetDropEvent dtde) {
@@ -459,41 +439,36 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Gets the {@code FlavorMap}
-     * associated with this {@code DropTarget}.
-     * If no {@code FlavorMap} has been set for this
-     * {@code DropTarget}, it is associated with the default
-     * {@code FlavorMap}.
+     * Gets the {@code FlavorMap} associated with this {@code DropTarget}. If no
+     * {@code FlavorMap} has been set for this {@code DropTarget}, it is
+     * associated with the default {@code FlavorMap}.
      *
      * @return the FlavorMap for this DropTarget
      */
-
     public FlavorMap getFlavorMap() { return flavorMap; }
 
     /**
-     * Sets the {@code FlavorMap} associated
-     * with this {@code DropTarget}.
+     * Sets the {@code FlavorMap} associated with this {@code DropTarget}.
      *
-     * @param fm the new {@code FlavorMap}, or null to
-     * associate the default FlavorMap with this DropTarget.
+     * @param fm the new {@code FlavorMap}, or null to associate the
+     *         default FlavorMap with this DropTarget.
      */
-
     public void setFlavorMap(FlavorMap fm) {
         flavorMap = fm == null ? SystemFlavorMap.getDefaultFlavorMap() : fm;
     }
 
     /**
      * Notify the DropTarget that it has been associated with a Component
-     *
-     **********************************************************************
-     * This method is usually called from java.awt.Component.addNotify() of
-     * the Component associated with this DropTarget to notify the DropTarget
-     * that a ComponentPeer has been associated with that Component.
-     *
+     * <p>
+     * *********************************************************************
+     * This method is usually called from java.awt.Component.addNotify() of the
+     * Component associated with this DropTarget to notify the DropTarget that a
+     * ComponentPeer has been associated with that Component.
+     * <p>
      * Calling this method, other than to notify this DropTarget of the
-     * association of the ComponentPeer with the Component may result in
-     * a malfunction of the DnD system.
-     **********************************************************************
+     * association of the ComponentPeer with the Component may result in a
+     * malfunction of the DnD system.
+     * *********************************************************************
      */
     public void addNotify() {
         final ComponentAccessor acc = AWTAccessor.getComponentAccessor();
@@ -520,18 +495,17 @@ public class DropTarget implements DropTargetListener, Serializable {
 
     /**
      * Notify the DropTarget that it has been disassociated from a Component
-     *
-     **********************************************************************
+     * <p>
+     * *********************************************************************
      * This method is usually called from java.awt.Component.removeNotify() of
      * the Component associated with this DropTarget to notify the DropTarget
      * that a ComponentPeer has been disassociated with that Component.
-     *
+     * <p>
      * Calling this method, other than to notify this DropTarget of the
-     * disassociation of the ComponentPeer from the Component may result in
-     * a malfunction of the DnD system.
-     **********************************************************************
+     * disassociation of the ComponentPeer from the Component may result in a
+     * malfunction of the DnD system.
+     * *********************************************************************
      */
-
     public void removeNotify() {
         if (nativePeer != null) {
             nativePeer.removeDropTarget(this);
@@ -547,43 +521,41 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Gets the {@code DropTargetContext} associated
-     * with this {@code DropTarget}.
+     * Gets the {@code DropTargetContext} associated with this
+     * {@code DropTarget}.
      *
-     * @return the {@code DropTargetContext} associated with this {@code DropTarget}.
+     * @return the {@code DropTargetContext} associated with this
+     *         {@code DropTarget}.
      */
-
     public DropTargetContext getDropTargetContext() {
         return dropTargetContext;
     }
 
     /**
-     * Creates the DropTargetContext associated with this DropTarget.
-     * Subclasses may override this method to instantiate their own
-     * DropTargetContext subclass.
-     *
+     * Creates the DropTargetContext associated with this DropTarget. Subclasses
+     * may override this method to instantiate their own DropTargetContext
+     * subclass.
+     * <p>
      * This call is typically *only* called by the platform's
-     * DropTargetContextPeer as a drag operation encounters this
-     * DropTarget. Accessing the Context while no Drag is current
-     * has undefined results.
+     * DropTargetContextPeer as a drag operation encounters this DropTarget.
+     * Accessing the Context while no Drag is current has undefined results.
+     *
      * @return the DropTargetContext associated with this DropTarget
      */
-
     protected DropTargetContext createDropTargetContext() {
         return new DropTargetContext(this);
     }
 
     /**
-     * Serializes this {@code DropTarget}. Performs default serialization,
-     * and then writes out this object's {@code DropTargetListener} if and
-     * only if it can be serialized. If not, {@code null} is written
-     * instead.
+     * Serializes this {@code DropTarget}. Performs default serialization, and
+     * then writes out this object's {@code DropTargetListener} if and only if
+     * it can be serialized. If not, {@code null} is written instead.
      *
-     * @param  s the {@code ObjectOutputStream} to write
+     * @param s the {@code ObjectOutputStream} to write
      * @throws IOException if an I/O error occurs
-     * @serialData The default serializable fields, in alphabetical order,
-     *             followed by either a {@code DropTargetListener}
-     *             instance, or {@code null}.
+     * @serialData The default serializable fields, in alphabetical
+     *         order, followed by either a {@code DropTargetListener} instance,
+     *         or {@code null}.
      * @since 1.4
      */
     @Serial
@@ -595,18 +567,17 @@ public class DropTarget implements DropTargetListener, Serializable {
     }
 
     /**
-     * Deserializes this {@code DropTarget}. This method first performs
-     * default deserialization for all non-{@code transient} fields. An
-     * attempt is then made to deserialize this object's
-     * {@code DropTargetListener} as well. This is first attempted by
-     * deserializing the field {@code dtListener}, because, in releases
-     * prior to 1.4, a non-{@code transient} field of this name stored the
-     * {@code DropTargetListener}. If this fails, the next object in the
-     * stream is used instead.
+     * Deserializes this {@code DropTarget}. This method first performs default
+     * deserialization for all non-{@code transient} fields. An attempt is then
+     * made to deserialize this object's {@code DropTargetListener} as well.
+     * This is first attempted by deserializing the field {@code dtListener},
+     * because, in releases prior to 1.4, a non-{@code transient} field of this
+     * name stored the {@code DropTargetListener}. If this fails, the next
+     * object in the stream is used instead.
      *
-     * @param  s the {@code ObjectInputStream} to read
-     * @throws ClassNotFoundException if the class of a serialized object could
-     *         not be found
+     * @param s the {@code ObjectInputStream} to read
+     * @throws ClassNotFoundException if the class of a serialized
+     *         object could not be found
      * @throws IOException if an I/O error occurs
      * @since 1.4
      */
@@ -644,7 +615,6 @@ public class DropTarget implements DropTargetListener, Serializable {
     /**
      * this protected nested class implements autoscrolling
      */
-
     protected static class DropTargetAutoScroller implements ActionListener {
 
         /**
@@ -722,7 +692,6 @@ public class DropTarget implements DropTargetListener, Serializable {
          *
          * @param newLocn the {@code Point}
          */
-
         protected synchronized void updateLocation(Point newLocn) {
             prev = locn;
             locn = newLocn;
@@ -738,7 +707,6 @@ public class DropTarget implements DropTargetListener, Serializable {
         /**
          * cause autoscrolling to stop
          */
-
         protected void stop() { timer.stop(); }
 
         /**
@@ -746,7 +714,6 @@ public class DropTarget implements DropTargetListener, Serializable {
          *
          * @param e the {@code ActionEvent}
          */
-
         public synchronized void actionPerformed(ActionEvent e) {
             updateRegion();
 
@@ -781,7 +748,6 @@ public class DropTarget implements DropTargetListener, Serializable {
      * @param p the {@code Point}
      * @return an embedded autoscroller
      */
-
     protected DropTargetAutoScroller createDropTargetAutoScroller(Component c, Point p) {
         return new DropTargetAutoScroller(c, p);
     }
@@ -791,7 +757,6 @@ public class DropTarget implements DropTargetListener, Serializable {
      *
      * @param p the {@code Point}
      */
-
     protected void initializeAutoscrolling(Point p) {
         if (!(component instanceof Autoscroll)) return;
 
@@ -803,7 +768,6 @@ public class DropTarget implements DropTargetListener, Serializable {
      *
      * @param dragCursorLocn the {@code Point}
      */
-
     protected void updateAutoscroll(Point dragCursorLocn) {
         if (autoScroller != null) autoScroller.updateLocation(dragCursorLocn);
     }
@@ -811,7 +775,6 @@ public class DropTarget implements DropTargetListener, Serializable {
     /**
      * clear autoscrolling
      */
-
     protected void clearAutoscroll() {
         if (autoScroller != null) {
             autoScroller.stop();
@@ -847,9 +810,9 @@ public class DropTarget implements DropTargetListener, Serializable {
     /**
      * Default permissible actions supported by this DropTarget.
      *
+     * @serial
      * @see #setDefaultActions
      * @see #getDefaultActions
-     * @serial
      */
     int     actions = DnDConstants.ACTION_COPY_OR_MOVE;
 
