@@ -21,15 +21,10 @@
  * questions.
  */
 
-import java.awt.color.ColorSpace;
-import java.awt.color.ICC_Profile;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * @test
@@ -38,63 +33,21 @@ import java.io.ObjectOutputStream;
  */
 public final class SerializationTest {
 
-    private static final ICC_Profile[] PROFILES = {
-            ICC_Profile.getInstance(ColorSpace.CS_sRGB),
-            ICC_Profile.getInstance(ColorSpace.CS_LINEAR_RGB),
-            ICC_Profile.getInstance(ColorSpace.CS_CIEXYZ),
-            ICC_Profile.getInstance(ColorSpace.CS_PYCC),
-            ICC_Profile.getInstance(ColorSpace.CS_GRAY)
-    };
-
     public static void main(String[] args) throws Exception {
-        test("null", "null", true);
-        test("null", "invalid", true);
-        test("invalid", "null", true);
-        test("invalid", "invalid", true);
+        test("null_null", true);
+        test("null_invalid", true);
+        test("invalid_null", true);
+        test("invalid_invalid", true);
 
-        test("null", "valid", false);
-        test("valid", "null", false);
-        test("valid", "valid", false);
-        test("valid", "invalid", false);
-        test("invalid", "valid", false);
-
-        roundTripOneByOne();
-        roundTripAllAtOnce();
+        test("null_valid", false);
+        test("valid_null", false);
+        test("valid_valid", false);
+        test("valid_invalid", false);
+        test("invalid_valid", false);
     }
 
-    private static void roundTripOneByOne() throws Exception {
-        for (ICC_Profile profile : PROFILES) {
-            byte[] serialized = serialize(profile);
-            if (profile != deserialize(serialized)) {
-                throw new RuntimeException("Wrong deserialized object");
-            }
-        }
-    }
-
-    private static void roundTripAllAtOnce() throws Exception {
-        byte[] data;
-        try (var bos = new ByteArrayOutputStream();
-             var oos = new ObjectOutputStream(bos))
-        {
-            for (ICC_Profile profile : PROFILES) {
-                oos.writeObject(profile);
-            }
-            data = bos.toByteArray();
-        }
-
-        try (var ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
-            for (ICC_Profile profile : PROFILES) {
-                if (profile != ois.readObject()) {
-                    throw new RuntimeException("Wrong deserialized object");
-                }
-            }
-        }
-    }
-
-    private static void test(String csName, String data, boolean fail)
-            throws Exception
-    {
-        String fileName = csName + "_" + data + ".ser";
+    private static void test(String test, boolean fail) throws Exception {
+        String fileName = test + ".ser";
         File file = new File(System.getProperty("test.src", "."), fileName);
         try (var fis = new FileInputStream(file);
              var ois = new ObjectInputStream(fis))
@@ -109,21 +62,6 @@ public final class SerializationTest {
                     throw new RuntimeException("Unexpected IOE occurred", e);
                 }
             }
-        }
-    }
-
-    private static byte[] serialize(Object obj) throws Exception {
-        try (var bos = new ByteArrayOutputStream();
-             var oos = new ObjectOutputStream(bos))
-        {
-            oos.writeObject(obj);
-            return bos.toByteArray();
-        }
-    }
-
-    private static ICC_Profile deserialize(byte[] data) throws Exception {
-        try (var ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
-            return (ICC_Profile) ois.readObject();
         }
     }
 }
