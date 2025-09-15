@@ -31,7 +31,7 @@ import java.io.ObjectInputStream;
  * @bug 8367384
  * @summary Checks ICC_Profile serialization, especially for invalid streams
  */
-public final class SerializationTest {
+public final class SerializationSpecTest {
 
     public static void main(String[] args) throws Exception {
         test("null_null", true);
@@ -52,15 +52,13 @@ public final class SerializationTest {
         try (var fis = new FileInputStream(file);
              var ois = new ObjectInputStream(fis))
         {
-            try {
-                ois.readObject();
-                if (fail) {
-                    throw new RuntimeException("Expected IOE did not occur");
-                }
-            } catch (InvalidObjectException e) {
-                if (!fail) {
-                    throw new RuntimeException("Unexpected IOE occurred", e);
-                }
+            ois.readObject();
+            if (fail) {
+                throw new RuntimeException("Expected IOE did not occur");
+            }
+        } catch (InvalidObjectException e) {
+            if (!fail) {
+                throw new RuntimeException("Unexpected IOE occurred", e);
             }
         }
     }
