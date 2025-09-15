@@ -34,6 +34,12 @@ import java.io.ObjectInputStream;
 public final class SerializationSpecTest {
 
     public static void main(String[] args) throws Exception {
+        // Serialization form for ICC_Profile contains version, profile name,
+        // and profile data. If the name is invalid or does not match a standard
+        // profile, the data is used. An exception is thrown only if both the
+        // name and the data are invalid, or if one of them is missing or have
+        // wrong type.
+
         test("null_null", true);
         test("null_invalid", true);
         test("invalid_null", true);
