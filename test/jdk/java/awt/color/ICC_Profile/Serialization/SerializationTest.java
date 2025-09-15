@@ -27,7 +27,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -35,7 +34,7 @@ import java.io.ObjectOutputStream;
 /**
  * @test
  * @bug 8367384
- * @summary Checks that ICC_Profile serialization works as expected
+ * @summary Checks ICC_Profile serialization, especially for invalid streams
  */
 public final class SerializationTest {
 
@@ -47,13 +46,7 @@ public final class SerializationTest {
             ICC_Profile.getInstance(ColorSpace.CS_GRAY)
     };
 
-
     public static void main(String[] args) throws Exception {
-        // Serialization form for ICC_Profile contains version, profile name,
-        // and profile data. If the name is invalid or does not match a standard
-        // profile, the data is used. An exception is thrown only if both the
-        // name and the data are invalid.
-
         test("null", "null", true);
         test("null", "invalid", true);
         test("invalid", "null", true);
@@ -80,14 +73,12 @@ public final class SerializationTest {
 
     private static void roundTripAllAtOnce() throws Exception {
         byte[] data;
-
         try (var bos = new ByteArrayOutputStream();
              var oos = new ObjectOutputStream(bos))
         {
             for (ICC_Profile profile : PROFILES) {
-                oos.writeObject((Object) profile);
+                oos.writeObject(profile);
             }
-            oos.flush();
             data = bos.toByteArray();
         }
 
@@ -111,11 +102,11 @@ public final class SerializationTest {
             try {
                 ois.readObject();
                 if (fail) {
-                    throw new RuntimeException("IOE did not occur");
+                    throw new RuntimeException("Expected IOE did not occur");
                 }
             } catch (InvalidObjectException e) {
                 if (!fail) {
-                    throw new RuntimeException("Unexpected IOE occurs", e);
+                    throw new RuntimeException("Unexpected IOE occurred", e);
                 }
             }
         }
@@ -126,7 +117,6 @@ public final class SerializationTest {
              var oos = new ObjectOutputStream(bos))
         {
             oos.writeObject(obj);
-            oos.flush();
             return bos.toByteArray();
         }
     }
