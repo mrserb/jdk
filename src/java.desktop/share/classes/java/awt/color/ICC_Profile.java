@@ -1550,10 +1550,9 @@ public sealed class ICC_Profile implements Serializable
     private void readObject(ObjectInputStream s)
             throws IOException, ClassNotFoundException {
         s.defaultReadObject();
-
-        String csName = (String) s.readObject();
-        byte[] data = (byte[]) s.readObject();
         try {
+            String csName = (String) s.readObject();
+            byte[] data = (byte[]) s.readObject();
             resolvedDeserializedProfile = switch (csName) {
                 case "CS_sRGB" -> getInstance(ColorSpace.CS_sRGB);
                 case "CS_CIEXYZ" -> getInstance(ColorSpace.CS_CIEXYZ);
@@ -1562,7 +1561,7 @@ public sealed class ICC_Profile implements Serializable
                 case "CS_LINEAR_RGB" -> getInstance(ColorSpace.CS_LINEAR_RGB);
                 case null, default -> getInstance(data);
             };
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | ClassCastException e) {
             throw new InvalidObjectException("Invalid ICC Profile Data", e);
         }
     }
