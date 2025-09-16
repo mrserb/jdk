@@ -30,7 +30,7 @@ import java.io.OptionalDataException;
 /**
  * @test
  * @bug 8367384
- * @summary Checks ICC_Profile serialization, especially for invalid streams
+ * @summary ICC_Profile serialization per spec, all combinations covered
  */
 public final class SerializationSpecTest {
 
