@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.io.OptionalDataException;
 
 /**
  * @test
@@ -40,48 +41,50 @@ public final class SerializationSpecTest {
         // name and the data are invalid, or if one of them is missing or have
         // wrong type.
 
-        test("empty", true);
+        test("empty", OptionalDataException.class);
 
-        test("null", true);
-        test("valid", true);
-        test("invalid", true);
-        test("wrongType", true);
+        test("null", OptionalDataException.class);
+        test("valid", OptionalDataException.class);
+        test("invalid", OptionalDataException.class);
+        test("wrongType", InvalidObjectException.class);
 
-        test("null_null", true);
-        test("null_valid", false); // valid data is enough if name is null
-        test("null_invalid", true);
-        test("null_wrongType", true);
+        test("null_null", InvalidObjectException.class);
+        test("null_valid", null); // valid data is enough if name is null
+        test("null_invalid", InvalidObjectException.class);
+        test("null_wrongType", InvalidObjectException.class);
 
-        test("invalid_null", true);
-        test("invalid_valid", false); // valid data is enough if name is invalid
-        test("invalid_invalid", true);
-        test("invalid_wrongType", true);
+        test("invalid_null", InvalidObjectException.class);
+        test("invalid_valid", null); // valid data is enough if name is invalid
+        test("invalid_invalid", InvalidObjectException.class);
+        test("invalid_wrongType", InvalidObjectException.class);
 
-        test("wrongType_null", true);
-        test("wrongType_valid", true);
-        test("wrongType_invalid", true);
-        test("wrongType_wrongType", true);
+        test("wrongType_null", InvalidObjectException.class);
+        test("wrongType_valid", InvalidObjectException.class);
+        test("wrongType_invalid", InvalidObjectException.class);
+        test("wrongType_wrongType", InvalidObjectException.class);
 
-        test("valid_null", false); // the valid name is enough
-        test("valid_valid", false); // the valid name is enough
-        test("valid_invalid", false); // the valid name is enough
-        test("valid_wrongType", true);
+        test("valid_null", null); // the valid name is enough
+        test("valid_valid", null); // the valid name is enough
+        test("valid_invalid", null); // the valid name is enough
+        test("valid_wrongType", InvalidObjectException.class);
     }
 
-    private static void test(String test, boolean fail) throws Exception {
+    private static void test(String test, Class<?> expected) {
         String fileName = test + ".ser";
         File file = new File(System.getProperty("test.src", "."), fileName);
+        Class<?> actual = null;
         try (var fis = new FileInputStream(file);
              var ois = new ObjectInputStream(fis))
         {
             ois.readObject();
-            if (fail) {
-                throw new RuntimeException("Expected IOE did not occur");
-            }
-        } catch (InvalidObjectException e) {
-            if (!fail) {
-                throw new RuntimeException("Unexpected IOE occurred", e);
-            }
+        } catch (Exception e) {
+            actual = e.getClass();
+        }
+        if (actual != expected) {
+            System.err.println("Test: " + test);
+            System.err.println("Expected: " + expected);
+            System.err.println("Actual: " + actual);
+            throw new RuntimeException("Test failed");
         }
     }
 }
