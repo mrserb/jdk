@@ -30,7 +30,7 @@ import java.io.OptionalDataException;
 /**
  * @test
  * @bug 8367384
- * @summary ICC_Profile serialization per spec, all combinations covered
+ * @summary Verify ICC_Profile serialization per spec, all name/data cases
  */
 public final class SerializationSpecTest {
 
