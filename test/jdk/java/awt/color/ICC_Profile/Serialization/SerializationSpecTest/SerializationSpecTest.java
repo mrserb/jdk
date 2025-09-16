@@ -35,11 +35,11 @@ import java.io.OptionalDataException;
 public final class SerializationSpecTest {
 
     public static void main(String[] args) throws Exception {
-        // Serialization form for ICC_Profile contains version, profile name,
+        // Serialization form for ICC_Profile includes version, profile name,
         // and profile data. If the name is invalid or does not match a standard
         // profile, the data is used. An exception is thrown only if both the
-        // name and the data are invalid, or if one of them is missing or have
-        // wrong type.
+        // name and the data are invalid, or if one of them is missing or is of
+        // the wrong type.
 
         test("empty", OptionalDataException.class);
 
