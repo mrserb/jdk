@@ -585,45 +585,27 @@ public class List extends Component implements ItemSelectable, Accessible {
      * @see          #isIndexSelected
      */
     public void select(int index) {
-        // Bug #4059614: select can't be synchronized while calling the peer,
-        // because it is called from the Window Thread.  It is sufficient to
-        // synchronize the code that manipulates 'selected' except for the
-        // case where the peer changes.  To handle this case, we simply
-        // repeat the selection process.
-
-        ListPeer peer;
-        do {
-            peer = (ListPeer)this.peer;
+        synchronized (this) {
+            ListPeer peer = (ListPeer) this.peer;
             if (peer != null) {
                 peer.select(index);
                 return;
             }
-
-            synchronized(this)
-            {
-                boolean alreadySelected = false;
-
-                for (int i = 0 ; i < selected.length ; i++) {
-                    if (selected[i] == index) {
-                        alreadySelected = true;
-                        break;
-                    }
-                }
-
-                if (!alreadySelected) {
-                    if (!multipleMode) {
-                        selected = new int[1];
-                        selected[0] = index;
-                    } else {
-                        int[] newsel = new int[selected.length + 1];
-                        System.arraycopy(selected, 0, newsel, 0,
-                                         selected.length);
-                        newsel[selected.length] = index;
-                        selected = newsel;
-                    }
+            for (int i = 0; i < selected.length; i++) {
+                if (selected[i] == index) {
+                    return;
                 }
             }
-        } while (peer != this.peer);
+            if (!multipleMode) {
+                selected = new int[1];
+                selected[0] = index;
+            } else {
+                int[] newsel = new int[selected.length + 1];
+                System.arraycopy(selected, 0, newsel, 0, selected.length);
+                newsel[selected.length] = index;
+                selected = newsel;
+            }
+        }
     }
 
     /**
