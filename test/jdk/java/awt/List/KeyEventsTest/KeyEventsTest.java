@@ -41,7 +41,7 @@ import jdk.test.lib.Platform;
 /*
  * @test
  * @key headful
- * @bug 6190768 6190778
+ * @bug 6190768 6190778 8201307
  * @requires os.family != "mac"
  * @summary Tests that triggering events on AWT list by pressing CTRL + HOME,
  *          CTRL + END, PG-UP, PG-DOWN similar Motif behavior

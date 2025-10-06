@@ -29,7 +29,7 @@ import java.awt.List;
 /**
  * @test
  * @key headful
- * @bug 7090424
+ * @bug 7090424 8201307
  */
 public final class ListRepaint extends List {
 
