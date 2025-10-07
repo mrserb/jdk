@@ -67,15 +67,23 @@ public final class SelectStressTest {
                 list.select(index);
             }
         });
+
+        start(addGroup);
+        start(clearGroup);
+        start(selectGroup);
+
         join(addGroup);
         join(clearGroup);
         join(selectGroup);
     }
 
-    private static void join(Thread[] group) throws Exception {
+    private static void start(Thread[] group) throws Exception {
         for (Thread t : group) {
             t.start();
         }
+    }
+
+    private static void join(Thread[] group) throws Exception {
         for (Thread t : group) {
             t.join();
         }
@@ -87,7 +95,6 @@ public final class SelectStressTest {
             ts[i] = new Thread(() -> {
                 try {
                     while (!isComplete()) {
-                        Thread.yield();
                         execute.run();
                     }
                 } catch (Throwable t) {
