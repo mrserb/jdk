@@ -597,8 +597,7 @@ public class List extends Component implements ItemSelectable, Accessible {
                 }
             }
             if (!multipleMode) {
-                selected = new int[1];
-                selected[0] = index;
+                selected = new int[]{index};
             } else {
                 int[] newsel = new int[selected.length + 1];
                 System.arraycopy(selected, 0, newsel, 0, selected.length);
