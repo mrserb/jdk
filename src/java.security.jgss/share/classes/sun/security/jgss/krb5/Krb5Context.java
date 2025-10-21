@@ -25,24 +25,40 @@
 
 package sun.security.jgss.krb5;
 
-import org.ietf.jgss.*;
-import sun.security.util.HexDumpEncoder;
-import sun.security.jgss.GSSUtil;
-import sun.security.jgss.GSSCaller;
-import sun.security.jgss.spi.*;
-import sun.security.jgss.TokenTracker;
-import sun.security.krb5.*;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InvalidObjectException;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
-import java.security.*;
+import java.io.Serial;
+import java.security.Key;
+import java.security.Provider;
+
 import javax.security.auth.Subject;
 import javax.security.auth.kerberos.KerberosCredMessage;
 import javax.security.auth.kerberos.KerberosPrincipal;
 import javax.security.auth.kerberos.KerberosTicket;
+
+import org.ietf.jgss.ChannelBinding;
+import org.ietf.jgss.GSSContext;
+import org.ietf.jgss.GSSCredential;
+import org.ietf.jgss.GSSException;
+import org.ietf.jgss.MessageProp;
+import org.ietf.jgss.Oid;
+import sun.security.jgss.GSSCaller;
+import sun.security.jgss.GSSUtil;
+import sun.security.jgss.TokenTracker;
+import sun.security.jgss.spi.GSSContextSpi;
+import sun.security.jgss.spi.GSSCredentialSpi;
+import sun.security.jgss.spi.GSSNameSpi;
+import sun.security.krb5.Credentials;
+import sun.security.krb5.EncryptionKey;
+import sun.security.krb5.KrbApReq;
+import sun.security.krb5.KrbCred;
+import sun.security.krb5.KrbException;
+import sun.security.krb5.PrincipalName;
 import sun.security.krb5.internal.AuthorizationData;
+import sun.security.util.HexDumpEncoder;
 
 import static sun.security.krb5.internal.Krb5.DEBUG;
 
@@ -1332,6 +1348,7 @@ class Krb5Context implements GSSContextSpi {
      * The session key returned by inquireSecContext(KRB5_INQ_SSPI_SESSION_KEY)
      */
     static class KerberosSessionKey implements Key {
+        @Serial
         private static final long serialVersionUID = 699307378954123869L;
 
         @SuppressWarnings("serial") // Not statically typed as Serializable

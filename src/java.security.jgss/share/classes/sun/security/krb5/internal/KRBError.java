@@ -31,22 +31,24 @@
 
 package sun.security.krb5.internal;
 
-import java.io.ObjectOutputStream;
-import sun.security.krb5.PrincipalName;
-import sun.security.krb5.Checksum;
-import sun.security.krb5.Asn1Exception;
-import sun.security.krb5.Realm;
-import sun.security.krb5.RealmException;
-import sun.security.util.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import sun.security.krb5.Asn1Exception;
+import sun.security.krb5.Checksum;
+import sun.security.krb5.PrincipalName;
+import sun.security.krb5.Realm;
+import sun.security.krb5.RealmException;
 import sun.security.krb5.internal.util.KerberosString;
+import sun.security.util.DerOutputStream;
+import sun.security.util.DerValue;
 
 import static sun.security.krb5.internal.Krb5.DEBUG;
 /**
@@ -85,7 +87,8 @@ import static sun.security.krb5.internal.Krb5.DEBUG;
  */
 
 public class KRBError implements java.io.Serializable {
-    static final long serialVersionUID = 3643809337475284503L;
+    @Serial
+    private static final long serialVersionUID = 3643809337475284503L;
 
     private transient int pvno;
     private transient int msgType;
@@ -123,6 +126,7 @@ public class KRBError implements java.io.Serializable {
         }
     }
 
+    @Serial
     private void writeObject(ObjectOutputStream os)
             throws IOException {
         try {

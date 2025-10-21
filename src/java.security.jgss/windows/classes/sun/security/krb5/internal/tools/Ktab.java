@@ -30,10 +30,8 @@
 
 package sun.security.krb5.internal.tools;
 
-import sun.security.krb5.*;
-import sun.security.krb5.internal.ktab.*;
-import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
@@ -41,7 +39,13 @@ import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+
+import sun.security.krb5.KrbAsReqBuilder;
+import sun.security.krb5.KrbException;
+import sun.security.krb5.PrincipalName;
 import sun.security.krb5.internal.crypto.EType;
+import sun.security.krb5.internal.ktab.KeyTab;
+import sun.security.krb5.internal.ktab.KeyTabEntry;
 /**
  * This class can execute as a command-line tool to help the user manage
  * entries in the key table.
@@ -83,7 +87,7 @@ public class Ktab {
 
     private static class ExitException extends RuntimeException {
         @java.io.Serial
-        static final long serialVersionUID = 0L;
+        private static final long serialVersionUID = 0L;
         private final int errorCode;
         public ExitException(int errorCode) {
             this.errorCode = errorCode;
