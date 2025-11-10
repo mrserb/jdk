@@ -30,6 +30,7 @@ import java.util.function.Supplier;
 /**
  * @test
  * @bug 1234567
+ * @key headful
  * @summary Checks that programmatic changes to a List do not fire events
  */
 public final class ProgrammaticChange {
