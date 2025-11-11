@@ -140,8 +140,13 @@ final class LWListPeer extends LWComponentPeer<List, LWListPeer.ScrollableJList>
     @Override
     public void removeAll() {
         synchronized (getDelegateLock()) {
-            getDelegate().getModel().removeAllElements();
-            revalidate();
+            getDelegate().setSkipStateChangedEvent(true);
+            try {
+                getDelegate().getModel().removeAllElements();
+                revalidate();
+            } finally {
+                getDelegate().setSkipStateChangedEvent(false);
+            }
         }
     }
 
