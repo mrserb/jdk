@@ -44,7 +44,7 @@ public final class MixProgrammaticUserChange {
 
     private static Robot robot;
     private static final BlockingQueue<ItemEvent> events =
-            new ArrayBlockingQueue(1);
+            new ArrayBlockingQueue<>(1);
 
     public static void main(String[] args) throws Exception {
         Frame frame = new Frame();
@@ -78,6 +78,9 @@ public final class MixProgrammaticUserChange {
             test(() -> click(loc), ItemEvent.DESELECTED, "DESELECTED");
         } finally {
             frame.dispose();
+        }
+        if (!events.isEmpty()) {
+            throw new RuntimeException("Unexpected events received" + events);
         }
     }
 
