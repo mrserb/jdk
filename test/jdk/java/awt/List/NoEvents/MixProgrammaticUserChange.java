@@ -43,7 +43,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public final class MixProgrammaticUserChange {
 
     private static Robot robot;
-    private static BlockingQueue<ItemEvent> events = new ArrayBlockingQueue(1);
+    private static final BlockingQueue<ItemEvent> events =
+            new ArrayBlockingQueue(1);
 
     public static void main(String[] args) throws Exception {
         Frame frame = new Frame();
