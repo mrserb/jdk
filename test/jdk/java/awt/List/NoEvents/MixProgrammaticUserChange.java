@@ -27,7 +27,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.ItemEvent;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import static java.awt.event.ItemEvent.ITEM_STATE_CHANGED;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -42,8 +43,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public final class MixProgrammaticUserChange {
 
     private static Robot robot;
-    private static volatile ItemEvent event;
-    private static volatile CountDownLatch go;
+    private static BlockingQueue<ItemEvent> events = new ArrayBlockingQueue(1);
 
     public static void main(String[] args) throws Exception {
         Frame frame = new Frame();
@@ -54,9 +54,8 @@ public final class MixProgrammaticUserChange {
             list.add("Item");
             list.addItemListener(e -> {
                 if (e.getID() == ITEM_STATE_CHANGED) {
-                    event = e;
+                    events.offer(e);
                 }
-                go.countDown();
             });
 
             frame.add(list);
@@ -81,19 +80,18 @@ public final class MixProgrammaticUserChange {
         }
     }
 
-    private static void test(Runnable action, int state, String expected)
+    private static void test(Runnable action, int state, String text)
             throws Exception
     {
-        event = null;
-        go = new CountDownLatch(1);
         action.run();
         // Large delay, we are waiting for unexpected events
-        if (go.await(1, SECONDS) || state != -1) {
-            if (event == null || event.getStateChange() != state) {
-                throw new RuntimeException(
-                        "Expected: %s, actual: %s".formatted(expected, event));
-            }
+        ItemEvent e = events.poll(1, SECONDS);
+        if (e == null && state == -1) {
+            return; // no events as expected
+        } else if (e != null && e.getStateChange() == state) {
+            return; // expected event received
         }
+        throw new RuntimeException("Expected: %s, got: %s".formatted(text, e));
     }
 
     private static void click(Point p) {
