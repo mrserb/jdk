@@ -80,7 +80,7 @@ public final class MixProgrammaticUserChange {
             frame.dispose();
         }
         if (!events.isEmpty()) {
-            throw new RuntimeException("Unexpected events received" + events);
+            throw new RuntimeException("Unexpected events received: " + events);
         }
     }
 
