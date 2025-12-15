@@ -93,8 +93,8 @@ public final class MixProgrammaticUserChange {
         } else if (e != null && e.getStateChange() == state) {
             return; // expected event received
         }
-        String text = (state == -1) ? "null" :
-                (state == ItemEvent.SELECTED) ? "SELECTED" : "DESELECTED";
+        String text = (state == -1) ? "null" : state == ItemEvent.SELECTED
+                                             ? "SELECTED" : "DESELECTED";
         throw new RuntimeException("Expected: %s, got: %s".formatted(text, e));
     }
 
