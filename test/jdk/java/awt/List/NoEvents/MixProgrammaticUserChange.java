@@ -44,7 +44,7 @@ public final class MixProgrammaticUserChange {
 
     private static Robot robot;
     private static final BlockingQueue<ItemEvent> events =
-            new ArrayBlockingQueue<>(1);
+            new ArrayBlockingQueue<>(10);
 
     public static void main(String[] args) throws Exception {
         Frame frame = new Frame();
@@ -70,23 +70,21 @@ public final class MixProgrammaticUserChange {
                                         list.getSize());
             Point loc = new Point(r.x + r.width / 2, r.y + r.height / 2);
 
-            test(() -> click(loc), ItemEvent.SELECTED, "SELECTED");
-            test(() -> list.deselect(0), -1, "null");
-            test(() -> click(loc), ItemEvent.SELECTED, "SELECTED");
-            test(() -> click(loc), ItemEvent.DESELECTED, "DESELECTED");
-            test(() -> list.select(0), -1, "null");
-            test(() -> click(loc), ItemEvent.DESELECTED, "DESELECTED");
+            test(() -> click(loc), ItemEvent.SELECTED);
+            test(() -> list.deselect(0), -1);
+            test(() -> click(loc), ItemEvent.SELECTED);
+            test(() -> click(loc), ItemEvent.DESELECTED);
+            test(() -> list.select(0), -1);
+            test(() -> click(loc), ItemEvent.DESELECTED);
         } finally {
             frame.dispose();
         }
         if (!events.isEmpty()) {
-            throw new RuntimeException("Unexpected events received: " + events);
+            throw new RuntimeException("Unexpected events: " + events);
         }
     }
 
-    private static void test(Runnable action, int state, String text)
-            throws Exception
-    {
+    private static void test(Runnable action, int state) throws Exception {
         action.run();
         // Large delay, we are waiting for unexpected events
         ItemEvent e = events.poll(1, SECONDS);
@@ -95,6 +93,8 @@ public final class MixProgrammaticUserChange {
         } else if (e != null && e.getStateChange() == state) {
             return; // expected event received
         }
+        String text = (state == -1) ? "null" :
+                (state == ItemEvent.SELECTED) ? "SELECTED" : "DESELECTED";
         throw new RuntimeException("Expected: %s, got: %s".formatted(text, e));
     }
 
