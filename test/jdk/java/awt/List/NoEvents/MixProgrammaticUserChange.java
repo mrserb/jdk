@@ -24,7 +24,6 @@
 import java.awt.Frame;
 import java.awt.List;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.ItemEvent;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -66,9 +65,8 @@ public final class MixProgrammaticUserChange {
             frame.setVisible(true);
             robot.waitForIdle(100);
 
-            Rectangle r = new Rectangle(list.getLocationOnScreen(),
-                                        list.getSize());
-            Point loc = new Point(r.x + r.width / 2, r.y + r.height / 2);
+            Point loc = list.getLocationOnScreen();
+            loc.translate(list.getWidth() / 2, list.getHeight() / 2);
 
             test(() -> click(loc), ItemEvent.SELECTED);
             test(() -> list.deselect(0), -1);
