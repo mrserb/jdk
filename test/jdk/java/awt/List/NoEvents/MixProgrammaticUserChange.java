@@ -26,11 +26,12 @@ import java.awt.List;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
-import static java.awt.event.ItemEvent.ITEM_STATE_CHANGED;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import jdk.test.lib.Platform;
 
 /**
  * @test
@@ -38,6 +39,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * @key headful
  * @summary Checks that programmatic changes to a List do not fire events,
  *          only user interactions do
+ * @library /test/lib
+ * @build jdk.test.lib.Platform
+ * @run main/othervm MixProgrammaticUserChange
  */
 public final class MixProgrammaticUserChange {
 
@@ -49,11 +53,13 @@ public final class MixProgrammaticUserChange {
         Frame frame = new Frame();
         try {
             robot = new Robot();
+            robot.setAutoWaitForIdle(true);
+            robot.setAutoDelay(100);
 
             List list = new List(1, true);
             list.add("Item");
             list.addItemListener(e -> {
-                if (e.getID() == ITEM_STATE_CHANGED) {
+                if (e.getID() == ItemEvent.ITEM_STATE_CHANGED) {
                     events.offer(e);
                 }
             });
@@ -85,7 +91,7 @@ public final class MixProgrammaticUserChange {
     private static void test(Runnable action, int state) throws Exception {
         action.run();
         // Large delay, we are waiting for unexpected events
-        ItemEvent e = events.poll(1, SECONDS);
+        ItemEvent e = events.poll(1, TimeUnit.SECONDS);
         if (e == null && state == -1) {
             return; // no events as expected
         } else if (e != null && e.getStateChange() == state) {
@@ -97,7 +103,16 @@ public final class MixProgrammaticUserChange {
     }
 
     private static void click(Point p) {
-        robot.mouseMove(p.x, p.y);
-        robot.click();
+        if (Platform.isOSX()) {
+            robot.keyPress(KeyEvent.VK_META);
+        }
+        try {
+            robot.mouseMove(p.x, p.y);
+            robot.click();
+        } finally {
+            if (Platform.isOSX()) {
+                robot.keyRelease(KeyEvent.VK_META);
+            }
+        }
     }
 }
