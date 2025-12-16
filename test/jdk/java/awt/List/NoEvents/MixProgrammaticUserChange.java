@@ -106,7 +106,10 @@ public final class MixProgrammaticUserChange {
         robot.mouseMove(p.x, p.y);
         int keyCode = Platform.isOSX() ? KeyEvent.VK_META : KeyEvent.VK_CONTROL;
         robot.keyPress(keyCode);
-        robot.click();
-        robot.keyRelease(keyCode);
+        try {
+            robot.click();
+        } finally {
+            robot.keyRelease(keyCode);
+        }
     }
 }
