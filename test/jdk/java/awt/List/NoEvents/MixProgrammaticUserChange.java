@@ -103,16 +103,10 @@ public final class MixProgrammaticUserChange {
     }
 
     private static void click(Point p) {
-        if (Platform.isOSX()) {
-            robot.keyPress(KeyEvent.VK_META);
-        }
-        try {
-            robot.mouseMove(p.x, p.y);
-            robot.click();
-        } finally {
-            if (Platform.isOSX()) {
-                robot.keyRelease(KeyEvent.VK_META);
-            }
-        }
+        robot.mouseMove(p.x, p.y);
+        int keyCode = Platform.isOSX() ? KeyEvent.VK_META : KeyEvent.VK_CONTROL;
+        robot.keyPress(keyCode);
+        robot.click();
+        robot.keyRelease(keyCode);
     }
 }
