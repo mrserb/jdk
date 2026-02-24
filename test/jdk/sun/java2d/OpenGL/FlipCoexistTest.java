@@ -24,6 +24,7 @@
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferStrategy;
@@ -43,14 +44,14 @@ import javax.imageio.ImageIO;
  */
 public final class FlipCoexistTest {
 
-    private static final int W = 200;
+    private static final int SIZE = 200;
     private static final int TOLERANCE = 10;
 
     public static void main(String[] args) throws Exception {
         Frame f = new Frame("FlipCoexistTest");
         try {
             f.setUndecorated(true);
-            f.setSize(W, W);
+            f.setSize(SIZE, SIZE);
             f.setLocation(100, 100);
             f.setVisible(true);
 
@@ -58,10 +59,13 @@ public final class FlipCoexistTest {
             robot.waitForIdle();
             robot.delay(1000);
 
+            int w = f.getWidth();
+            int h = f.getHeight();
+
             // Fill window RED via direct render (WINDOW surface)
             Graphics g = f.getGraphics();
             g.setColor(Color.RED);
-            g.fillRect(0, 0, W, W);
+            g.fillRect(0, 0, w, h);
             g.dispose();
             robot.waitForIdle();
             robot.delay(500);
@@ -73,7 +77,7 @@ public final class FlipCoexistTest {
             // Render BLUE to back buffer, do not flip yet
             Graphics bg = bs.getDrawGraphics();
             bg.setColor(Color.BLUE);
-            bg.fillRect(0, 0, W, W);
+            bg.fillRect(0, 0, w, h);
             bg.dispose();
 
             // Paint small GREEN rect via direct render
@@ -88,14 +92,14 @@ public final class FlipCoexistTest {
             check(robot, f, 5, 5, Color.GREEN, "small rect");
 
             // RED must survive the context round-trip
-            check(robot, f, 100, 100, Color.RED, "survived");
+            check(robot, f, w / 2, h / 2, Color.RED, "survived");
 
             // Show back buffer, BLUE must appear
             bs.show();
 
             robot.waitForIdle();
             robot.delay(500);
-            check(robot, f, 100, 100, Color.BLUE, "flip");
+            check(robot, f, w / 2, h / 2, Color.BLUE, "flip");
         } finally {
             f.dispose();
         }
@@ -104,9 +108,8 @@ public final class FlipCoexistTest {
     private static void check(Robot robot, Frame frame, int x, int y, Color exp,
                               String desc)
     {
-        int sx = frame.getLocationOnScreen().x + x;
-        int sy = frame.getLocationOnScreen().y + y;
-        Color c = robot.getPixelColor(sx, sy);
+        Point loc = frame.getLocationOnScreen();
+        Color c = robot.getPixelColor(loc.x + x, loc.y + y);
         if (!isAlmostEqual(c, exp)) {
             saveImage(robot, frame, desc);
             throw new RuntimeException("%s: %s != %s".formatted(desc, exp, c));

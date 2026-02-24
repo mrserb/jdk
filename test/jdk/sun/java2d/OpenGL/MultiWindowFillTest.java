@@ -24,6 +24,7 @@
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
@@ -42,17 +43,18 @@ import javax.imageio.ImageIO;
  */
 public final class MultiWindowFillTest {
 
+    private static final int SIZE = 100;
     private static final int TOLERANCE = 10;
 
     public static void main(String[] args) throws Exception {
-        Frame f1 = new Frame();
-        Frame f2 = new Frame();
+        Frame f1 = new Frame("f1");
+        Frame f2 = new Frame("f2");
         try {
             f1.setUndecorated(true);
-            f1.setSize(100, 100);
+            f1.setSize(SIZE, SIZE);
             f1.setLocation(100, 100);
             f2.setUndecorated(true);
-            f2.setSize(100, 100);
+            f2.setSize(SIZE, SIZE);
             f2.setLocation(300, 100);
 
             f1.setVisible(true);
@@ -62,9 +64,12 @@ public final class MultiWindowFillTest {
             robot.waitForIdle();
             robot.delay(1000);
 
+            int w = f1.getWidth();
+            int h = f1.getHeight();
+
             // Fill both, initializes surfaces
-            fill(f1, Color.RED);
-            fill(f2, Color.BLUE);
+            fill(f1, Color.RED, w, h);
+            fill(f2, Color.BLUE, w, h);
 
             // Touch both again
             fill(f1, Color.RED, 2, 2);
@@ -73,16 +78,12 @@ public final class MultiWindowFillTest {
             robot.waitForIdle();
             robot.delay(1000);
 
-            check(robot, f1, Color.RED);
-            check(robot, f2, Color.BLUE);
+            check(robot, f1, w, h, Color.RED, "f1 red");
+            check(robot, f2, w, h, Color.BLUE, "f2 blue");
         } finally {
             f1.dispose();
             f2.dispose();
         }
-    }
-
-    private static void fill(Frame frame, Color c) {
-        fill(frame, c, frame.getWidth(), frame.getHeight());
     }
 
     private static void fill(Frame frame, Color c, int w, int h) {
@@ -92,13 +93,14 @@ public final class MultiWindowFillTest {
         g.dispose();
     }
 
-    private static void check(Robot robot, Frame frame, Color exp) {
-        int sx = frame.getLocationOnScreen().x + 50;
-        int sy = frame.getLocationOnScreen().y + 50;
-        Color c = robot.getPixelColor(sx, sy);
+    private static void check(Robot robot, Frame frame, int w, int h,
+                              Color exp, String desc)
+    {
+        Point loc = frame.getLocationOnScreen();
+        Color c = robot.getPixelColor(loc.x + w / 2, loc.y + h / 2);
         if (!isAlmostEqual(c, exp)) {
-            saveImage(robot, frame, frame.getName());
-            throw new RuntimeException("%s != %s".formatted(exp, c));
+            saveImage(robot, frame, desc);
+            throw new RuntimeException("%s: %s != %s".formatted(desc, exp, c));
         }
     }
 
