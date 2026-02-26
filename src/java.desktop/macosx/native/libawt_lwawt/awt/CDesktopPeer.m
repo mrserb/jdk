@@ -81,6 +81,7 @@ JNI_COCOA_ENTER(env);
     }];
 
     dispatch_semaphore_wait(semaphore, timeout);
+    dispatch_release(semaphore);
 
 JNI_COCOA_EXIT(env);
     return status;
@@ -157,6 +158,7 @@ JNI_COCOA_ENTER(env);
     }];
 
     dispatch_semaphore_wait(semaphore, timeout);
+    dispatch_release(semaphore);
 
     [urlToOpen release];
 JNI_COCOA_EXIT(env);
